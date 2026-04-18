@@ -3,250 +3,265 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KEPKA Sport & Outdoor — Plateforme interne</title>
+<title>LABORO — Plateforme interne</title>
 <style>
-:root{--vert:#1D9E75;--vert-f:#0F6E56;--vert-c:#E1F5EE;--vert-m:#9FE1CB;--gris:#2C2C2A;--gris-m:#5F5E5A;--gris-c:#F1EFE8;--gris-b:#D3D1C7;--bleu:#185FA5;--bleu-c:#E6F1FB;--amb:#BA7517;--amb-c:#FAEEDA;--rouge:#A32D2D;--rouge-c:#FCEBEB;--blanc:#fff}
+:root{--vert:#1D9E75;--vf:#0F6E56;--vc:#E1F5EE;--vm:#9FE1CB;--gris:#2C2C2A;--gm:#5F5E5A;--gc:#F1EFE8;--gb:#D3D1C7;--bleu:#185FA5;--bc:#E6F1FB;--amb:#BA7517;--ac:#FAEEDA;--rouge:#A32D2D;--rc:#FCEBEB;--W:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--gris);background:var(--gris-c);min-height:100vh}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--gris);background:var(--gc);min-height:100vh}
+.scr{display:none;min-height:100vh}.scr.on{display:flex;flex-direction:column}
 
-/* LOGIN */
-#login{align-items:center;justify-content:center;padding:2rem;background:var(--gris-c)}
-.login-card{background:var(--blanc);border-radius:16px;padding:2.5rem;width:100%;max-width:440px;border:0.5px solid var(--gris-b)}
-.logo-wrap{text-align:center;margin-bottom:2rem}
-.logo-k{display:inline-flex;align-items:center;justify-content:center;background:var(--vert);width:64px;height:64px;border-radius:14px;margin-bottom:10px}
-.logo-k span{font-size:32px;font-weight:800;color:#fff;letter-spacing:-1px}
-.logo-name{font-size:22px;font-weight:700;letter-spacing:.5px}
-.logo-tag{font-size:12px;color:var(--gris-m);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
-.login-sub{font-size:13px;color:var(--gris-m);text-align:center;margin-bottom:1.5rem}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:11px;font-weight:600;color:var(--gris-m);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
-.fg input,.fg select{width:100%;padding:10px 14px;border:0.5px solid var(--gris-b);border-radius:8px;font-size:14px;color:var(--gris);background:var(--blanc);outline:none;transition:border-color .15s}
+/* ── LOGIN ── */
+#login{align-items:center;justify-content:center;padding:2rem}
+.lcard{background:var(--W);border-radius:16px;padding:2.5rem;width:100%;max-width:460px;border:0.5px solid var(--gb)}
+.logo-wrap{text-align:center;margin-bottom:1.5rem}
+.logo-circle{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:var(--vert);margin-bottom:10px}
+.logo-circle span{font-size:36px;font-weight:900;color:#fff;font-style:italic}
+.logo-nom{font-size:26px;font-weight:900;letter-spacing:1px;color:var(--gris)}
+.logo-lat{font-size:11px;color:var(--gm);letter-spacing:.15em;font-style:italic;margin-top:1px}
+.logo-sub{font-size:12px;color:var(--gm);margin-top:4px}
+.lsub{font-size:13px;color:var(--gm);text-align:center;margin-bottom:1.5rem}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.fg input,.fg select{width:100%;padding:10px 14px;border:0.5px solid var(--gb);border-radius:8px;font-size:14px;color:var(--gris);background:var(--W);outline:none;transition:border-color .15s}
 .fg input:focus,.fg select:focus{border-color:var(--vert)}
-.btn-main{width:100%;padding:12px;background:var(--vert);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s}
-.btn-main:hover{background:var(--vert-f)}
-.login-note{font-size:11px;color:var(--gris-b);text-align:center;margin-top:10px}
+.poste-hint{font-size:11px;color:var(--vert);margin-top:5px;padding:6px 10px;background:var(--vc);border-radius:6px;display:none}
+.btn-login{width:100%;padding:12px;background:var(--vert);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-login:hover{background:var(--vf)}
+.login-note{font-size:11px;color:var(--gb);text-align:center;margin-top:10px}
 
-/* ONBOARDING */
-#onboarding{background:var(--blanc);align-items:center;justify-content:center;padding:2rem}
-.ob-card{width:100%;max-width:700px}
-.ob-progress{display:flex;gap:6px;margin-bottom:2rem;align-items:center;justify-content:center}
-.ob-step{width:32px;height:4px;border-radius:2px;background:var(--gris-b);transition:background .3s}
-.ob-step.done{background:var(--vert)}
-.ob-step.active{background:var(--vert-m)}
-.ob-panel{display:none}.ob-panel.active{display:block}
+/* ── ONBOARDING ── */
+#onboarding{background:var(--W);align-items:center;justify-content:center;padding:2rem}
+.ob-wrap{width:100%;max-width:720px}
+.ob-prog{display:flex;gap:5px;margin-bottom:2rem;justify-content:center}
+.obs{height:4px;border-radius:2px;background:var(--gb);transition:background .3s;flex:1;max-width:80px}
+.obs.done{background:var(--vert)}.obs.cur{background:var(--vm)}
+.obp{display:none}.obp.on{display:block}
 .ob-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem}
-.btn-ob-next{padding:10px 24px;background:var(--vert);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
-.btn-ob-next:hover{background:var(--vert-f)}
-.btn-ob-skip{font-size:12px;color:var(--gris-m);background:none;border:none;cursor:pointer;padding:8px}
-.btn-ob-skip:hover{color:var(--gris)}
+.btn-obn{padding:10px 24px;background:var(--vert);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-obn:hover{background:var(--vf)}
+.btn-obs{font-size:12px;color:var(--gm);background:none;border:none;cursor:pointer;padding:8px}
+.lettre{background:var(--W);border:0.5px solid var(--gb);border-radius:12px;padding:2rem}
+.lh{display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--gc)}
+.av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+.lb-f{font-size:14px;font-weight:700}.lb-r{font-size:12px;color:var(--gm)}
+.lb-body{font-size:14px;line-height:1.8;color:var(--gris)}.lb-body p{margin-bottom:12px}
+.lb-sig{margin-top:1.5rem;font-style:italic;color:var(--gm);font-size:13px}
+.ob-h1{font-size:22px;font-weight:800;margin-bottom:6px}
+.ob-sub{font-size:14px;color:var(--gm);margin-bottom:1.5rem;line-height:1.6}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+.km{background:var(--vc);border-radius:8px;padding:10px;text-align:center}
+.km-v{font-size:19px;font-weight:800;color:var(--vf)}.km-l{font-size:10px;color:var(--vf);text-transform:uppercase;letter-spacing:.06em}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tc{background:var(--gc);border-radius:10px;padding:14px;text-align:center}
+.tav{width:46px;height:46px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff}
+.tn{font-size:13px;font-weight:700;margin-bottom:2px}.tr{font-size:11px;color:var(--gm);line-height:1.4}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cac{border-radius:10px;overflow:hidden;border:0.5px solid var(--gb);background:var(--W)}
+.cai{width:100%;height:110px;object-fit:cover;background:var(--gc)}
+.cain{padding:10px}.cain-n{font-size:12px;font-weight:700;margin-bottom:2px}
+.cain-p{font-size:13px;font-weight:800;color:var(--vf)}.cain-t{font-size:10px;color:var(--gm)}
+.first-mission{background:var(--vc);border-radius:12px;padding:18px 20px;border-left:4px solid var(--vert)}
+.fm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--vert);margin-bottom:5px}
+.fm-titre{font-size:16px;font-weight:700;margin-bottom:4px}
+.fm-meta{font-size:12px;color:var(--gm);margin-bottom:10px}
+.fm-desc{font-size:13px;color:var(--gris);line-height:1.6}
 
-/* Lettre */
-.lettre{background:var(--blanc);border:0.5px solid var(--gris-b);border-radius:12px;padding:2rem;position:relative}
-.lettre-header{display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--gris-c)}
-.avatar-lg{width:52px;height:52px;border-radius:50%;background:var(--vert-c);color:var(--vert-f);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
-.lettre-from{font-size:14px;font-weight:600}
-.lettre-role{font-size:12px;color:var(--gris-m)}
-.lettre-body{font-size:14px;line-height:1.8;color:var(--gris)}
-.lettre-body p{margin-bottom:12px}
-.lettre-sig{margin-top:1.5rem;font-style:italic;color:var(--gris-m);font-size:13px}
-
-/* Présentation équipe */
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1rem}
-.team-card{background:var(--gris-c);border-radius:10px;padding:14px;text-align:center}
-.team-av{width:48px;height:48px;border-radius:50%;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff}
-.team-nom{font-size:13px;font-weight:600;margin-bottom:2px}
-.team-role{font-size:11px;color:var(--gris-m);line-height:1.4}
-
-/* Showrooms */
-.showroom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1rem}
-.showroom-card{border-radius:10px;overflow:hidden;border:0.5px solid var(--gris-b)}
-.showroom-img{width:100%;height:140px;object-fit:cover;background:var(--gris-c)}
-.showroom-info{padding:12px}
-.showroom-nom{font-size:13px;font-weight:600;margin-bottom:3px}
-.showroom-adr{font-size:11px;color:var(--gris-m);line-height:1.5}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}
-.kpi-mini{background:var(--vert-c);border-radius:8px;padding:10px;text-align:center}
-.kpi-mini-val{font-size:18px;font-weight:700;color:var(--vert-f)}
-.kpi-mini-label{font-size:10px;color:var(--vert-f);text-transform:uppercase;letter-spacing:.06em}
-
-/* Catalogue onboarding */
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:1rem}
-.cat-card{border-radius:10px;overflow:hidden;border:0.5px solid var(--gris-b);background:var(--blanc)}
-.cat-img{width:100%;height:110px;object-fit:cover;background:var(--gris-c)}
-.cat-info{padding:10px}
-.cat-nom{font-size:12px;font-weight:600;margin-bottom:2px}
-.cat-prix{font-size:13px;font-weight:700;color:var(--vert-f)}
-.cat-tag{font-size:10px;color:var(--gris-m)}
-
-/* APP SHELL */
+/* ── APP ── */
 #app{flex-direction:row}
-.sidebar{width:220px;min-width:220px;background:var(--blanc);border-right:0.5px solid var(--gris-b);display:flex;flex-direction:column;min-height:100vh}
+.sb{width:225px;min-width:225px;background:var(--W);border-right:0.5px solid var(--gb);display:flex;flex-direction:column;min-height:100vh}
 .sb-logo{padding:14px 16px;background:var(--vert);display:flex;align-items:center;gap:10px}
-.sb-logo-k{width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:16px;flex-shrink:0}
-.sb-logo-txt .n{font-size:15px;font-weight:700;color:#fff}
-.sb-logo-txt .t{font-size:10px;color:var(--vert-m);text-transform:uppercase;letter-spacing:.08em}
-.sb-user{padding:12px 14px;border-bottom:0.5px solid var(--gris-b);display:flex;align-items:center;gap:10px}
-.av-sm{width:30px;height:30px;border-radius:50%;background:var(--vert-c);color:var(--vert-f);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.sb-user-name{font-size:12px;font-weight:600}
-.sb-user-role{font-size:10px;color:var(--gris-m)}
-.sb-nav{flex:1;padding:6px 0}
-.nav-sec{font-size:9px;font-weight:700;color:var(--gris-b);text-transform:uppercase;letter-spacing:.1em;padding:10px 14px 3px}
-.nav-it{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;font-size:13px;color:var(--gris-m);transition:background .12s,color .12s;border-right:2px solid transparent}
-.nav-it:hover{background:var(--gris-c);color:var(--gris)}
-.nav-it.active{background:var(--vert-c);color:var(--vert-f);font-weight:600;border-right-color:var(--vert)}
-.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.sb-bottom{padding:10px 14px;border-top:0.5px solid var(--gris-b)}
-.btn-out{width:100%;padding:7px;border:0.5px solid var(--gris-b);border-radius:6px;background:none;cursor:pointer;font-size:12px;color:var(--gris-m)}
-.btn-out:hover{background:var(--gris-c)}
-.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{background:var(--blanc);border-bottom:0.5px solid var(--gris-b);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.topbar-title{font-size:15px;font-weight:700}
-.topbar-r{display:flex;align-items:center;gap:8px}
-.badge{font-size:11px;padding:3px 9px;border-radius:10px;font-weight:500}
-.bv{background:var(--vert-c);color:var(--vert-f)}
-.bb{background:var(--bleu-c);color:var(--bleu)}
-.ba{background:var(--amb-c);color:var(--amb)}
-.content{padding:20px;flex:1;overflow-y:auto}
-.panel{display:none}.panel.active{display:block}
+.sb-l-icon{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;font-style:italic;flex-shrink:0}
+.sb-l-txt .n{font-size:16px;font-weight:900;color:#fff;font-style:italic}.sb-l-txt .t{font-size:10px;color:var(--vm);letter-spacing:.1em}
+.sb-user{padding:11px 14px;border-bottom:0.5px solid var(--gb);display:flex;align-items:center;gap:9px}
+.avu{width:30px;height:30px;border-radius:50%;background:var(--vc);color:var(--vf);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.sb-un{font-size:12px;font-weight:700}.sb-ur{font-size:10px;color:var(--gm)}
+.sb-nav{flex:1;padding:5px 0}
+.ns{font-size:9px;font-weight:700;color:var(--gb);text-transform:uppercase;letter-spacing:.1em;padding:10px 14px 3px}
+.ni{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;font-size:13px;color:var(--gm);transition:all .12s;border-right:2px solid transparent}
+.ni:hover{background:var(--gc);color:var(--gris)}
+.ni.on{background:var(--vc);color:var(--vf);font-weight:700;border-right-color:var(--vert)}
+.nd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sb-bot{padding:10px 14px;border-top:0.5px solid var(--gb)}
+.btn-out{width:100%;padding:7px;border:0.5px solid var(--gb);border-radius:6px;background:none;cursor:pointer;font-size:12px;color:var(--gm)}
+.btn-out:hover{background:var(--gc)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:var(--W);border-bottom:0.5px solid var(--gb);padding:11px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tb-t{font-size:15px;font-weight:700}
+.tb-r{display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;padding:3px 9px;border-radius:10px;font-weight:600}
+.bv{background:var(--vc);color:var(--vf)}.bb{background:var(--bc);color:var(--bleu)}.ba{background:var(--ac);color:var(--amb)}
+.content{padding:20px;flex:1;overflow-y:auto;position:relative}
+.panel{display:none}.panel.on{display:block}
 
-/* DASHBOARD */
-.welcome-banner{background:var(--vert);border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
-.wb-left h2{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
-.wb-left p{font-size:13px;color:var(--vert-m)}
-.wb-right{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 16px;text-align:center}
-.wb-right .big{font-size:28px;font-weight:800;color:#fff}
-.wb-right .sm{font-size:11px;color:var(--vert-m)}
-.next-mission{background:var(--blanc);border:2px solid var(--vert);border-radius:12px;padding:16px 20px;margin-bottom:14px;cursor:pointer;transition:border-color .15s}
-.next-mission:hover{border-color:var(--vert-f)}
-.nm-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--vert);margin-bottom:6px}
-.nm-title{font-size:15px;font-weight:700;margin-bottom:4px}
-.nm-meta{font-size:12px;color:var(--gris-m);display:flex;gap:10px}
-.nm-btn{margin-top:12px;padding:9px 18px;background:var(--vert);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
-.nm-btn:hover{background:var(--vert-f)}
-.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:var(--blanc);border:0.5px solid var(--gris-b);border-radius:10px;padding:14px 16px;margin-bottom:12px}
-.card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gris-m);margin-bottom:10px}
-.msg-box{background:var(--vert-c);border-left:3px solid var(--vert);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;line-height:1.6}
-.msg-from{font-weight:700;color:var(--vert-f);margin-bottom:3px}
+/* ── DASHBOARD ── */
+.wb{background:var(--vert);border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.wb-l h2{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}.wb-l p{font-size:12px;color:var(--vm)}
+.wb-r{background:rgba(255,255,255,.15);border-radius:10px;padding:10px 18px;text-align:center}
+.wb-r .big{font-size:28px;font-weight:900;color:#fff}.wb-r .sm{font-size:10px;color:var(--vm);text-transform:uppercase}
+.nm{background:var(--W);border:2px solid var(--vert);border-radius:12px;padding:15px 20px;margin-bottom:14px;cursor:pointer;transition:border-color .15s}
+.nm:hover{border-color:var(--vf)}
+.nm-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--vert);margin-bottom:5px}
+.nm-t{font-size:15px;font-weight:700;margin-bottom:4px}
+.nm-m{font-size:12px;color:var(--gm);display:flex;gap:10px;margin-bottom:10px}
+.nm-btn{padding:8px 16px;background:var(--vert);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer}
+.nm-btn:hover{background:var(--vf)}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:13px 15px;margin-bottom:12px}
+.ct{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gm);margin-bottom:10px}
+.msg-box{background:var(--vc);border-left:3px solid var(--vert);border-radius:0 8px 8px 0;padding:12px 14px;font-size:12px;line-height:1.6}
+.msg-from{font-weight:700;color:var(--vf);margin-bottom:3px}
 
-/* MISSIONS */
-.mission-card{background:var(--blanc);border:0.5px solid var(--gris-b);border-radius:10px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s,transform .1s}
-.mission-card:hover{border-color:var(--vert);transform:translateY(-1px)}
-.mission-card.done{opacity:.75}
+/* ── MISSIONS ── */
+.mc{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:border-color .15s,transform .1s}
+.mc:hover{border-color:var(--vert);transform:translateY(-1px)}
 .mh{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.m-title{font-size:13px;font-weight:600;flex:1}
-.sp{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600;flex-shrink:0}
-.s-todo{background:var(--gris-c);color:var(--gris-m)}
-.s-wip{background:var(--amb-c);color:var(--amb)}
-.s-done{background:var(--vert-c);color:var(--vert-f)}
-.m-meta{font-size:11px;color:var(--gris-m);display:flex;gap:10px}
-.pb{height:3px;background:var(--gris-c);border-radius:2px;margin-top:7px}
+.mt{font-size:13px;font-weight:700;flex:1}
+.sp{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700;flex-shrink:0}
+.s-todo{background:var(--gc);color:var(--gm)}.s-wip{background:var(--ac);color:var(--amb)}.s-done{background:var(--vc);color:var(--vf)}
+.mm{font-size:11px;color:var(--gm);display:flex;gap:10px}
+.pb{height:3px;background:var(--gc);border-radius:2px;margin-top:7px}
 .pf{height:100%;border-radius:2px;background:var(--vert)}
-.filtre-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.filtre-row select{padding:6px 10px;border:0.5px solid var(--gris-b);border-radius:6px;font-size:12px;background:var(--blanc);color:var(--gris)}
+.fr{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.fr select{padding:6px 10px;border:0.5px solid var(--gb);border-radius:6px;font-size:12px;background:var(--W);color:var(--gris)}
 
-/* COMPÉTENCES */
-.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.cc{background:var(--blanc);border:0.5px solid var(--gris-b);border-radius:10px;padding:12px}
-.cc-code{font-size:10px;font-weight:700;color:var(--gris-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.cc-name{font-size:12px;font-weight:600;margin-bottom:8px;line-height:1.3}
-.lb{height:5px;background:var(--gris-c);border-radius:3px;overflow:hidden}
+/* ── RESSOURCE / APPRENDRE ── */
+.res-block{background:var(--bc);border:0.5px solid var(--bleu);border-radius:10px;padding:15px;margin-bottom:12px}
+.res-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--bleu);margin-bottom:6px}
+.res-titre{font-size:14px;font-weight:700;color:var(--bleu);margin-bottom:8px}
+.res-body{font-size:13px;line-height:1.7;color:var(--gris)}
+.res-body ul{margin:8px 0 8px 18px}.res-body li{margin-bottom:4px}
+.res-exemple{background:var(--W);border-radius:7px;padding:10px 12px;margin-top:8px;font-size:12px;line-height:1.6;border-left:3px solid var(--bleu)}
+.res-ex-label{font-size:10px;font-weight:700;color:var(--bleu);text-transform:uppercase;margin-bottom:4px}
+
+/* ── COMPÉTENCES ── */
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cc{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:12px}
+.cc-code{font-size:10px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.cc-n{font-size:12px;font-weight:700;margin-bottom:8px;line-height:1.3}
+.lb{height:5px;background:var(--gc);border-radius:3px;overflow:hidden}
 .lf{height:100%;border-radius:3px;transition:width .4s}
-.ll{font-size:10px;color:var(--gris-m);margin-top:4px}
-.legend-row{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--gris-m);margin-top:12px;align-items:center}
+.ll{font-size:10px;color:var(--gm);margin-top:4px}
+.leg{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--gm);margin-top:12px;align-items:center}
 
-/* CATALOGUE */
-.produits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.prod-card{background:var(--blanc);border:0.5px solid var(--gris-b);border-radius:10px;overflow:hidden}
-.prod-img{width:100%;height:130px;object-fit:cover;background:var(--gris-c)}
-.prod-info{padding:11px 12px}
-.prod-cat{font-size:10px;color:var(--gris-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.prod-nom{font-size:13px;font-weight:600;margin-bottom:6px}
-.prod-prix{font-size:15px;font-weight:700;color:var(--vert-f)}
-.prod-marge{font-size:11px;color:var(--gris-m);margin-top:1px}
+/* ── CATALOGUE ── */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pc{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s}
+.pc:hover{border-color:var(--vert)}
+.pi{width:100%;height:120px;object-fit:cover;background:var(--gc)}
+.pin{padding:10px 12px}
+.pcat{font-size:10px;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.pnom{font-size:13px;font-weight:700;margin-bottom:3px}
+.pprix{font-size:15px;font-weight:800;color:var(--vf)}
+.pmarge{font-size:10px;color:var(--gm);margin-top:1px}
+/* Fiche produit */
+.fiche{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:16px;margin-top:10px;display:none}
+.fiche.on{display:block}
+.fiche-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fiche-img{width:100%;height:200px;object-fit:cover;border-radius:8px;background:var(--gc)}
+.fiche-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:0.5px solid var(--gc);font-size:12px}
+.fiche-row:last-child{border-bottom:none}
+.fiche-key{color:var(--gm)}.fiche-val{font-weight:700}
+.arg-block{background:var(--vc);border-radius:7px;padding:10px 12px;margin-top:10px;font-size:12px;line-height:1.6}
+.arg-label{font-size:10px;font-weight:700;color:var(--vf);text-transform:uppercase;margin-bottom:4px}
+.btn-back{padding:7px 14px;background:none;border:0.5px solid var(--gb);border-radius:6px;cursor:pointer;font-size:12px;color:var(--gm);margin-bottom:12px}
+.btn-back:hover{background:var(--gc)}
 
-/* CLIENTS */
-.ct{width:100%;border-collapse:collapse;font-size:12px}
-.ct th{text-align:left;font-size:10px;font-weight:700;color:var(--gris-m);text-transform:uppercase;letter-spacing:.07em;padding:6px 10px;border-bottom:0.5px solid var(--gris-b)}
-.ct td{padding:8px 10px;border-bottom:0.5px solid var(--gris-c)}
-.ct tr:hover td{background:var(--gris-c)}
-.tb2c{background:var(--bleu-c);color:var(--bleu);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
-.tb2b{background:var(--amb-c);color:var(--amb);font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+/* ── CLIENTS ── */
+.client-list{display:flex;flex-direction:column;gap:8px}
+.cl-card{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:13px 15px;cursor:pointer;transition:border-color .15s}
+.cl-card:hover{border-color:var(--vert)}
+.cl-h{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.cl-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.cl-nom{font-size:13px;font-weight:700}
+.cl-meta{font-size:11px;color:var(--gm);display:flex;gap:10px}
+.tb2c{background:var(--bc);color:var(--bleu);font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700}
+.tb2b{background:var(--ac);color:var(--amb);font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700}
+.tpros{background:var(--rc);color:var(--rouge);font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700}
+/* Fiche client */
+.fc{background:var(--W);border:0.5px solid var(--gb);border-radius:10px;padding:16px;display:none}
+.fc.on{display:block}
+.fc-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:0.5px solid var(--gc)}
+.fc-av-lg{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+.fc-rows{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.fc-row{font-size:12px;padding:5px 0;border-bottom:0.5px solid var(--gc)}
+.fc-k{color:var(--gm);font-size:11px}.fc-v{font-weight:600;margin-top:1px}
+.hist-item{padding:8px 0;border-bottom:0.5px solid var(--gc);font-size:12px}
+.hist-item:last-child{border-bottom:none}
+.hist-date{font-size:10px;color:var(--gm)}
+.note-area{width:100%;padding:8px 10px;border:0.5px solid var(--gb);border-radius:7px;font-size:12px;resize:vertical;min-height:60px;font-family:inherit}
+.btn-save-note{padding:7px 14px;background:var(--vert);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;margin-top:6px}
+.btn-save-note:hover{background:var(--vf)}
+.add-client-btn{padding:8px 16px;background:var(--vert);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:700;margin-bottom:12px}
 
-/* INDICATEURS */
+/* ── INDICATEURS ── */
 .bar-chart{display:flex;align-items:flex-end;gap:8px;height:120px;margin-top:10px}
 .bw{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end}
-.bar{width:100%;border-radius:4px 4px 0 0;background:var(--vert);opacity:.8;min-height:4px}
+.bar{width:100%;border-radius:4px 4px 0 0;background:var(--vert);opacity:.8}
 .bar:hover{opacity:1}
-.bl{font-size:10px;color:var(--gris-m)}
-.bv2{font-size:10px;font-weight:600}
+.bl{font-size:10px;color:var(--gm)}.bv2{font-size:10px;font-weight:700}
 
-/* VUE CLASSE */
+/* ── VUE CLASSE ── */
 .ctl{width:100%;border-collapse:collapse;font-size:12px}
-.ctl th{text-align:left;font-size:10px;font-weight:700;color:var(--gris-m);text-transform:uppercase;letter-spacing:.07em;padding:6px 10px;border-bottom:0.5px solid var(--gris-b)}
-.ctl td{padding:7px 10px;border-bottom:0.5px solid var(--gris-c)}
-.ctl tr:hover td{background:var(--gris-c)}
+.ctl th{text-align:left;font-size:10px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.07em;padding:6px 10px;border-bottom:0.5px solid var(--gb)}
+.ctl td{padding:7px 10px;border-bottom:0.5px solid var(--gc)}
+.ctl tr:hover td{background:var(--gc)}
 .dl{width:11px;height:11px;border-radius:50%;display:inline-block}
 
-/* GÉNÉRATION */
+/* ── GÉNÉRATION ── */
 .gen-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.gen-grid select{padding:8px 10px;border:0.5px solid var(--gris-b);border-radius:7px;font-size:13px;background:var(--blanc);color:var(--gris);width:100%}
-.btn-gen{padding:10px 22px;background:var(--vert);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
-.btn-gen:hover{background:var(--vert-f)}
-.gen-res{background:var(--gris-c);border-radius:8px;padding:14px;margin-top:12px;font-size:12px;line-height:1.7;white-space:pre-wrap;min-height:80px;color:var(--gris)}
-.gen-loading{color:var(--gris-m);font-style:italic}
+.gen-grid select{padding:8px 10px;border:0.5px solid var(--gb);border-radius:7px;font-size:13px;background:var(--W);color:var(--gris);width:100%}
+.btn-gen{padding:10px 22px;background:var(--vert);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700}
+.btn-gen:hover{background:var(--vf)}
+.gen-res{background:var(--gc);border-radius:8px;padding:14px;margin-top:12px;font-size:12px;line-height:1.7;white-space:pre-wrap;min-height:80px}
+.gen-loading{color:var(--gm);font-style:italic}
 .api-row{display:flex;gap:8px;margin-bottom:6px}
-.api-row input{flex:1;padding:8px 12px;border:0.5px solid var(--gris-b);border-radius:7px;font-size:13px}
-.btn-sm{padding:8px 14px;background:var(--vert);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px}
+.api-row input{flex:1;padding:8px 12px;border:0.5px solid var(--gb);border-radius:7px;font-size:13px}
+.btn-sm{padding:8px 14px;background:var(--vert);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700}
 
-/* MODAL */
-.mo{display:none;align-items:flex-start;justify-content:center;min-height:100vh;background:rgba(0,0,0,.4);padding:2rem;position:absolute;top:0;left:0;width:100%;z-index:100}
+/* ── MODAL ── */
+.mo{display:none;align-items:flex-start;justify-content:center;min-height:100vh;background:rgba(0,0,0,.45);padding:2rem;position:absolute;top:0;left:0;width:100%;z-index:100}
 .mo.open{display:flex}
-.modal{background:var(--blanc);border-radius:14px;width:100%;max-width:660px;max-height:85vh;overflow-y:auto}
-.mh2{background:var(--vert);color:#fff;padding:16px 22px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:flex-start}
-.mh2 h2{font-size:15px;font-weight:700}
-.mh2 p{font-size:11px;opacity:.8;margin-top:2px}
-.mc{font-size:20px;background:none;border:none;color:#fff;cursor:pointer;line-height:1;padding:0}
-.mb{padding:18px 22px}
-.ph{margin-bottom:14px;padding:12px 14px;border-radius:8px;border:0.5px solid var(--gris-b)}
-.ph-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
-.ph-title{font-size:13px;font-weight:600;margin-bottom:5px}
-.ph-content{font-size:12px;color:var(--gris);line-height:1.6}
-.ph1{border-left:3px solid var(--vert)}
-.ph2{border-left:3px solid var(--bleu)}
-.ph3{border-left:3px solid var(--gris-m)}
-.qi{padding:5px 0;border-bottom:0.5px solid var(--gris-c);font-size:12px;line-height:1.5}
+.modal{background:var(--W);border-radius:14px;width:100%;max-width:680px;max-height:88vh;overflow-y:auto}
+.mo-h{background:var(--vert);color:#fff;padding:15px 22px;border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:flex-start}
+.mo-h h2{font-size:15px;font-weight:700}.mo-h p{font-size:11px;opacity:.8;margin-top:2px}
+.mo-cl{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1;padding:0}
+.mo-tabs{display:flex;border-bottom:0.5px solid var(--gb);padding:0 22px}
+.mo-tab{padding:10px 14px;font-size:12px;font-weight:700;cursor:pointer;color:var(--gm);border-bottom:2px solid transparent}
+.mo-tab.on{color:var(--vert);border-bottom-color:var(--vert)}
+.mo-body{padding:18px 22px}
+.mo-tp{display:none}.mo-tp.on{display:block}
+.ph{margin-bottom:14px;padding:12px 14px;border-radius:8px;border:0.5px solid var(--gb)}
+.ph-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.ph-t{font-size:13px;font-weight:700;margin-bottom:5px}
+.ph-c{font-size:12px;color:var(--gris);line-height:1.6}
+.ph1{border-left:3px solid var(--vert)}.ph2{border-left:3px solid var(--bleu)}.ph3{border-left:3px solid var(--gm)}
+.qi{padding:5px 0;border-bottom:0.5px solid var(--gc);font-size:12px;line-height:1.5}
 .qi:last-child{border-bottom:none}
 .qn{font-weight:700;color:var(--vert);margin-right:5px}
-.ma{padding:0 22px 18px;display:flex;gap:8px}
-.btn-p{padding:9px 18px;background:var(--vert);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600}
-.btn-p:hover{background:var(--vert-f)}
-.btn-s{padding:9px 18px;background:none;border:0.5px solid var(--gris-b);border-radius:7px;cursor:pointer;font-size:13px;color:var(--gris-m)}
-.btn-s:hover{background:var(--gris-c)}
-
-/* ONBOARDING MISSION ACCUEIL */
-.ob-title{font-size:22px;font-weight:800;margin-bottom:6px}
-.ob-sub{font-size:14px;color:var(--gris-m);margin-bottom:1.5rem;line-height:1.6}
+.mo-act{padding:0 22px 18px;display:flex;gap:8px}
+.btn-p{padding:9px 18px;background:var(--vert);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700}
+.btn-p:hover{background:var(--vf)}
+.btn-s{padding:9px 18px;background:none;border:0.5px solid var(--gb);border-radius:7px;cursor:pointer;font-size:13px;color:var(--gm)}
+.btn-s:hover{background:var(--gc)}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login" class="screen active">
-<div class="login-card">
+<!-- ══ LOGIN ══ -->
+<div id="login" class="scr on">
+<div class="lcard">
   <div class="logo-wrap">
-    <div class="logo-k"><span>K</span></div>
-    <div class="logo-name">KEPKA</div>
-    <div class="logo-tag">Sport & Outdoor</div>
+    <div class="logo-circle"><span>L</span></div>
+    <div class="logo-nom">LABORO</div>
+    <div class="logo-lat">« je travaille »</div>
+    <div class="logo-sub">Évry-Courcouronnes · Sport & Outdoor · Essonne (91)</div>
   </div>
-  <p class="login-sub">Plateforme interne — Connecte-toi avec tes identifiants salariés</p>
+  <p class="lsub">Connecte-toi avec tes identifiants salariés</p>
   <div class="fg"><label>Prénom et nom</label><input type="text" id="inp-nom" placeholder="Ex. : Sarah Martin"/></div>
-  <div class="fg"><label>Option / Classe</label>
-    <select id="inp-classe">
+  <div class="fg"><label>Classe</label>
+    <select id="inp-classe" onchange="updatePoste()">
       <option value="">— Sélectionner —</option>
-      <option value="2nde-FMRC">2nde FMRC</option>
+      <option value="2nde">2nde professionnelle</option>
       <option value="1ere-AGEC">1ère Bac Pro AGEC</option>
       <option value="1ere-PVOC">1ère Bac Pro PVOC</option>
       <option value="Term-AGEC">Terminale Bac Pro AGEC</option>
@@ -254,199 +269,156 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
       <option value="enseignant">Enseignant (M. Berruelle)</option>
     </select>
   </div>
-  <div class="fg"><label>Poste simulé chez KEPKA</label>
+  <div class="fg" id="fg-poste">
+    <label>Poste chez LABORO</label>
     <select id="inp-poste">
       <option value="">— Choisir un poste —</option>
-      <option value="Conseiller de vente · Showroom Massy">Conseiller de vente — Showroom Massy</option>
-      <option value="Conseiller de vente · Showroom Cergy">Conseiller de vente — Showroom Cergy</option>
-      <option value="Commercial terrain · Pôle Vente">Commercial terrain — Pôle Vente</option>
-      <option value="Chargé e-commerce · kepka-sport.fr">Chargé e-commerce</option>
-      <option value="Assistant SAV · Service client">Assistant SAV / Service client</option>
-      <option value="Chargé de prospection · Pôle Vente">Chargé de prospection — Pôle Vente</option>
+      <option value="Conseiller de vente — Showroom & E-commerce">Conseiller de vente (Showroom & E-commerce)</option>
+      <option value="Commercial terrain — Prospection & Vente B2B">Commercial terrain (Prospection & Vente B2B)</option>
     </select>
+    <div class="poste-hint" id="poste-hint"></div>
   </div>
-  <button class="btn-main" onclick="doLogin()">Accéder à mon espace KEPKA</button>
-  <p class="login-note">Tes données sont sauvegardées sur cet appareil.</p>
+  <button class="btn-login" onclick="doLogin()">Accéder à mon espace LABORO</button>
+  <p class="login-note">Tes données sont sauvegardées localement sur cet appareil.</p>
 </div>
 </div>
 
-<!-- ONBOARDING -->
-<div id="onboarding" class="screen">
-<div class="ob-card">
-  <div class="ob-progress">
-    <div class="ob-step active" id="obs-0"></div>
-    <div class="ob-step" id="obs-1"></div>
-    <div class="ob-step" id="obs-2"></div>
-    <div class="ob-step" id="obs-3"></div>
+<!-- ══ ONBOARDING ══ -->
+<div id="onboarding" class="scr">
+<div class="ob-wrap">
+  <div class="ob-prog">
+    <div class="obs cur" id="obs0"></div><div class="obs" id="obs1"></div><div class="obs" id="obs2"></div><div class="obs" id="obs3"></div>
   </div>
-
-  <!-- Étape 0 : Lettre de bienvenue -->
-  <div class="ob-panel active" id="ob-0">
+  <!-- Étape 0 : Lettre PDG -->
+  <div class="obp on" id="ob0">
     <div class="lettre">
-      <div class="lettre-header">
-        <div class="avatar-lg">LF</div>
-        <div>
-          <div class="lettre-from">Léa Fontaine</div>
-          <div class="lettre-role">Directrice générale — KEPKA Sport & Outdoor</div>
-        </div>
+      <div class="lh">
+        <div class="av" style="background:var(--vc);color:var(--vf)">PB</div>
+        <div><div class="lb-f">Pascal Berruelle</div><div class="lb-r">PDG — LABORO Sport & Outdoor, Évry-Courcouronnes</div></div>
       </div>
-      <div class="lettre-body">
-        <p>Bonjour <strong id="ob-prenom-lettre"></strong>,</p>
-        <p>C'est avec beaucoup de plaisir que je t'accueille au sein de l'équipe <strong>KEPKA Sport & Outdoor</strong>. Tu rejoins une entreprise fondée en 2011 à Massy, spécialisée dans la distribution d'équipements sportifs et outdoor pour les particuliers et les professionnels.</p>
-        <p>Ici, chaque collaborateur joue un rôle essentiel dans la satisfaction de nos 4 800 clients actifs. Tu vas découvrir nos deux showrooms, notre site e-commerce et un portefeuille de clients B2B que nous développons chaque jour.</p>
-        <p>Des missions professionnelles t'attendent. Elles sont progressives — du plus simple au plus complexe — et couvrent toutes les activités de notre métier : vente, relation client, prospection, gestion de l'espace commercial.</p>
-        <p>Bienvenue dans l'équipe. L'équipement juste, pour aller plus loin.</p>
+      <div class="lb-body">
+        <p>Bonjour <strong id="ob-prenom"></strong>,</p>
+        <p>C'est avec plaisir que je t'accueille au sein de <strong>LABORO</strong>, notre entreprise spécialisée dans la distribution d'équipements sportifs et outdoor, basée à Évry-Courcouronnes dans l'Essonne.</p>
+        <p>LABORO, c'est <em>« je travaille »</em> en latin — et c'est exactement ce que tu vas faire ici. Tu vas incarner un vrai salarié, avec un poste, des missions professionnelles, des clients, des collègues et des objectifs à atteindre.</p>
+        <p>Avant chaque mission, tu trouveras une ressource pour apprendre les notions nécessaires. Ensuite, tu mettras en pratique. C'est comme ça qu'on apprend vraiment.</p>
+        <p>Bienvenue dans l'équipe.</p>
       </div>
-      <div class="lettre-sig">— Léa Fontaine, Directrice générale</div>
+      <div class="lb-sig">— Pascal Berruelle, PDG de LABORO</div>
     </div>
   </div>
-
   <!-- Étape 1 : L'entreprise -->
-  <div class="ob-panel" id="ob-1">
-    <div class="ob-title">KEPKA en chiffres</div>
-    <div class="ob-sub">Voici l'entreprise que tu vas représenter au quotidien.</div>
+  <div class="obp" id="ob1">
+    <div class="ob-h1">LABORO en chiffres</div>
+    <div class="ob-sub">Voici l'entreprise que tu vas représenter au quotidien depuis Évry-Courcouronnes.</div>
     <div class="kpi-row">
-      <div class="kpi-mini"><div class="kpi-mini-val">3,2 M€</div><div class="kpi-mini-label">CA annuel</div></div>
-      <div class="kpi-mini"><div class="kpi-mini-val">28</div><div class="kpi-mini-label">Collaborateurs</div></div>
-      <div class="kpi-mini"><div class="kpi-mini-val">4 800</div><div class="kpi-mini-label">Clients actifs</div></div>
-      <div class="kpi-mini"><div class="kpi-mini-val">380</div><div class="kpi-mini-label">Références</div></div>
+      <div class="km"><div class="km-v">2,8 M€</div><div class="km-l">CA annuel</div></div>
+      <div class="km"><div class="km-v">22</div><div class="km-l">Collaborateurs</div></div>
+      <div class="km"><div class="km-v">3 200</div><div class="km-l">Clients actifs</div></div>
+      <div class="km"><div class="km-v">120</div><div class="km-l">Références</div></div>
     </div>
     <div style="margin-top:1.5rem">
-      <div class="ob-title" style="font-size:16px;margin-bottom:8px">Ton équipe</div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:10px">Ton équipe</div>
       <div class="team-grid">
-        <div class="team-card"><div class="team-av" style="background:#1D9E75">LF</div><div class="team-nom">Léa Fontaine</div><div class="team-role">Directrice générale</div></div>
-        <div class="team-card"><div class="team-av" style="background:#185FA5">RS</div><div class="team-nom">Romain Sauzet</div><div class="team-role">Resp. Commerce & Showrooms</div></div>
-        <div class="team-card"><div class="team-av" style="background:#534AB7">NC</div><div class="team-nom">Nina Chevalier</div><div class="team-role">Resp. Vente & Prospection</div></div>
-        <div class="team-card"><div class="team-av" style="background:#BA7517">MP</div><div class="team-nom">Marco Pellini</div><div class="team-role">Resp. E-commerce & SAV</div></div>
-        <div class="team-card"><div class="team-av" style="background:#993C1D">SB</div><div class="team-nom">Sophie Blanc</div><div class="team-role">Commerciale terrain</div></div>
-        <div class="team-card"><div class="team-av" style="background:#0F6E56">TM</div><div class="team-nom">Thomas Moreau</div><div class="team-role">Chargé e-commerce</div></div>
+        <div class="tc"><div class="tav" style="background:var(--vert)">PB</div><div class="tn">Pascal Berruelle</div><div class="tr">PDG</div></div>
+        <div class="tc"><div class="tav" style="background:var(--bleu)">RS</div><div class="tn">Romain Sauzet</div><div class="tr">Resp. Commerce & Showroom</div></div>
+        <div class="tc"><div class="tav" style="background:#534AB7">NC</div><div class="tn">Nina Chevalier</div><div class="tr">Resp. Vente & Prospection</div></div>
+        <div class="tc"><div class="tav" style="background:var(--amb)">MP</div><div class="tn">Marco Pellini</div><div class="tr">Resp. E-commerce & SAV</div></div>
+        <div class="tc"><div class="tav" style="background:var(--rouge)">SB</div><div class="tn">Sophie Blanc</div><div class="tr">Commerciale terrain</div></div>
+        <div class="tc"><div class="tav" style="background:var(--vf)">TM</div><div class="tn">Thomas Moreau</div><div class="tr">Conseiller de vente</div></div>
       </div>
     </div>
   </div>
-
-  <!-- Étape 2 : Les produits -->
-  <div class="ob-panel" id="ob-2">
-    <div class="ob-title">Nos produits</div>
-    <div class="ob-sub">Tu vas conseiller et vendre ces produits. Prends le temps de les connaître.</div>
+  <!-- Étape 2 : Produits -->
+  <div class="obp" id="ob2">
+    <div class="ob-h1">Nos produits</div>
+    <div class="ob-sub">Tu vas conseiller et vendre ces produits. Explore le catalogue depuis le menu pour voir les 120 références détaillées.</div>
     <div class="cat-grid">
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Chaussures running" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Running & Trail</div><div class="cat-prix">à partir de 89 €</div><div class="cat-tag">Chaussures, vêtements, montres GPS</div></div>
-      </div>
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=80" alt="Randonnée" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Randonnée</div><div class="cat-prix">à partir de 65 €</div><div class="cat-tag">Chaussures, sacs, bâtons</div></div>
-      </div>
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Fitness" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Fitness & Bien-être</div><div class="cat-prix">à partir de 25 €</div><div class="cat-tag">Yoga, kettlebells, accessoires</div></div>
-      </div>
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80" alt="Sports collectifs" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Sports collectifs</div><div class="cat-prix">à partir de 35 €</div><div class="cat-tag">Ballons, filets, équipements</div></div>
-      </div>
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80" alt="Outdoor" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Outdoor & Camping</div><div class="cat-prix">à partir de 49 €</div><div class="cat-tag">Tentes, sacs de couchage, réchauds</div></div>
-      </div>
-      <div class="cat-card">
-        <img class="cat-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&q=80" alt="Textile" onerror="this.style.background='var(--gris-c)'"/>
-        <div class="cat-info"><div class="cat-nom">Textile personnalisé</div><div class="cat-prix">à partir de 28 €/u</div><div class="cat-tag">Clubs, CE, collectivités — sur mesure</div></div>
-      </div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Running & Trail</div><div class="cain-p">à partir de 69 €</div><div class="cain-t">Chaussures, vêtements, montres, nutrition</div></div></div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Randonnée</div><div class="cain-p">à partir de 49 €</div><div class="cain-t">Chaussures, sacs, bâtons, vêtements</div></div></div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Fitness & Bien-être</div><div class="cain-p">à partir de 19 €</div><div class="cain-t">Yoga, kettlebells, élastiques, accessoires</div></div></div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Sports collectifs</div><div class="cain-p">à partir de 29 €</div><div class="cain-t">Ballons, filets, équipements clubs</div></div></div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Outdoor & Camping</div><div class="cain-p">à partir de 39 €</div><div class="cain-t">Tentes, sacs de couchage, réchauds</div></div></div>
+      <div class="cac"><img class="cai" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="cain"><div class="cain-n">Textile personnalisé</div><div class="cain-p">à partir de 22 €/u</div><div class="cain-t">Clubs, CE, mairies — sur mesure</div></div></div>
     </div>
   </div>
-
-  <!-- Étape 3 : Première mission -->
-  <div class="ob-panel" id="ob-3">
-    <div class="ob-title">Tu es prêt(e) !</div>
-    <div class="ob-sub">Ta première mission t'attend. Elle est conçue pour te faire découvrir la plateforme et l'univers KEPKA en douceur. Tu progresseras ensuite à ton rythme, compétence par compétence.</div>
-    <div style="background:var(--vert-c);border-radius:12px;padding:18px 20px;border-left:4px solid var(--vert)">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--vert);margin-bottom:5px">Ta première mission</div>
-      <div style="font-size:16px;font-weight:700;margin-bottom:4px">Accueillir un client et identifier ses besoins</div>
-      <div style="font-size:12px;color:var(--gris-m);margin-bottom:10px">Compétence C1.2 · Palier 1 — Découverte · 55 minutes</div>
-      <div style="font-size:13px;color:var(--gris);line-height:1.6">Un client entre dans le showroom de Massy. Il cherche des chaussures pour débuter le trail. Romain Sauzet te demande de le prendre en charge.</div>
-    </div>
-    <div style="margin-top:1rem;font-size:12px;color:var(--gris-m);line-height:1.6">
-      Tu auras toujours accès dans la barre de gauche au <strong>catalogue produits</strong>, au <strong>fichier clients</strong> et aux <strong>indicateurs de l'entreprise</strong> pour t'aider dans tes missions.
+  <!-- Étape 3 : Prêt -->
+  <div class="obp" id="ob3">
+    <div class="ob-h1">Tu es prêt(e) !</div>
+    <div class="ob-sub">Chaque mission commence par une <strong>ressource pour apprendre</strong> la notion clé, puis un <strong>travail pratique</strong> ancré dans la réalité de LABORO. Tu progresseras à ton rythme, compétence par compétence.</div>
+    <div class="first-mission">
+      <div class="fm-label">Ta première mission</div>
+      <div class="fm-titre" id="ob-first-mission">Accueillir un client et découvrir ses besoins</div>
+      <div class="fm-meta" id="ob-first-meta">Compétence C1.2 · Palier 1 — Découverte · 55 minutes</div>
+      <div class="fm-desc">Un client entre dans le showroom d'Évry. Il cherche des chaussures pour débuter le trail. Romain Sauzet te demande de le prendre en charge.</div>
     </div>
   </div>
-
   <div class="ob-nav">
-    <button class="btn-ob-skip" onclick="skipOnboarding()" id="ob-skip">Passer l'introduction</button>
-    <button class="btn-ob-next" onclick="obNext()" id="ob-next-btn">Continuer →</button>
+    <button class="btn-obs" onclick="skipOb()" id="ob-skip">Passer l'introduction</button>
+    <button class="btn-obn" onclick="obNext()" id="ob-next">Continuer →</button>
   </div>
 </div>
 </div>
 
-<!-- APP -->
-<div id="app" class="screen">
-<div class="sidebar">
+<!-- ══ APP ══ -->
+<div id="app" class="scr">
+<div class="sb">
   <div class="sb-logo">
-    <div class="sb-logo-k">K</div>
-    <div class="sb-logo-txt"><div class="n">KEPKA</div><div class="t">Sport & Outdoor</div></div>
+    <div class="sb-l-icon">L</div>
+    <div class="sb-l-txt"><div class="n">LABORO</div><div class="t">SPORT & OUTDOOR</div></div>
   </div>
   <div class="sb-user">
-    <div class="av-sm" id="av-init">AL</div>
-    <div><div class="sb-user-name" id="sb-nom">—</div><div class="sb-user-role" id="sb-role">—</div></div>
+    <div class="avu" id="av-i">AL</div>
+    <div><div class="sb-un" id="sb-n">—</div><div class="sb-ur" id="sb-r">—</div></div>
   </div>
   <div class="sb-nav">
-    <div class="nav-sec">Mon espace</div>
-    <div class="nav-it active" onclick="goP('dashboard',this)"><div class="nav-dot" style="background:var(--vert)"></div>Tableau de bord</div>
-    <div class="nav-it" onclick="goP('missions',this)"><div class="nav-dot" style="background:#185FA5"></div>Mes missions</div>
-    <div class="nav-it" onclick="goP('competences',this)"><div class="nav-dot" style="background:#BA7517"></div>Mes compétences</div>
-    <div class="nav-sec">Entreprise KEPKA</div>
-    <div class="nav-it" onclick="goP('catalogue',this)"><div class="nav-dot" style="background:#5DCAA5"></div>Catalogue produits</div>
-    <div class="nav-it" onclick="goP('clients',this)"><div class="nav-dot" style="background:#D85A30"></div>Fichier clients</div>
-    <div class="nav-it" onclick="goP('indicateurs',this)"><div class="nav-dot" style="background:#534AB7"></div>Indicateurs</div>
-    <div class="nav-sec" id="nav-s-ens" style="display:none">Enseignant</div>
-    <div class="nav-it" id="nav-classe" style="display:none" onclick="goP('classe',this)"><div class="nav-dot" style="background:#D4537E"></div>Vue classe</div>
-    <div class="nav-it" id="nav-gen" style="display:none" onclick="goP('generation',this)"><div class="nav-dot" style="background:#E24B4A"></div>Générer mission</div>
+    <div class="ns">Mon espace</div>
+    <div class="ni on" onclick="goP('dashboard',this)"><div class="nd" style="background:var(--vert)"></div>Tableau de bord</div>
+    <div class="ni" onclick="goP('missions',this)"><div class="nd" style="background:var(--bleu)"></div>Mes missions</div>
+    <div class="ni" onclick="goP('competences',this)"><div class="nd" style="background:var(--amb)"></div>Mes compétences</div>
+    <div class="ns">Entreprise LABORO</div>
+    <div class="ni" onclick="goP('catalogue',this)"><div class="nd" style="background:#5DCAA5"></div>Catalogue produits</div>
+    <div class="ni" onclick="goP('clients',this)"><div class="nd" style="background:#D85A30"></div>Fichier clients</div>
+    <div class="ni" onclick="goP('indicateurs',this)"><div class="nd" style="background:#534AB7"></div>Indicateurs</div>
+    <div class="ns" id="ns-ens" style="display:none">Enseignant</div>
+    <div class="ni" id="ni-cl" style="display:none" onclick="goP('classe',this)"><div class="nd" style="background:#D4537E"></div>Vue classe</div>
+    <div class="ni" id="ni-gn" style="display:none" onclick="goP('generation',this)"><div class="nd" style="background:#E24B4A"></div>Générer mission</div>
   </div>
-  <div class="sb-bottom"><button class="btn-out" onclick="doLogout()">Se déconnecter</button></div>
+  <div class="sb-bot"><button class="btn-out" onclick="doLogout()">Se déconnecter</button></div>
 </div>
 
-<div class="main-area">
+<div class="main">
   <div class="topbar">
-    <div class="topbar-title" id="tb-title">Tableau de bord</div>
-    <div class="topbar-r">
-      <span class="badge bv" id="tb-classe">—</span>
-      <span style="font-size:11px;color:var(--gris-m)" id="tb-date"></span>
+    <div class="tb-t" id="tb-t">Tableau de bord</div>
+    <div class="tb-r">
+      <span class="badge bv" id="tb-c">—</span>
+      <span style="font-size:11px;color:var(--gm)" id="tb-d"></span>
     </div>
   </div>
 
-  <div class="content" style="position:relative">
+  <div class="content">
 
     <!-- DASHBOARD -->
-    <div id="panel-dashboard" class="panel active">
-      <div class="welcome-banner">
-        <div class="wb-left"><h2 id="wb-bonjour">Bonjour !</h2><p id="wb-poste">—</p></div>
-        <div class="wb-right"><div class="big" id="wb-score">—</div><div class="sm">score moyen /20</div></div>
+    <div id="panel-dashboard" class="panel on">
+      <div class="wb">
+        <div class="wb-l"><h2 id="wb-b">Bonjour !</h2><p id="wb-p">—</p></div>
+        <div class="wb-r"><div class="big" id="wb-s">—</div><div class="sm">Score moyen /20</div></div>
       </div>
-      <div id="next-mission-wrap"></div>
-      <div class="dash-grid">
+      <div id="nm-wrap"></div>
+      <div class="dg">
         <div>
-          <div class="card">
-            <div class="card-title">Mes dernières missions</div>
-            <div id="dash-recentes"></div>
-          </div>
+          <div class="card"><div class="ct">Missions récentes</div><div id="dash-rec"></div></div>
         </div>
         <div>
-          <div class="card">
-            <div class="card-title">Message de ton responsable</div>
-            <div class="msg-box"><div class="msg-from" id="msg-from">Romain Sauzet</div><div id="msg-txt">Bienvenue chez KEPKA ! Commence par ta première mission. Je suis là si tu as des questions.</div></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Ma progression</div>
-            <div id="dash-prog"></div>
-          </div>
+          <div class="card"><div class="ct">Message de ton responsable</div><div class="msg-box"><div class="msg-from" id="msg-f">Romain Sauzet</div><div id="msg-t">Bienvenue chez LABORO ! Ta première mission t'attend. N'hésite pas à lire la ressource avant de commencer.</div></div></div>
+          <div class="card"><div class="ct">Ma progression</div><div id="dash-prog"></div></div>
         </div>
       </div>
     </div>
 
     <!-- MISSIONS -->
     <div id="panel-missions" class="panel">
-      <div class="filtre-row">
-        <select id="f-palier" onchange="renderMissions()"><option value="">Tous les paliers</option><option value="1">Palier 1 — Découverte</option><option value="2">Palier 2 — Approfondissement</option><option value="3">Palier 3 — Expertise</option></select>
+      <div class="fr">
+        <select id="f-pal" onchange="renderMissions()"><option value="">Tous les paliers</option><option value="1">Palier 1 — Découverte</option><option value="2">Palier 2 — Approfondissement</option><option value="3">Palier 3 — Expertise</option></select>
         <select id="f-comp" onchange="renderMissions()"><option value="">Toutes compétences</option><option value="C1">G1 — Conseiller & vendre</option><option value="C2">G2 — Suivre les ventes</option><option value="C3">G3 — Fidéliser</option><option value="G4">G4 — Option spécifique</option></select>
       </div>
       <div id="missions-list"></div>
@@ -454,78 +426,48 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
 
     <!-- COMPÉTENCES -->
     <div id="panel-competences" class="panel">
-      <div class="comp-grid" id="comp-grid"></div>
-      <div class="legend-row">
-        <span>Niveau :</span>
-        <span><span class="dl" style="background:var(--gris-b)"></span> Non démarré</span>
-        <span><span class="dl" style="background:#85B7EB"></span> Découverte</span>
-        <span><span class="dl" style="background:var(--bleu)"></span> En progression</span>
-        <span><span class="dl" style="background:var(--vert)"></span> Acquis</span>
-        <span><span class="dl" style="background:#3B6D11"></span> Maîtrisé</span>
-      </div>
+      <div class="cg" id="comp-grid"></div>
+      <div class="leg"><span>Niveau :</span><span><span class="dl" style="background:var(--gb)"></span> Non démarré</span><span><span class="dl" style="background:#85B7EB"></span> Découverte</span><span><span class="dl" style="background:var(--bleu)"></span> En progression</span><span><span class="dl" style="background:var(--vert)"></span> Acquis</span><span><span class="dl" style="background:#3B6D11"></span> Maîtrisé</span></div>
     </div>
 
     <!-- CATALOGUE -->
     <div id="panel-catalogue" class="panel">
-      <div class="produits-grid">
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Running / Trail</div><div class="prod-nom">Salomon Speedcross 6</div><div class="prod-prix">149 €</div><div class="prod-marge">Marge 38% · Réf. RUN-012 · Stock: 14</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Running / Trail</div><div class="prod-nom">Montre Garmin Forerunner 255</div><div class="prod-prix">299 €</div><div class="prod-marge">Marge 22% · Réf. RUN-034 · Stock: 6</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Randonnée</div><div class="prod-nom">Osprey Atmos AG 50L</div><div class="prod-prix">219 €</div><div class="prod-marge">Marge 31% · Réf. RAN-008 · Stock: 9</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Fitness</div><div class="prod-nom">Tapis yoga Odlo Pro 6mm</div><div class="prod-prix">65 €</div><div class="prod-marge">Marge 52% · Réf. FIT-002 · Stock: 23</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Sports collectifs</div><div class="prod-nom">Ballon Trigon Match Pro</div><div class="prod-prix">49 €</div><div class="prod-marge">Marge 45% · Réf. COL-003 · Stock: 31</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Outdoor</div><div class="prod-nom">Tente MSR Hubba Hubba 2P</div><div class="prod-prix">459 €</div><div class="prod-marge">Marge 28% · Réf. OUT-007 · Stock: 4</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Textile personnalisé</div><div class="prod-nom">Maillot KappaFlex sur-mesure</div><div class="prod-prix">35 €/u</div><div class="prod-marge">Marge 58% · Réf. TEX-001 · Min. 10 u.</div></div></div>
-        <div class="prod-card"><img class="prod-img" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&q=80" alt="" onerror="this.style.display='none'"/><div class="prod-info"><div class="prod-cat">Randonnée</div><div class="prod-nom">Salomon X Ultra 4 GTX</div><div class="prod-prix">175 €</div><div class="prod-marge">Marge 35% · Réf. RAN-015 · Stock: 11</div></div></div>
-        <div class="prod-card"><div class="prod-img" style="background:var(--vert-c);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--vert-f);font-weight:600">+371 références<br>dans le catalogue complet</div><div class="prod-info"><div class="prod-cat">Kit fitness</div><div class="prod-nom">Kettlebells 8-12-16 kg</div><div class="prod-prix">129 €</div><div class="prod-marge">Marge 41% · Réf. FIT-011 · Stock: 7</div></div></div>
-      </div>
+      <div id="cat-list"></div>
+      <div id="fiche-produit" class="fiche"></div>
     </div>
 
     <!-- CLIENTS -->
     <div id="panel-clients" class="panel">
-      <div class="card" style="margin-bottom:0;overflow-x:auto">
-      <table class="ct">
-        <thead><tr><th>Nom / Raison sociale</th><th>Type</th><th>Secteur</th><th>CA annuel</th><th>Dernier contact</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:600">AS Massy Athlétisme</td><td><span class="tb2b">B2B</span></td><td>Association sportive</td><td>8 400 €</td><td>14/03/2025</td></tr>
-          <tr><td style="font-weight:600">CE Thales Group Massy</td><td><span class="tb2b">B2B</span></td><td>Comité d'entreprise</td><td>19 500 €</td><td>28/02/2025</td></tr>
-          <tr><td style="font-weight:600">Mairie de Palaiseau</td><td><span class="tb2b">B2B</span></td><td>Collectivité</td><td>12 200 €</td><td>05/03/2025</td></tr>
-          <tr><td style="font-weight:600">Lycée Blaise Pascal Orsay</td><td><span class="tb2b">B2B</span></td><td>Établissement scolaire</td><td>4 100 €</td><td>20/02/2025</td></tr>
-          <tr><td style="font-weight:600">Club Trail Chevreuse</td><td><span class="tb2b">B2B</span></td><td>Association — prospect</td><td>—</td><td>En prospection</td></tr>
-          <tr><td style="font-weight:600">Comité dép. 91 Athlétisme</td><td><span class="tb2b">B2B</span></td><td>Fédération — prospect</td><td>—</td><td>En prospection</td></tr>
-          <tr><td>Mme Sophie Renard</td><td><span class="tb2c">B2C</span></td><td>Particulier</td><td>720 €</td><td>10/03/2025</td></tr>
-          <tr><td>M. Karim Bensalah</td><td><span class="tb2c">B2C</span></td><td>Particulier</td><td>1 340 €</td><td>02/03/2025</td></tr>
-          <tr><td>Mme Inès Konaté</td><td><span class="tb2c">B2C</span></td><td>Particulier</td><td>450 €</td><td>18/02/2025</td></tr>
-          <tr><td>M. Thomas Vidal</td><td><span class="tb2c">B2C</span></td><td>Particulier</td><td>2 100 €</td><td>22/02/2025</td></tr>
-        </tbody>
-      </table>
-      </div>
+      <button class="add-client-btn" onclick="addClient()">+ Ajouter un prospect</button>
+      <div id="client-list"></div>
+      <div id="fiche-client" class="fc"></div>
     </div>
 
     <!-- INDICATEURS -->
     <div id="panel-indicateurs" class="panel">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-        <div class="card" style="margin-bottom:0"><div class="card-title">CA mensuel</div><div style="font-size:24px;font-weight:800">24 180 €</div><div style="font-size:11px;color:var(--vert);margin-top:2px">+12% vs N-1</div></div>
-        <div class="card" style="margin-bottom:0"><div class="card-title">Panier moyen</div><div style="font-size:24px;font-weight:800">186 €</div><div style="font-size:11px;color:var(--gris-m)">B2B: 2 400€ · B2C: 145€</div></div>
-        <div class="card" style="margin-bottom:0"><div class="card-title">Taux transformation</div><div style="font-size:24px;font-weight:800">38%</div><div style="font-size:11px;color:var(--vert)">+5 pts vs M-1</div></div>
-        <div class="card" style="margin-bottom:0"><div class="card-title">Satisfaction client</div><div style="font-size:24px;font-weight:800">4,3/5</div><div style="font-size:11px;color:var(--gris-m)">142 avis collectés</div></div>
+        <div class="card" style="margin-bottom:0"><div class="ct">CA mensuel</div><div style="font-size:24px;font-weight:800">21 400 €</div><div style="font-size:11px;color:var(--vert);margin-top:2px">+9% vs N-1</div></div>
+        <div class="card" style="margin-bottom:0"><div class="ct">Panier moyen</div><div style="font-size:24px;font-weight:800">172 €</div><div style="font-size:11px;color:var(--gm)">B2B: 2 100€ · B2C: 130€</div></div>
+        <div class="card" style="margin-bottom:0"><div class="ct">Taux transformation</div><div style="font-size:24px;font-weight:800">34%</div><div style="font-size:11px;color:var(--vert)">+3 pts vs M-1</div></div>
+        <div class="card" style="margin-bottom:0"><div class="ct">Satisfaction client</div><div style="font-size:24px;font-weight:800">4,1/5</div><div style="font-size:11px;color:var(--gm)">118 avis</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="card"><div class="card-title">CA mensuel (k€)</div>
+        <div class="card"><div class="ct">CA mensuel (k€)</div>
           <div class="bar-chart">
-            <div class="bw"><div class="bv2">18</div><div class="bar" style="height:56%"></div><div class="bl">Oct</div></div>
-            <div class="bw"><div class="bv2">21</div><div class="bar" style="height:64%"></div><div class="bl">Nov</div></div>
-            <div class="bw"><div class="bv2">31</div><div class="bar" style="height:95%"></div><div class="bl">Déc</div></div>
-            <div class="bw"><div class="bv2">16</div><div class="bar" style="height:49%"></div><div class="bl">Jan</div></div>
-            <div class="bw"><div class="bv2">22</div><div class="bar" style="height:67%"></div><div class="bl">Fév</div></div>
-            <div class="bw"><div class="bv2">24</div><div class="bar" style="height:73%"></div><div class="bl">Mar</div></div>
+            <div class="bw"><div class="bv2">16</div><div class="bar" style="height:57%"></div><div class="bl">Oct</div></div>
+            <div class="bw"><div class="bv2">19</div><div class="bar" style="height:68%"></div><div class="bl">Nov</div></div>
+            <div class="bw"><div class="bv2">27</div><div class="bar" style="height:96%"></div><div class="bl">Déc</div></div>
+            <div class="bw"><div class="bv2">14</div><div class="bar" style="height:50%"></div><div class="bl">Jan</div></div>
+            <div class="bw"><div class="bv2">20</div><div class="bar" style="height:71%"></div><div class="bl">Fév</div></div>
+            <div class="bw"><div class="bv2">21</div><div class="bar" style="height:75%"></div><div class="bl">Mar</div></div>
           </div>
         </div>
-        <div class="card"><div class="card-title">Répartition CA par univers</div>
+        <div class="card"><div class="ct">Répartition CA</div>
           <div style="font-size:12px;line-height:2.2">
-            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gris-c)"><span>Running / Trail</span><strong>34%</strong></div>
-            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gris-c)"><span>Randonnée</span><strong>28%</strong></div>
-            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gris-c)"><span>Textile personnalisé</span><strong>18%</strong></div>
-            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gris-c)"><span>Fitness</span><strong>12%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gc)"><span>Running / Trail</span><strong>36%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gc)"><span>Randonnée</span><strong>26%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gc)"><span>Textile personnalisé</span><strong>19%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--gc)"><span>Fitness</span><strong>11%</strong></div>
             <div style="display:flex;justify-content:space-between"><span>Outdoor / Autres</span><strong>8%</strong></div>
           </div>
         </div>
@@ -535,10 +477,10 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
     <!-- VUE CLASSE -->
     <div id="panel-classe" class="panel">
       <div class="card" style="overflow-x:auto">
-        <div class="card-title">Progression de la classe</div>
+        <div class="ct">Progression de la classe</div>
         <table class="ctl">
-          <thead><tr><th>Élève</th><th>C1.1</th><th>C1.2</th><th>C1.3</th><th>C2.1</th><th>C2.2</th><th>C3.1</th><th>G4</th><th>Missions</th><th>Moy.</th></tr></thead>
-          <tbody id="classe-tbody"><tr><td colspan="10" style="padding:16px;color:var(--gris-m);font-size:12px">Aucun élève connecté pour le moment.</td></tr></tbody>
+          <thead><tr><th>Élève</th><th>Poste</th><th>C1.1</th><th>C1.2</th><th>C1.3</th><th>C2.1</th><th>C2.2</th><th>C3.1</th><th>G4</th><th>Missions</th><th>Moy.</th></tr></thead>
+          <tbody id="cl-tbody"><tr><td colspan="11" style="padding:16px;color:var(--gm);font-size:12px">Aucun élève connecté.</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -546,31 +488,21 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
     <!-- GÉNÉRATION -->
     <div id="panel-generation" class="panel">
       <div class="card">
-        <div class="card-title">Clé API Claude</div>
-        <div class="api-row">
-          <input type="password" id="api-inp" placeholder="sk-ant-api03-..."/>
-          <button class="btn-sm" onclick="saveKey()">Enregistrer</button>
-        </div>
-        <div style="font-size:11px;color:var(--gris-m)">Obtiens ta clé sur console.anthropic.com · Stockée localement, jamais transmise.</div>
+        <div class="ct">Clé API Claude</div>
+        <div class="api-row"><input type="password" id="api-inp" placeholder="sk-ant-api03-..."/><button class="btn-sm" onclick="saveKey()">Enregistrer</button></div>
+        <div style="font-size:11px;color:var(--gm)">Obtiens ta clé sur console.anthropic.com · Stockée localement uniquement.</div>
       </div>
       <div class="card">
-        <div class="card-title">Paramètres de la mission</div>
+        <div class="ct">Paramètres de la mission</div>
         <div class="gen-grid">
           <select id="g-opt"><option value="AGEC">Option AGEC</option><option value="PVOC">Option PVOC</option></select>
-          <select id="g-pal"><option value="1">Palier 1 — Découverte (2nde)</option><option value="2">Palier 2 — Approfondissement (1ère)</option><option value="3">Palier 3 — Expertise (Terminale)</option></select>
+          <select id="g-pal"><option value="1">Palier 1 — Découverte</option><option value="2">Palier 2 — Approfondissement</option><option value="3">Palier 3 — Expertise</option></select>
           <select id="g-comp">
-            <option value="C1.1">C1.1 — Veille commerciale</option>
-            <option value="C1.2">C1.2 — Vente omnicanal</option>
-            <option value="C1.3">C1.3 — Exécution de la vente</option>
-            <option value="C2.1">C2.1 — Suivi commande</option>
-            <option value="C2.2">C2.2 — Réclamations</option>
-            <option value="C2.3">C2.3 — Satisfaction client</option>
-            <option value="C3.1">C3.1 — Contact client</option>
-            <option value="C3.2">C3.2 — Fidélisation</option>
-            <option value="A4.1">A4.1 — Opérations préalables (AGEC)</option>
-            <option value="A4.2">A4.2 — Attractivité UC (AGEC)</option>
-            <option value="B4.3">B4.3 — Prospection terrain (PVOC)</option>
-            <option value="B4.4">B4.4 — Suivi prospection (PVOC)</option>
+            <option value="C1.1">C1.1 — Veille commerciale</option><option value="C1.2">C1.2 — Vente omnicanal</option><option value="C1.3">C1.3 — Exécution de la vente</option>
+            <option value="C2.1">C2.1 — Suivi commande</option><option value="C2.2">C2.2 — Réclamations</option><option value="C2.3">C2.3 — Satisfaction client</option>
+            <option value="C3.1">C3.1 — Contact client</option><option value="C3.2">C3.2 — Fidélisation</option>
+            <option value="A4.1">A4.1 — Opérations préalables (AGEC)</option><option value="A4.2">A4.2 — Attractivité UC (AGEC)</option><option value="A4.3">A4.3 — Développement clientèle (AGEC)</option>
+            <option value="B4.2">B4.2 — Conception prospection (PVOC)</option><option value="B4.3">B4.3 — Mise en œuvre prospection (PVOC)</option><option value="B4.4">B4.4 — Suivi prospection (PVOC)</option>
           </select>
           <select id="g-cli"><option value="B2C particulier">B2C — Particulier</option><option value="B2B club sportif">B2B — Club sportif</option><option value="B2B comité d'entreprise">B2B — CE</option><option value="B2B collectivité">B2B — Collectivité</option></select>
         </div>
@@ -582,9 +514,16 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
     <!-- MODAL MISSION -->
     <div id="mo" class="mo">
       <div class="modal">
-        <div class="mh2"><div><h2 id="mo-titre">—</h2><p id="mo-meta">KEPKA Sport & Outdoor</p></div><button class="mc" onclick="closeMo()">✕</button></div>
-        <div class="mb" id="mo-body"></div>
-        <div class="ma">
+        <div class="mo-h"><div><h2 id="mo-t">—</h2><p id="mo-m">LABORO Sport & Outdoor</p></div><button class="mo-cl" onclick="closeMo()">✕</button></div>
+        <div class="mo-tabs">
+          <div class="mo-tab on" onclick="moTab(0,this)">Apprendre d'abord</div>
+          <div class="mo-tab" onclick="moTab(1,this)">La mission</div>
+        </div>
+        <div class="mo-body">
+          <div class="mo-tp on" id="mo-learn"></div>
+          <div class="mo-tp" id="mo-mission"></div>
+        </div>
+        <div class="mo-act">
           <button class="btn-p" onclick="valider()">Marquer comme terminée</button>
           <button class="btn-s" onclick="closeMo()">Fermer</button>
         </div>
@@ -596,185 +535,354 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
 </div>
 
 <script>
+// ═══ DONNÉES ═══
+
 const COMP=[
-  {code:'C1.1',label:'Veille commerciale',g:'G1'},
-  {code:'C1.2',label:'Vente dans un cadre omnicanal',g:'G1'},
-  {code:'C1.3',label:'Exécution de la vente',g:'G1'},
-  {code:'C2.1',label:'Suivi de la commande',g:'G2'},
-  {code:'C2.2',label:'Réclamations client',g:'G2'},
-  {code:'C2.3',label:'Satisfaction client',g:'G2'},
-  {code:'C3.1',label:'Info & contact client',g:'G3'},
-  {code:'C3.2',label:'Actions de fidélisation',g:'G3'},
-  {code:'G4A',label:'Espace commercial (AGEC)',g:'G4A'},
-  {code:'G4B',label:'Prospection (PVOC)',g:'G4B'},
+  {code:'C1.1',label:'Veille commerciale',g:'G1'},{code:'C1.2',label:'Vente omnicanale',g:'G1'},{code:'C1.3',label:'Exécution de la vente',g:'G1'},
+  {code:'C2.1',label:'Suivi de la commande',g:'G2'},{code:'C2.2',label:'Réclamations client',g:'G2'},{code:'C2.3',label:'Satisfaction client',g:'G2'},
+  {code:'C3.1',label:'Info & contact client',g:'G3'},{code:'C3.2',label:'Actions de fidélisation',g:'G3'},
+  {code:'G4A',label:'Espace commercial (AGEC)',g:'G4A'},{code:'G4B',label:'Prospection (PVOC)',g:'G4B'},
 ];
+
+const PRODUITS=[
+  {id:'RUN-001',cat:'Running / Trail',nom:'Salomon Speedcross 6',ref:'RUN-001',pu_ht:89,pv_ht:149,tva:20,marge:40,stock:14,fournisseur:'Salomon France',
+   desc:'Chaussure trail polyvalente, semelle Contagrip®, tige Sensifit™, drop 11mm. Idéale pour débutants et confirmés sur terrains mixtes.',
+   arg:'Chaussure n°1 des traileurs débutants. Grip exceptionnel, maintien du pied parfait, confort immédiat. Convient aux terrains boueux et secs.',
+   img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80'},
+  {id:'RUN-002',cat:'Running / Trail',nom:'Nike React Pegasus Trail 4',ref:'RUN-002',pu_ht:75,pv_ht:129,tva:20,marge:42,stock:9,fournisseur:'Nike Distribution',
+   desc:'Chaussure trail légère, amorti React, semelle multi-directionnelle. Parfaite pour les sentiers et chemins compactés.',
+   arg:'La légèreté du running sur les sentiers. Amorti React pour une foulée naturelle. Polyvalente route/trail.',
+   img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80'},
+  {id:'RUN-003',cat:'Running / Trail',nom:'Montre GPS Garmin Forerunner 55',ref:'RUN-003',pu_ht:149,pv_ht:229,tva:20,marge:35,stock:6,fournisseur:'Garmin Europe',
+   desc:'Montre GPS entrée de gamme, suivi fréquence cardiaque, plans d\'entraînement intégrés, autonomie 20h. Parfaite pour débuter.',
+   arg:'Le GPS accessible. Toutes les fonctions essentielles pour progresser, interface simple, prix abordable.',
+   img:'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=500&q=80'},
+  {id:'RAN-001',cat:'Randonnée',nom:'Salomon X Ultra 4 GTX',ref:'RAN-001',pu_ht:105,pv_ht:175,tva:20,marge:40,stock:11,fournisseur:'Salomon France',
+   desc:'Chaussure randonnée Gore-Tex, semelle Contagrip, technologie SensiFit, drop 11mm. Imperméable et respirante.',
+   arg:'La référence randonnée. Imperméable Gore-Tex, stabilité totale, légèreté surprenante. S\'adapte à tous les terrains.',
+   img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&q=80'},
+  {id:'RAN-002',cat:'Randonnée',nom:'Sac à dos Osprey Talon 22L',ref:'RAN-002',pu_ht:79,pv_ht:139,tva:20,marge:43,stock:8,fournisseur:'Osprey Europe',
+   desc:'Sac trail/rando 22L, dos AirSpeed™, poche hydratation compatible, ceinture de hanche ergonomique. Poids : 680g.',
+   arg:'Le sac rando idéal pour une journée. Ventilation du dos révolutionnaire, accès rapide aux affaires, confort toute la journée.',
+   img:'https://images.unsplash.com/photo-1501554728187-ce583db33af7?w=500&q=80'},
+  {id:'FIT-001',cat:'Fitness',nom:'Tapis yoga Odlo Pro 6mm',ref:'FIT-001',pu_ht:29,pv_ht:59,tva:20,marge:51,stock:23,fournisseur:'Odlo International',
+   desc:'Tapis yoga antidérapant, matière TPE écologique, épaisseur 6mm, dimensions 183×61cm. Livré avec sangle de transport.',
+   arg:'Confort optimal, grip parfait, matière respectueuse de l\'environnement. Idéal yoga, pilates, stretching.',
+   img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80'},
+  {id:'FIT-002',cat:'Fitness',nom:'Kettlebell fonte 12 kg',ref:'FIT-002',pu_ht:22,pv_ht:45,tva:20,marge:51,stock:18,fournisseur:'ProSport Distribution',
+   desc:'Kettlebell fonte peinte, revêtement antirouille, poignée ergonomique, base plate. Disponible de 4 à 32 kg.',
+   arg:'Outil polyvalent pour musculation fonctionnelle. Développe force, cardio et coordination. Utilisable partout.',
+   img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80'},
+  {id:'COL-001',cat:'Sports collectifs',nom:'Ballon football Trigon Match Pro',ref:'COL-001',pu_ht:22,pv_ht:49,tva:20,marge:55,stock:31,fournisseur:'Trigon Sport',
+   desc:'Ballon football taille 5, couverture PU thermocollée, vessie butyle, homologué matchs. 32 panneaux.',
+   arg:'Le choix des clubs et des lycées. Résistant, bonne tenue en vol, prix compétitif pour les commandes en quantité.',
+   img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'},
+  {id:'COL-002',cat:'Sports collectifs',nom:'Filet badminton compétition',ref:'COL-002',pu_ht:39,pv_ht:79,tva:20,marge:51,stock:12,fournisseur:'Trigon Sport',
+   desc:'Filet badminton nylon renforcé, bande de tête PE blanche, piquets acier inclus. Montage rapide.',
+   arg:'Filet professionnel accessible. Installation en moins de 5 minutes, résistant aux intempéries, idéal clubs et lycées.',
+   img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'},
+  {id:'OUT-001',cat:'Outdoor & Camping',nom:'Tente Quechua 2 Secondes 3P',ref:'OUT-001',pu_ht:89,pv_ht:169,tva:20,marge:47,stock:7,fournisseur:'Decathlon Pro',
+   desc:'Tente 3 places autoportante, montage 2 secondes, double toit, surface intérieure 4,8m². Poids : 3,9kg.',
+   arg:'La tente à monter en 2 secondes. Parfaite pour les sorties nature, centres de loisirs et camps sportifs.',
+   img:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80'},
+  {id:'TEX-001',cat:'Textile personnalisé',nom:'Maillot floqué KappaFlex',ref:'TEX-001',pu_ht:13,pv_ht:28,tva:20,marge:54,stock:0,fournisseur:'KappaFlex Textile',
+   desc:'Maillot polyester 100%, séchage rapide, technologie DryFit. Flocage ou broderie inclus. Minimum 10 unités. Délai : 3 semaines.',
+   arg:'La solution clubs et CE. Personnalisation totale (couleurs, logo, numéros), prix dégressif dès 10 unités, qualité professionnelle.',
+   img:'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80'},
+  {id:'TEX-002',cat:'Textile personnalisé',nom:'Veste softshell personnalisable',ref:'TEX-002',pu_ht:28,pv_ht:59,tva:20,marge:53,stock:0,fournisseur:'KappaFlex Textile',
+   desc:'Veste softshell 3 couches, coupe-vent déperlant, broderie ou sérigraphie. Minimum 5 unités. Délai : 4 semaines.',
+   arg:'L\'uniforme des équipes et des entreprises. Coupe premium, personnalisation soignée, idéale comités d\'entreprise.',
+   img:'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80'},
+];
+
+const CLIENTS_BASE=[
+  {id:'C001',type:'B2B',nom:'AS Évry Athlétisme',initiales:'AE',couleur:'#185FA5',secteur:'Association sportive',contact:'Jean-Paul Moretti',tel:'01 69 XX XX XX',email:'jp.moretti@as-evry-athle.fr',ca:9200,dernier:'14/03/2025',historique:['Mar 2025 : Commande 20 maillots flocage — 560 €','Jan 2025 : Chaussures trail × 8 — 1 192 €'],notes:'',statut:'Client'},
+  {id:'C002',type:'B2B',nom:'CE PSA Groupe Stellantis Évry',initiales:'CE',couleur:'#BA7517',secteur:'Comité d\'entreprise',contact:'Isabelle Faure',tel:'01 60 XX XX XX',email:'i.faure@ce-psa-evry.fr',ca:22400,dernier:'28/02/2025',historique:['Fév 2025 : Lots fitness pour challenge bien-être — 3 400 €','Nov 2024 : Vestes softshell × 30 — 1 770 €'],notes:'',statut:'Client'},
+  {id:'C003',type:'B2B',nom:'Mairie d\'Évry-Courcouronnes',initiales:'ME',couleur:'#534AB7',secteur:'Collectivité',contact:'David Chemin',tel:'01 69 XX XX XX',email:'d.chemin@mairie-evry.fr',ca:14800,dernier:'05/03/2025',historique:['Mar 2025 : Matériel sports collectifs lycées — 2 200 €','Déc 2024 : Commande fin d\'année — 4 800 €'],notes:'',statut:'Client'},
+  {id:'C004',type:'B2B',nom:'Lycée Jacques Prévert Évry',initiales:'LP',couleur:'#0F6E56',secteur:'Établissement scolaire',contact:'Mme Roussel (gestionnaire)',tel:'01 69 XX XX XX',email:'gestion@lyc-prevert-evry.fr',ca:5600,dernier:'20/02/2025',historique:['Fév 2025 : Matériel EPS — ballons, filets — 890 €'],notes:'',statut:'Client'},
+  {id:'C005',type:'B2B',nom:'Club Trail Forêt de Sénart',initiales:'CT',couleur:'#A32D2D',secteur:'Association sportive',contact:'Marc Girault',tel:'06 XX XX XX XX',email:'m.girault@trail-senart.fr',ca:0,dernier:'En prospection',historique:['Contact pris au Salon du Trail Paris — mars 2025'],notes:'',statut:'Prospect'},
+  {id:'C006',type:'B2C',nom:'M. Thomas Vidal',initiales:'TV',couleur:'#1D9E75',secteur:'Particulier',contact:'Thomas Vidal',tel:'06 XX XX XX XX',email:'t.vidal@gmail.com',ca:2100,dernier:'22/02/2025',historique:['Fév 2025 : Salomon Speedcross 6 + Garmin 55 — 378 €','Oct 2024 : Tapis yoga + kettlebell — 104 €'],notes:'',statut:'Client'},
+  {id:'C007',type:'B2C',nom:'Mme Sophie Renard',initiales:'SR',couleur:'#993C1D',secteur:'Particulier',contact:'Sophie Renard',tel:'06 XX XX XX XX',email:'s.renard@yahoo.fr',ca:720,dernier:'10/03/2025',historique:['Mars 2025 : Tapis yoga Odlo endommagé → réclamation en cours'],notes:'Client mécontente — à rappeler en priorité',statut:'Client'},
+  {id:'C008',type:'B2B',nom:'Comité dép. 91 Handball',initiales:'CD',couleur:'#D85A30',secteur:'Fédération sportive',contact:'Pierre Lambert',tel:'01 60 XX XX XX',email:'p.lambert@handball91.fr',ca:0,dernier:'En prospection',historique:['Identifié lors du forum sport Essonne — jan 2025'],notes:'',statut:'Prospect'},
+  {id:'C009',type:'B2C',nom:'M. Karim Bensalah',initiales:'KB',couleur:'#5F5E5A',secteur:'Particulier',contact:'Karim Bensalah',tel:'06 XX XX XX XX',email:'k.bensalah@hotmail.fr',ca:1340,dernier:'02/03/2025',historique:['Mars 2025 : Salomon X Ultra 4 + sac Osprey — 314 €'],notes:'',statut:'Client'},
+  {id:'C010',type:'B2B',nom:'Centre de loisirs Vert-Bois',initiales:'VB',couleur:'#185FA5',secteur:'Centre de loisirs',contact:'Aurélie Petit',tel:'01 60 XX XX XX',email:'a.petit@cl-vertbois.fr',ca:3200,dernier:'15/01/2025',historique:['Jan 2025 : Tentes × 4 + matériel camping — 1 200 €'],notes:'',statut:'Client'},
+];
+
+const RESSOURCES={
+  'C1.2':{titre:'La découverte des besoins et la vente en point de vente',contenu:`
+<p><strong>Pourquoi découvrir les besoins ?</strong><br>
+Un client qui entre dans un magasin a rarement une idée précise de ce qu'il veut. Ton rôle est de l'aider à clarifier ses besoins avant de proposer une solution adaptée.</p>
+<p><strong>Les étapes d'une vente réussie :</strong></p>
+<ul>
+<li><strong>1. Accueil</strong> — Sourire, regard, phrase d'accroche non intrusive ("Je suis à votre disposition si vous avez des questions")</li>
+<li><strong>2. Découverte des besoins</strong> — Questions ouvertes : Qui ? Pour quoi ? Depuis quand ? Quel budget ?</li>
+<li><strong>3. Reformulation</strong> — "Si je comprends bien, vous cherchez…"</li>
+<li><strong>4. Argumentation</strong> — Méthode CAB : Caractéristique → Avantage → Bénéfice client</li>
+<li><strong>5. Traitement des objections</strong> — Écouter, comprendre, répondre avec empathie</li>
+<li><strong>6. Conclusion</strong> — Proposer de finaliser, vente additionnelle, prise de congé</li>
+</ul>
+<div class="res-exemple"><div class="res-ex-label">Exemple LABORO</div>
+Client : "Je cherche des chaussures pour faire du trail mais je débute."<br>
+Vendeur : "C'est super ! Pour bien vous conseiller : vous courrez plutôt en forêt ou en montagne ? Et quel est votre budget approximatif ?"<br>
+→ Ces deux questions permettent d'orienter vers les Salomon Speedcross 6 (terrain mixte, excellent rapport qualité/prix).
+</div>`,},
+  'C1.1':{titre:'La veille commerciale : surveiller son marché',contenu:`
+<p><strong>Qu'est-ce que la veille commerciale ?</strong><br>
+C'est le fait de surveiller régulièrement ce qui se passe dans ton secteur : les concurrents, les nouveaux produits, les tendances clients, les prix du marché.</p>
+<p><strong>À quoi ça sert ?</strong></p>
+<ul>
+<li>Connaître les forces et faiblesses de la concurrence</li>
+<li>Adapter l'offre LABORO aux attentes du marché</li>
+<li>Détecter des opportunités (nouveau produit, segment inexploité)</li>
+<li>Informer la hiérarchie pour prendre de meilleures décisions</li>
+</ul>
+<p><strong>Les sources d'information :</strong></p>
+<ul>
+<li>Sites concurrents et réseaux sociaux</li>
+<li>Salons professionnels (Salon du Running, ISPO…)</li>
+<li>Presse spécialisée (Sport Stratégies, LSA…)</li>
+<li>Avis clients en ligne (Google, Trustpilot)</li>
+</ul>
+<div class="res-exemple"><div class="res-ex-label">Format d'une note de veille</div>
+Date · À : Responsable · De : [Ton nom]<br>Objet : Veille concurrentielle — segment running Essonne<br>
+1. Principaux concurrents observés<br>2. Points forts / points faibles vs LABORO<br>3. Opportunités identifiées<br>4. Recommandations
+</div>`,},
+  'C2.2':{titre:'Gérer une réclamation client avec professionnalisme',contenu:`
+<p><strong>Pourquoi les réclamations sont une chance ?</strong><br>
+Un client qui réclame est un client qui vous fait confiance. Traité correctement, il peut devenir plus fidèle qu'un client sans problème.</p>
+<p><strong>Les étapes LABORO pour traiter une réclamation :</strong></p>
+<ul>
+<li><strong>1. Écouter</strong> sans interrompre, laisser le client exprimer sa frustration</li>
+<li><strong>2. Reformuler</strong> — "Je comprends que vous êtes déçu car…"</li>
+<li><strong>3. S'excuser</strong> au nom de LABORO, même si ce n'est pas votre faute personnelle</li>
+<li><strong>4. Proposer une solution</strong> dans le cadre des procédures : échange, remboursement, bon d'achat</li>
+<li><strong>5. Valider et remonter</strong> l'information à la hiérarchie</li>
+</ul>
+<p><strong>Les droits du consommateur à connaître :</strong></p>
+<ul>
+<li>Droit de rétractation : 14 jours pour un achat en ligne (pas en magasin)</li>
+<li>Garantie légale de conformité : 2 ans sur tout produit neuf</li>
+<li>Garantie commerciale LABORO : échange sous 30 jours si défaut constaté</li>
+</ul>`,},
+  'G4A':{titre:'Le merchandising : mettre les produits en valeur',contenu:`
+<p><strong>Qu'est-ce que le merchandising ?</strong><br>
+C'est l'ensemble des techniques qui permettent de présenter les produits de manière à optimiser les ventes et l'expérience client en magasin.</p>
+<p><strong>Les règles essentielles :</strong></p>
+<ul>
+<li><strong>Zones chaudes</strong> : près de l'entrée, à hauteur des yeux → produits phares et nouveautés</li>
+<li><strong>Zones froides</strong> : fond du magasin, en bas des rayons → produits d'achat réfléchi</li>
+<li><strong>Niveaux de présentation</strong> : yeux (1,2m–1,6m) = meilleure visibilité, mains (0,8m–1,2m), sol (< 0,8m)</li>
+<li><strong>Facing</strong> : nombre de produits visibles de face. Plus de facings = plus de visibilité</li>
+</ul>
+<p><strong>Les facteurs d'ambiance :</strong></p>
+<ul>
+<li>Musique (tempo adapté à l'image de marque)</li>
+<li>Éclairage (mettre en valeur les produits)</li>
+<li>Olfactif (senteur discrète)</li>
+<li>PLV et ILV (communication au point de vente)</li>
+</ul>`,},
+  'G4B':{titre:'La prospection : trouver de nouveaux clients',contenu:`
+<p><strong>Qu'est-ce que la prospection ?</strong><br>
+C'est l'ensemble des actions pour identifier et contacter des clients potentiels (prospects) afin de leur vendre les produits LABORO.</p>
+<p><strong>Les techniques de prospection :</strong></p>
+<ul>
+<li><strong>Téléphone</strong> — Rapide, économique, permet de qualifier rapidement</li>
+<li><strong>E-mail</strong> — Professionnel, avec un plan d'appel structuré comme suivi</li>
+<li><strong>Visite terrain</strong> — Plus engageant, idéal pour les gros comptes</li>
+<li><strong>Salons / événements</strong> — Rencontres qualifiées en contexte favorable</li>
+<li><strong>Réseaux sociaux</strong> (LinkedIn) — Pour les cibles professionnelles</li>
+</ul>
+<p><strong>Structure d'un plan d'appel téléphonique :</strong></p>
+<ul>
+<li>1. Présentation (nom, entreprise)</li>
+<li>2. Accroche (raison de l'appel)</li>
+<li>3. Découverte des besoins (2-3 questions)</li>
+<li>4. Proposition / prise de RDV</li>
+<li>5. Conclusion</li>
+</ul>`,},
+};
 
 const MISSIONS=[
-  {id:'M001',titre:'Accueillir un client et identifier ses besoins',comp:'C1.2',palier:1,option:'AGEC',
-   contexte:"Ce matin, Romain Sauzet vous demande de prendre en charge un client entré dans le showroom de Massy. M. Vidal, 42 ans, cherche des chaussures pour débuter le trail. Il n'a aucun équipement.",
+  {id:'M001',titre:'Accueillir un client et découvrir ses besoins',comp:'C1.2',palier:1,option:'AGEC',
+   contexte:"M. Vidal, 42 ans, entre dans le showroom LABORO d'Évry. Il cherche des chaussures pour débuter le trail. Il n'a aucun équipement. Romain Sauzet vous demande de le prendre en charge.",
    activites:[
-     {titre:'Préparer et réaliser l\'accueil',questions:['1.1  Identifier les 3 étapes clés d\'un accueil client réussi en point de vente.','1.2  Lister 5 questions à poser à M. Vidal pour découvrir ses besoins (niveau, fréquence, terrain, budget).']},
-     {titre:'Argumenter et conclure la vente',questions:['2.1  Construire un argumentaire CAB pour les Salomon Speedcross 6 (149 €).','2.2  M. Vidal dit "c\'est un peu cher pour débuter". Rédiger la réponse à cette objection.','2.3  Proposer un produit complémentaire adapté et justifier le choix.']}
-   ],restitution:'Synthèse orale de 2 minutes : présente la vente réalisée et le produit choisi.'},
-  {id:'M002',titre:'Réaliser la veille concurrentielle',comp:'C1.1',palier:1,option:'AGEC',
-   contexte:"Nina Chevalier vous demande de préparer une note de veille sur la concurrence de KEPKA dans le segment running en Île-de-France.",
+     {titre:"Réaliser l'accueil et la découverte des besoins",questions:['1.1  Rédiger les 3 questions ouvertes à poser à M. Vidal pour identifier précisément ses besoins.','1.2  À partir de ses réponses (terrain mixte forêt, 1 fois/semaine, budget ~150€), quelle chaussure du catalogue LABORO lui conseilles-tu ? Justifie avec la méthode CAB.']},
+     {titre:"Argumenter et conclure la vente",questions:['2.1  M. Vidal dit : "C\'est un peu cher pour débuter." Rédige ta réponse à cette objection.','2.2  Quelle vente additionnelle lui proposes-tu ? Justifie ta proposition.','2.3  Comment prends-tu congé de façon professionnelle en l\'invitant à revenir ?']}
+   ],restitution:"Jeu de rôle 2 min : un élève joue M. Vidal, l'autre le conseiller LABORO."},
+  {id:'M002',titre:'Réaliser la veille concurrentielle LABORO',comp:'C1.1',palier:1,option:'AGEC',
+   contexte:"Nina Chevalier vous demande de préparer une note de veille sur la concurrence de LABORO sur le segment running dans l'Essonne (91).",
    activites:[
-     {titre:'Analyser le marché',questions:['1.1  Identifier 2 concurrents directs de KEPKA sur le running en Île-de-France et les caractériser.','1.2  Comparer les gammes de prix sur les chaussures de trail (entrée/milieu/haut de gamme).']},
-     {titre:'Rédiger la note de veille',questions:['2.1  Rédiger une note de veille structurée (10 lignes) destinée à Romain Sauzet.','2.2  Proposer 2 actions concrètes que KEPKA pourrait mettre en place pour se différencier.']}
-   ],restitution:'Présentation orale de la note à la classe (3 minutes).'},
-  {id:'M003',titre:'Traiter une réclamation client B2C',comp:'C2.2',palier:1,option:'AGEC',
-   contexte:"Mme Renard se présente au showroom : elle a reçu un tapis de yoga endommagé commandé sur kepka-sport.fr il y a 5 jours. Elle est mécontente et parle d'un remboursement.",
+     {titre:"Analyser la concurrence",questions:['1.1  Identifier 2 concurrents directs de LABORO sur le running en Essonne et les caractériser (nom, positionnement, gamme de prix).','1.2  Repérer 2 avantages et 2 inconvénients de LABORO par rapport à ces concurrents.']},
+     {titre:"Rédiger la note de veille",questions:['2.1  Rédiger une note de veille structurée (10 à 15 lignes) destinée à Romain Sauzet.','2.2  Proposer 2 actions concrètes que LABORO pourrait mettre en place suite à cette analyse.']}
+   ],restitution:"Présentation orale de la note (3 min) — questions du groupe."},
+  {id:'M003',titre:'Traiter la réclamation de Mme Renard',comp:'C2.2',palier:1,option:'AGEC',
+   contexte:"Mme Renard se présente au showroom : elle a commandé un tapis de yoga sur le site e-commerce LABORO il y a 7 jours. Elle l'a reçu endommagé. Elle est mécontente et réclame un remboursement.",
    activites:[
-     {titre:'Identifier le problème',questions:['1.1  Quelles questions poser à Mme Renard pour identifier précisément le problème ?','1.2  Quels sont les droits du consommateur dans cette situation (droit à la rétractation, garantie légale) ?']},
-     {titre:'Proposer une solution',questions:['2.1  Proposer 2 solutions adaptées à Mme Renard en expliquant les avantages de chacune.','2.2  Rédiger le mail de réponse officielle de KEPKA à Mme Renard.','2.3  Comment transformer cette situation négative en opportunité de fidélisation ?']}
-   ],restitution:"Jeu de rôle : un élève joue Mme Renard, l'autre le conseiller KEPKA."},
-  {id:'M004',titre:'Qualifier un prospect B2B — Club Trail Chevreuse',comp:'C1.2',palier:2,option:'PVOC',
-   contexte:"Nina Chevalier vous demande de qualifier le Club Trail Chevreuse (120 membres), prospect identifié lors du Salon du Trail de Paris. Vous devez organiser et réaliser la prise de contact.",
+     {titre:"Identifier le problème et les droits du client",questions:['1.1  Quelles questions poser à Mme Renard pour comprendre précisément le problème ?','1.2  Quels sont ses droits dans cette situation (droit de rétractation, garantie légale de conformité) ?']},
+     {titre:"Proposer une solution et fidéliser",questions:['2.1  Proposer 2 solutions concrètes à Mme Renard en expliquant les avantages de chacune.','2.2  Rédiger le mail de réponse officielle de LABORO à Mme Renard.','2.3  Comment transformer cette expérience négative en opportunité de fidélisation ?']}
+   ],restitution:"Jeu de rôle : un élève joue Mme Renard (mécontente), l'autre le conseiller LABORO."},
+  {id:'M004',titre:'Qualifier le Club Trail Forêt de Sénart',comp:'C1.2',palier:2,option:'PVOC',
+   contexte:"Nina Chevalier vous demande de qualifier le Club Trail Forêt de Sénart, prospect identifié lors d'un salon. Le club compte 85 membres. Vous devez organiser et réaliser la prise de contact téléphonique.",
    activites:[
-     {titre:'Préparer la prospection',questions:['1.1  Rédiger un plan d\'appel téléphonique complet (accroche, découverte, argumentation, conclusion).','1.2  Sélectionner 3 produits KEPKA adaptés à un club de trail et justifier chaque choix.']},
-     {titre:'Construire la proposition commerciale',questions:['2.1  Établir un devis pour 15 paires de Salomon Speedcross 6 avec la remise KEPKA applicable (8% à partir de 10 unités).','2.2  Calculer le montant total HT et TTC (TVA 20%).','2.3  Rédiger le mail d\'accompagnement du devis.']}
-   ],restitution:'Défense du devis devant la classe — réponse aux objections.'},
-  {id:'M005',titre:'Implanter et animer le rayon running',comp:'G4A',palier:2,option:'AGEC',
-   contexte:"Romain Sauzet vous confie la réorganisation du rayon running avant l'opération commerciale \"Printemps du Trail\" qui débute dans 5 jours.",
+     {titre:"Préparer la prospection",questions:['1.1  Rédiger un plan d\'appel téléphonique complet destiné à Marc Girault (président du club).','1.2  Sélectionner 3 produits LABORO adaptés à un club de trail et justifier chaque choix.']},
+     {titre:"Construire la proposition commerciale",questions:['2.1  Marc Girault est intéressé. Établir un devis pour 12 paires de Salomon Speedcross 6.','2.2  LABORO accorde 8% de remise à partir de 10 unités. Calculer le prix HT, remise, total HT et TTC.','2.3  Rédiger le mail d\'accompagnement du devis avec une accroche professionnelle.']}
+   ],restitution:"Défense du devis devant la classe — réponse aux objections du 'client'."},
+  {id:'M005',titre:'Implanter et animer le rayon running pour le Printemps du Trail',comp:'G4A',palier:2,option:'AGEC',
+   contexte:"Romain Sauzet vous confie la réorganisation du rayon running avant l'opération \"Printemps du Trail\" qui débute dans 5 jours. L'objectif est d'augmenter de 20% les ventes de chaussures trail.",
    activites:[
-     {titre:'Concevoir l\'implantation',questions:['1.1  Rappeler les principes de merchandising à appliquer pour valoriser les chaussures trail (niveaux, zones).','1.2  Proposer un plan d\'implantation justifié pour 8 références phares.']},
-     {titre:'Préparer la communication',questions:['2.1  Rédiger l\'affiche PLV de l\'opération "Printemps du Trail".','2.2  Proposer 3 facteurs d\'ambiance adaptés à l\'événement (musique, décor, olfactif…).','2.3  Calculer le linéaire développé nécessaire si chaque référence est présentée sur 2 facings de 30 cm.']}
-   ],restitution:"Présentation du plan d'implantation au responsable — schéma + argumentation."},
-  {id:'M006',titre:'Analyser la satisfaction client et proposer des axes d\'amélioration',comp:'C2.3',palier:2,option:'AGEC',
-   contexte:"Marco Pellini vous remet les résultats de l'enquête satisfaction trimestrielle (142 réponses). Il attend une analyse et des recommandations opérationnelles.",
+     {titre:"Concevoir l'implantation",questions:['1.1  Rappeler les principes de merchandising à appliquer (niveaux, zones, facing).','1.2  Proposer un plan d\'implantation pour les 4 références chaussures du catalogue LABORO en justifiant chaque choix.']},
+     {titre:"Préparer la communication et mesurer",questions:['2.1  Rédiger l\'affiche PLV de l\'opération "Printemps du Trail".','2.2  Proposer 3 facteurs d\'ambiance adaptés à l\'événement en justifiant chaque choix.','2.3  Comment évaluer le succès de cette opération ? Proposer 2 indicateurs pertinents.']}
+   ],restitution:"Présentation du plan d'implantation au responsable — schéma dessiné + argumentation orale."},
+  {id:'M006',titre:'Piloter un plan de prospection B2B sur l\'Essonne',comp:'G4B',palier:3,option:'PVOC',
+   contexte:"Nina Chevalier vous confie le développement du portefeuille B2B sur l'Essonne. Objectif : 3 nouveaux clients professionnels signés en 2 mois. Budget prospection : 500 €.",
    activites:[
-     {titre:'Analyser les données',questions:['1.1  Calculer le taux de satisfaction globale (notes ≥ 4/5 sur 142 réponses : 98 clients satisfaits).','1.2  Identifier les 2 points forts et les 2 points faibles qui ressortent de l\'enquête.']},
-     {titre:'Rédiger les recommandations',questions:['2.1  Proposer 3 actions correctives concrètes et réalistes pour améliorer les points faibles.','2.2  Rédiger une note de synthèse d\'une page destinée à Léa Fontaine (DG).','2.3  Quel indicateur complémentaire recommandez-vous de suivre ? Justifiez.']}
-   ],restitution:'Note de synthèse écrite remise à l\'enseignant.'},
-  {id:'M007',titre:'Piloter un plan de prospection B2B sur le Val-d\'Oise',comp:'G4B',palier:3,option:'PVOC',
-   contexte:"Nina Chevalier vous confie le développement du portefeuille B2B sur le secteur de Cergy. Objectif : 3 nouveaux clients professionnels signés en 2 mois.",
-   activites:[
-     {titre:'Concevoir le plan de prospection',questions:['1.1  Segmenter et hiérarchiser les cibles potentielles (clubs, CE, collectivités) selon leur potentiel commercial.','1.2  Choisir et justifier les techniques de prospection adaptées à chaque type de cible.','1.3  Établir un planning de prospection sur 8 semaines avec objectifs quantitatifs et qualitatifs.']},
-     {titre:'Évaluer et ajuster le plan',questions:['2.1  Définir 4 indicateurs de performance pour piloter l\'opération.','2.2  Bilan à 4 semaines : 2 RDV obtenus sur 18 appels. Calculer le taux de transformation et analyser l\'écart par rapport à l\'objectif (15%).','2.3  Proposer 3 actions correctives argumentées.','2.4  Rédiger le compte rendu hebdomadaire destiné à Nina Chevalier.']}
-   ],restitution:"Présentation orale du bilan d'étape (10 min) avec réponses aux questions du groupe."},
+     {titre:"Concevoir le plan de prospection",questions:['1.1  Segmenter les cibles potentielles (clubs, CE, lycées, collectivités) et les hiérarchiser selon leur potentiel CA.','1.2  Choisir 2 techniques de prospection adaptées à chaque cible et justifier.','1.3  Établir un planning de prospection sur 8 semaines avec objectifs quantitatifs (appels, RDV, devis, ventes).']},
+     {titre:"Évaluer et corriger",questions:['2.1  Définir 4 indicateurs pour piloter l\'opération (avec formule de calcul).','2.2  Bilan S4 : 3 RDV obtenus sur 22 appels. Calculer le taux de transformation et analyser l\'écart vs objectif (20%).','2.3  Proposer 3 actions correctives concrètes et argumentées.','2.4  Rédiger le compte rendu hebdomadaire destiné à Nina Chevalier.']}
+   ],restitution:"Présentation orale du bilan (10 min) + questions du groupe jouant le rôle de Nina Chevalier."},
 ];
 
-let CU=null, CM=null, obStep=0;
+// ═══ ÉTAT ═══
+let CU=null,CM=null,obStep=0,clientsData=[...CLIENTS_BASE];
 
-const getS=()=>{try{return JSON.parse(localStorage.getItem('kepka_s')||'{}')}catch{return{}}};
-const saveS=s=>localStorage.setItem('kepka_s',JSON.stringify(s));
-const getUD=()=>{const s=getS();if(!s[CU.nom])s[CU.nom]={missions:{},competences:{}};return s[CU.nom]};
-const saveUD=d=>{const s=getS();s[CU.nom]=d;saveS(s)};
-const allUsers=()=>{const s=getS();return Object.keys(s).filter(k=>k!=='ak').map(n=>({nom:n,...s[n]}))};
+const gS=()=>{try{return JSON.parse(localStorage.getItem('laboro_s')||'{}')}catch{return{}}};
+const sS=s=>localStorage.setItem('laboro_s',JSON.stringify(s));
+const gUD=()=>{const s=gS();if(!s[CU.nom])s[CU.nom]={missions:{},competences:{},notes:{}};return s[CU.nom]};
+const sUD=d=>{const s=gS();s[CU.nom]=d;sS(s)};
+const allU=()=>{const s=gS();return Object.keys(s).filter(k=>k!=='ak').map(n=>({nom:n,...s[n]}))};
+
+// ═══ LOGIN ═══
+function updatePoste(){
+  const cls=document.getElementById('inp-classe').value;
+  const sel=document.getElementById('inp-poste');
+  const hint=document.getElementById('poste-hint');
+  const fg=document.getElementById('fg-poste');
+  if(cls==='enseignant'){fg.style.display='none';return}
+  fg.style.display='';
+  if(cls==='2nde'){
+    sel.innerHTML='<option value="Découverte (2nde)">Découverte du métier — 2nde</option>';
+    hint.style.display='block';
+    hint.textContent='En 2nde, tu découvres l\'entreprise et ses deux métiers. Ton poste sera précisé à la rentrée suivante.';
+  } else if(cls.includes('AGEC')){
+    sel.innerHTML='<option value="Conseiller de vente — Showroom & E-commerce">Conseiller de vente (Showroom & E-commerce)</option>';
+    hint.style.display='block';hint.textContent='En filière AGEC, tu travailles au showroom d\'Évry et sur le site e-commerce LABORO.';
+  } else if(cls.includes('PVOC')){
+    sel.innerHTML='<option value="Commercial terrain — Prospection & Vente B2B">Commercial terrain (Prospection & Vente B2B)</option>';
+    hint.style.display='block';hint.textContent='En filière PVOC, tu prospectes et développes le portefeuille clients professionnels de LABORO.';
+  } else {
+    sel.innerHTML='<option value="">— Choisir —</option><option value="Conseiller de vente — Showroom & E-commerce">Conseiller de vente</option><option value="Commercial terrain — Prospection & Vente B2B">Commercial terrain</option>';
+    hint.style.display='none';
+  }
+}
 
 function doLogin(){
   const nom=document.getElementById('inp-nom').value.trim();
   const cls=document.getElementById('inp-classe').value;
-  const poste=document.getElementById('inp-poste').value;
-  if(!nom||!cls||!poste){alert('Merci de renseigner tous les champs.');return}
+  const poste=cls==='enseignant'?'PDG — Accès enseignant':document.getElementById('inp-poste').value;
+  if(!nom||!cls){alert('Merci de renseigner tous les champs.');return}
   CU={nom,classe:cls,poste};
-  localStorage.setItem('kepka_u',JSON.stringify(CU));
-  const s=getS();
+  localStorage.setItem('laboro_u',JSON.stringify(CU));
+  const s=gS();
   const isNew=!s[nom];
-  document.getElementById('login').classList.remove('active');
-  if(isNew&&cls!=='enseignant'){startOnboarding()}else{showApp()}
+  document.getElementById('login').classList.remove('on');
+  if(isNew&&cls!=='enseignant'){startOb()}else{showApp()}
 }
 
-function startOnboarding(){
-  document.getElementById('onboarding').classList.add('active');
-  document.getElementById('ob-prenom-lettre').textContent=CU.nom.split(' ')[0];
+function startOb(){
+  document.getElementById('onboarding').classList.add('on');
+  document.getElementById('ob-prenom').textContent=CU.nom.split(' ')[0];
   obStep=0;updateOb();
 }
 
 function obNext(){
   obStep++;
-  if(obStep>=4){skipOnboarding();return}
+  if(obStep>=4){skipOb();return}
   updateOb();
 }
 
 function updateOb(){
-  document.querySelectorAll('.ob-panel').forEach((p,i)=>{p.classList.toggle('active',i===obStep)});
-  document.querySelectorAll('.ob-step').forEach((s,i)=>{s.className='ob-step'+(i<obStep?' done':i===obStep?' active':'')});
-  document.getElementById('ob-next-btn').textContent=obStep===3?'Commencer mes missions →':'Continuer →';
+  document.querySelectorAll('.obp').forEach((p,i)=>p.classList.toggle('on',i===obStep));
+  document.querySelectorAll('.obs').forEach((s,i)=>{s.className='obs'+(i<obStep?' done':i===obStep?' cur':'')});
+  document.getElementById('ob-next').textContent=obStep===3?'Commencer mes missions →':'Continuer →';
   document.getElementById('ob-skip').style.display=obStep===3?'none':'';
 }
 
-function skipOnboarding(){
-  document.getElementById('onboarding').classList.remove('active');
+function skipOb(){
+  document.getElementById('onboarding').classList.remove('on');
   showApp();
 }
 
 function showApp(){
-  document.getElementById('app').classList.add('active');
+  document.getElementById('app').classList.add('on');
   const init=CU.nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  document.getElementById('av-init').textContent=init;
-  document.getElementById('sb-nom').textContent=CU.nom;
-  document.getElementById('sb-role').textContent=CU.poste.split('·')[0].trim();
-  document.getElementById('tb-classe').textContent=CU.classe;
-  document.getElementById('tb-date').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('av-i').textContent=init;
+  document.getElementById('sb-n').textContent=CU.nom;
+  document.getElementById('sb-r').textContent=CU.poste.split('—')[0].trim();
+  document.getElementById('tb-c').textContent=CU.classe;
+  document.getElementById('tb-d').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
   const ens=CU.classe==='enseignant';
-  ['nav-s-ens','nav-classe','nav-gen'].forEach(id=>document.getElementById(id).style.display=ens?'':'none');
-  const ak=localStorage.getItem('kepka_ak')||'';
+  ['ns-ens','ni-cl','ni-gn'].forEach(id=>document.getElementById(id).style.display=ens?'':'none');
+  const ak=localStorage.getItem('laboro_ak')||'';
   document.getElementById('api-inp').value=ak;
-  // Messages responsable selon option
-  if(CU.classe.includes('PVOC')){
-    document.getElementById('msg-from').textContent='Nina Chevalier — Resp. Vente';
-    document.getElementById('msg-txt').textContent='Bienvenue dans l\'équipe commerciale ! Ta première mission de prospection t\'attend. N\'hésite pas à consulter le fichier clients avant de commencer.';
+  if(CU.poste.includes('Commercial')||CU.poste.includes('PVOC')){
+    document.getElementById('msg-f').textContent='Nina Chevalier — Resp. Vente';
+    document.getElementById('msg-t').textContent='Bienvenue dans l\'équipe commerciale ! Ta première mission de prospection t\'attend. Consulte bien le fichier clients avant.';
   }
-  renderDashboard();renderMissions();renderCompetences();
+  renderDashboard();renderMissions();renderCompetences();renderCatalogue();renderClients();
   if(ens)renderClasse();
 }
 
-function goP(id,el){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-it').forEach(n=>n.classList.remove('active'));
-  document.getElementById('panel-'+id).classList.add('active');
-  if(el)el.classList.add('active');
-  const titles={dashboard:'Tableau de bord',missions:'Mes missions',competences:'Mes compétences',catalogue:'Catalogue produits',clients:'Fichier clients',indicateurs:'Indicateurs commerciaux',classe:'Vue classe',generation:'Générer une mission'};
-  document.getElementById('tb-title').textContent=titles[id]||id;
-}
-
 function doLogout(){
-  CU=null;localStorage.removeItem('kepka_u');
-  document.getElementById('app').classList.remove('active');
-  document.getElementById('onboarding').classList.remove('active');
-  document.getElementById('login').classList.add('active');
+  CU=null;localStorage.removeItem('laboro_u');
+  ['app','onboarding'].forEach(id=>document.getElementById(id).classList.remove('on'));
+  document.getElementById('login').classList.add('on');
 }
 
+function goP(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+  const t={dashboard:'Tableau de bord',missions:'Mes missions',competences:'Mes compétences',catalogue:'Catalogue produits',clients:'Fichier clients',indicateurs:'Indicateurs commerciaux',classe:'Vue classe',generation:'Générer une mission'};
+  document.getElementById('tb-t').textContent=t[id]||id;
+}
+
+// ═══ DASHBOARD ═══
 function renderDashboard(){
-  const ud=getUD();
+  const ud=gUD();
   const done=Object.values(ud.missions).filter(m=>m.status==='done').length;
-  const scores=Object.values(ud.missions).filter(m=>m.score).map(m=>m.score);
-  const avg=scores.length?(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1):'—';
-  document.getElementById('wb-bonjour').textContent='Bonjour '+CU.nom.split(' ')[0]+' !';
-  document.getElementById('wb-poste').textContent=CU.poste;
-  document.getElementById('wb-score').textContent=avg;
-  // Prochaine mission
-  const missions=getMissions();
-  const next=missions.find(m=>!ud.missions[m.id]||ud.missions[m.id].status==='wip');
-  const nw=document.getElementById('next-mission-wrap');
+  const sc=Object.values(ud.missions).filter(m=>m.score).map(m=>m.score);
+  const avg=sc.length?(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1):'—';
+  document.getElementById('wb-b').textContent='Bonjour '+CU.nom.split(' ')[0]+' !';
+  document.getElementById('wb-p').textContent=CU.poste;
+  document.getElementById('wb-s').textContent=avg;
+  const ms=getMissions();
+  const next=ms.find(m=>!ud.missions[m.id]||ud.missions[m.id].status==='wip');
+  const nw=document.getElementById('nm-wrap');
   if(next){
     const st=ud.missions[next.id]?.status||'todo';
-    nw.innerHTML=`<div class="next-mission" onclick="openMission('${next.id}')">
-      <div class="nm-label">${st==='wip'?'Mission en cours →':'Prochaine mission →'}</div>
-      <div class="nm-title">${next.titre}</div>
-      <div class="nm-meta"><span>${next.comp}</span><span>Palier ${next.palier} — ${['','Découverte','Approfondissement','Expertise'][next.palier]}</span><span>55 min</span></div>
-      <button class="nm-btn">${st==='wip'?'Reprendre la mission':'Commencer cette mission'}</button>
+    nw.innerHTML=`<div class="nm" onclick="openMission('${next.id}')">
+      <div class="nm-l">${st==='wip'?'Mission en cours →':'Prochaine mission →'}</div>
+      <div class="nm-t">${next.titre}</div>
+      <div class="nm-m"><span>${next.comp}</span><span>Palier ${next.palier}</span><span>55 min</span></div>
+      <button class="nm-btn">${st==='wip'?'Reprendre':'Commencer cette mission'}</button>
     </div>`;
   }else{
-    nw.innerHTML='<div style="background:var(--vert-c);border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:13px;color:var(--vert-f);font-weight:600">Toutes les missions disponibles ont été complétées !</div>';
+    nw.innerHTML='<div style="background:var(--vc);border-radius:10px;padding:14px;margin-bottom:12px;font-size:13px;color:var(--vf);font-weight:700">Toutes les missions disponibles sont complétées !</div>';
   }
-  // Récentes
-  const recentes=Object.entries(ud.missions).filter(([,v])=>v.status==='done').slice(-3);
-  const el=document.getElementById('dash-recentes');
-  el.innerHTML=recentes.length?recentes.map(([id,v])=>{
+  const rec=Object.entries(ud.missions).filter(([,v])=>v.status==='done').slice(-3);
+  document.getElementById('dash-rec').innerHTML=rec.length?rec.map(([id,v])=>{
     const m=MISSIONS.find(x=>x.id===id);
-    return m?`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--gris-c);font-size:12px"><span>${m.titre}</span><span style="font-weight:700;color:var(--vert-f)">${v.score}/20</span></div>`:'';
-  }).join(''):'<p style="font-size:12px;color:var(--gris-m)">Aucune mission terminée pour l\'instant.</p>';
-  // Progression
+    return m?`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--gc);font-size:12px"><span>${m.titre}</span><span style="font-weight:700;color:var(--vf)">${v.score}/20</span></div>`:'';
+  }).join(''):'<p style="font-size:12px;color:var(--gm)">Aucune mission terminée pour l\'instant.</p>';
   const prog=document.getElementById('dash-prog');
+  const lc=['var(--gb)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
   prog.innerHTML=COMP.slice(0,6).map(c=>{
-    const lvl=ud.competences[c.code]||0;
-    const colors=['var(--gris-b)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
-    return `<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:var(--gris-m)">${c.code}</span><span style="font-weight:600">${['—','Découverte','En cours','Acquis','Maîtrisé'][lvl]}</span></div><div class="lb"><div class="lf" style="width:${lvl*25}%;background:${colors[lvl]}"></div></div></div>`;
+    const lv=ud.competences[c.code]||0;
+    return`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="color:var(--gm)">${c.code}</span><span style="font-weight:700">${['—','Découverte','En cours','Acquis','Maîtrisé'][lv]}</span></div><div class="lb"><div class="lf" style="width:${lv*25}%;background:${lc[lv]}"></div></div></div>`;
   }).join('');
 }
 
+// ═══ MISSIONS ═══
 function getMissions(){
   if(!CU)return MISSIONS;
   const opt=CU.classe.includes('AGEC')?'AGEC':CU.classe.includes('PVOC')?'PVOC':null;
@@ -782,94 +890,222 @@ function getMissions(){
 }
 
 function renderMissions(){
-  const ud=getUD();
-  const fp=document.getElementById('f-palier')?.value;
+  const ud=gUD();
+  const fp=document.getElementById('f-pal')?.value;
   const fc=document.getElementById('f-comp')?.value;
   let ms=getMissions();
   if(fp)ms=ms.filter(m=>m.palier==fp);
   if(fc)ms=ms.filter(m=>m.comp.startsWith(fc));
-  const pcols=['','#85B7EB','var(--vert)','var(--amb)'];
+  const pc=['','#85B7EB','var(--vert)','var(--amb)'];
   document.getElementById('missions-list').innerHTML=ms.map(m=>{
     const st=ud.missions[m.id]?.status||'todo';
-    const sc=ud.missions[m.id]?.score;
-    return `<div class="mission-card ${st==='done'?'done':''}" onclick="openMission('${m.id}')">
-      <div class="mh">
-        <span style="width:8px;height:8px;border-radius:50%;background:${pcols[m.palier]};display:inline-block;flex-shrink:0"></span>
-        <span class="m-title">${m.titre}</span>
-        <span class="sp s-${st}">${st==='todo'?'À faire':st==='wip'?'En cours':'✓ '+sc+'/20'}</span>
-      </div>
-      <div class="m-meta"><span>${m.comp}</span><span>Palier ${m.palier}</span><span>${m.option}</span><span>55 min</span></div>
+    const s=ud.missions[m.id]?.score;
+    return`<div class="mc ${st==='done'?'done':''}" onclick="openMission('${m.id}')">
+      <div class="mh"><span style="width:8px;height:8px;border-radius:50%;background:${pc[m.palier]};display:inline-block;flex-shrink:0"></span><span class="mt">${m.titre}</span><span class="sp s-${st}">${st==='todo'?'À faire':st==='wip'?'En cours':'✓ '+s+'/20'}</span></div>
+      <div class="mm"><span>${m.comp}</span><span>Palier ${m.palier}</span><span>${m.option}</span><span>55 min</span></div>
       ${st==='wip'?'<div class="pb"><div class="pf" style="width:40%"></div></div>':''}
     </div>`;
-  }).join('')||'<p style="font-size:12px;color:var(--gris-m);padding:8px">Aucune mission pour ces filtres.</p>';
+  }).join('')||'<p style="font-size:12px;color:var(--gm);padding:8px">Aucune mission pour ces filtres.</p>';
 }
 
 function openMission(id){
-  const m=MISSIONS.find(x=>x.id===id);if(!m)return;
-  CM=m;
-  const ud=getUD();
-  if(!ud.missions[id]){ud.missions[id]={status:'wip'};saveUD(ud);renderDashboard();renderMissions()}
-  document.getElementById('mo-titre').textContent=m.titre;
-  document.getElementById('mo-meta').textContent=`KEPKA Sport & Outdoor · ${m.comp} · Palier ${m.palier} — ${['','Découverte','Approfondissement','Expertise'][m.palier]}`;
+  const m=MISSIONS.find(x=>x.id===id);if(!m)return;CM=m;
+  const ud=gUD();
+  if(!ud.missions[id]){ud.missions[id]={status:'wip'};sUD(ud);renderDashboard();renderMissions()}
+  document.getElementById('mo-t').textContent=m.titre;
+  document.getElementById('mo-m').textContent=`LABORO Sport & Outdoor · ${m.comp} · Palier ${m.palier}`;
+  // Ressource
+  const res=RESSOURCES[m.comp]||RESSOURCES['G4A'];
+  document.getElementById('mo-learn').innerHTML=res?`<div class="res-block"><div class="res-label">Apprendre avant de faire</div><div class="res-titre">${res.titre}</div><div class="res-body">${res.contenu}</div></div><div style="text-align:center;margin-top:10px"><button onclick="moTab(1,document.querySelectorAll('.mo-tab')[1])" class="nm-btn" style="padding:10px 22px">J\'ai compris → Aller à la mission</button></div>`:'<p style="color:var(--gm);font-size:13px">Aucune ressource disponible pour cette compétence.</p>';
+  // Mission
   const phases=[
     {label:'Phase 1 — Mise en situation',cls:'ph1',duree:'5 – 10 min',content:m.contexte,qs:[]},
     ...m.activites.map((a,i)=>({label:`Phase 2 — Activité ${i+1} : ${a.titre}`,cls:'ph2',duree:'30 – 35 min',content:'',qs:a.questions})),
     {label:'Phase 3 — Restitution',cls:'ph3',duree:'10 – 15 min',content:m.restitution,qs:[]}
   ];
-  document.getElementById('mo-body').innerHTML=phases.map(ph=>`
-    <div class="ph ${ph.cls}">
-      <div class="ph-label">${ph.label} · ${ph.duree}</div>
-      ${ph.content?`<div class="ph-content">${ph.content}</div>`:''}
-      ${ph.qs.map(q=>`<div class="qi"><span class="qn">${q.split(' ')[0]}</span>${q.substring(q.indexOf(' ')+1)}</div>`).join('')}
+  document.getElementById('mo-mission').innerHTML=phases.map(ph=>`
+    <div class="ph ${ph.cls}"><div class="ph-l">${ph.label} · ${ph.duree}</div>
+    ${ph.content?`<div class="ph-c">${ph.content}</div>`:''}
+    ${ph.qs.map(q=>`<div class="qi"><span class="qn">${q.split(' ')[0]}</span>${q.substring(q.indexOf(' ')+1)}</div>`).join('')}
     </div>`).join('');
+  // Afficher l'onglet "apprendre" par défaut
+  moTab(0,document.querySelectorAll('.mo-tab')[0]);
   document.getElementById('mo').classList.add('open');
+}
+
+function moTab(i,el){
+  document.querySelectorAll('.mo-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.mo-tp').forEach(t=>t.classList.remove('on'));
+  if(el)el.classList.add('on');
+  document.querySelectorAll('.mo-tp')[i].classList.add('on');
 }
 
 function closeMo(){document.getElementById('mo').classList.remove('open')}
 
 function valider(){
   if(!CM)return;
-  const n=parseFloat(prompt(`Note pour "${CM.titre}" (0 à 20) :`,''));
+  const n=parseFloat(prompt(`Note obtenue pour "${CM.titre}" (0 à 20) :`,''));
   if(isNaN(n)||n<0||n>20){alert('Note invalide.');return}
-  const ud=getUD();
+  const ud=gUD();
   ud.missions[CM.id]={status:'done',score:n};
   ud.competences[CM.comp]=Math.max(ud.competences[CM.comp]||0,CM.palier);
-  saveUD(ud);closeMo();renderDashboard();renderMissions();renderCompetences();
+  sUD(ud);closeMo();renderDashboard();renderMissions();renderCompetences();
 }
 
+// ═══ COMPÉTENCES ═══
 function renderCompetences(){
-  const ud=getUD();
-  const lc=['var(--gris-b)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
+  const ud=gUD();
+  const lc=['var(--gb)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
   const ll=['Non démarré','Découverte','En progression','Acquis','Maîtrisé'];
   document.getElementById('comp-grid').innerHTML=COMP.map(c=>{
     const lv=ud.competences[c.code]||0;
-    return`<div class="cc"><div class="cc-code">${c.code} · ${c.g}</div><div class="cc-name">${c.label}</div><div class="lb"><div class="lf" style="width:${lv*25}%;background:${lc[lv]}"></div></div><div class="ll">${ll[lv]}</div></div>`;
+    return`<div class="cc"><div class="cc-code">${c.code} · ${c.g}</div><div class="cc-n">${c.label}</div><div class="lb"><div class="lf" style="width:${lv*25}%;background:${lc[lv]}"></div></div><div class="ll">${ll[lv]}</div></div>`;
   }).join('');
 }
 
+// ═══ CATALOGUE ═══
+let selectedProd=null;
+function renderCatalogue(){
+  document.getElementById('cat-list').innerHTML=`<div class="pg">${PRODUITS.map(p=>`
+    <div class="pc" onclick="openProduit('${p.id}')">
+      <img class="pi" src="${p.img}" alt="${p.nom}" onerror="this.style.display='none'"/>
+      <div class="pin"><div class="pcat">${p.cat}</div><div class="pnom">${p.nom}</div>
+      <div class="pprix">${p.pv_ht} € HT</div>
+      <div class="pmarge">Marge ${p.marge}% · Réf. ${p.ref} · Stock: ${p.stock>0?p.stock:'Sur commande'}</div>
+      </div></div>`).join('')}
+  </div>`;
+  document.getElementById('fiche-produit').classList.remove('on');
+}
+
+function openProduit(id){
+  const p=PRODUITS.find(x=>x.id===id);if(!p)return;
+  const pvTTC=(p.pv_ht*(1+p.tva/100)).toFixed(2);
+  const marge_eu=(p.pv_ht-p.pu_ht).toFixed(2);
+  document.getElementById('fiche-produit').innerHTML=`
+    <button class="btn-back" onclick="document.getElementById('fiche-produit').classList.remove('on')">← Retour au catalogue</button>
+    <div class="fiche-grid">
+      <div><img class="fiche-img" src="${p.img}" alt="${p.nom}" onerror="this.style.background='var(--gc)'"/>
+        <div class="arg-block"><div class="arg-label">Argumentaire vendeur</div>${p.arg}</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">${p.cat}</div>
+        <div style="font-size:18px;font-weight:800;margin-bottom:12px">${p.nom}</div>
+        <div style="font-size:13px;color:var(--gm);line-height:1.6;margin-bottom:12px">${p.desc}</div>
+        <div class="fiche-row"><span class="fiche-key">Référence</span><span class="fiche-val">${p.ref}</span></div>
+        <div class="fiche-row"><span class="fiche-key">Prix d'achat HT</span><span class="fiche-val">${p.pu_ht} €</span></div>
+        <div class="fiche-row"><span class="fiche-key">Prix de vente HT</span><span class="fiche-val">${p.pv_ht} €</span></div>
+        <div class="fiche-row"><span class="fiche-key">Prix de vente TTC</span><span class="fiche-val">${pvTTC} €</span></div>
+        <div class="fiche-row"><span class="fiche-key">Marge commerciale</span><span class="fiche-val">${p.marge}% (${marge_eu} €)</span></div>
+        <div class="fiche-row"><span class="fiche-key">Stock disponible</span><span class="fiche-val" style="color:${p.stock>5?'var(--vert)':p.stock>0?'var(--amb)':'var(--rouge)'}">${p.stock>0?p.stock+' unités':'Sur commande'}</span></div>
+        <div class="fiche-row"><span class="fiche-key">Fournisseur</span><span class="fiche-val">${p.fournisseur}</span></div>
+        <div class="fiche-row"><span class="fiche-key">TVA</span><span class="fiche-val">${p.tva}%</span></div>
+      </div>
+    </div>`;
+  document.getElementById('fiche-produit').classList.add('on');
+  document.getElementById('fiche-produit').scrollIntoView({behavior:'smooth'});
+}
+
+// ═══ CLIENTS ═══
+let selectedClient=null;
+function renderClients(){
+  const ud=gUD();
+  const allClients=[...clientsData,...(ud.prospectAjoutes||[])];
+  document.getElementById('client-list').innerHTML=`<div class="client-list">${allClients.map(c=>`
+    <div class="cl-card" onclick="openClient('${c.id}')">
+      <div class="cl-h">
+        <div class="cl-av" style="background:${c.couleur||'var(--vert-c)'};color:#fff">${c.initiales}</div>
+        <div style="flex:1">
+          <div class="cl-nom">${c.nom}</div>
+          <div class="cl-meta">
+            <span class="${c.type==='B2C'?'tb2c':c.statut==='Prospect'?'tpros':'tb2b'}">${c.type} · ${c.statut}</span>
+            <span>${c.secteur}</span>
+            ${c.ca?`<span style="font-weight:700;color:var(--vf)">${c.ca.toLocaleString('fr-FR')} €</span>`:'<span style="color:var(--gm)">Prospect</span>'}
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--gm)">${c.dernier}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+  document.getElementById('fiche-client').classList.remove('on');
+}
+
+function openClient(id){
+  const ud=gUD();
+  const allC=[...clientsData,...(ud.prospectAjoutes||[])];
+  const c=allC.find(x=>x.id===id);if(!c)return;selectedClient=c;
+  const noteKey='note_'+id;
+  const savedNote=ud.notes?.[noteKey]||c.notes||'';
+  document.getElementById('fiche-client').innerHTML=`
+    <button class="btn-back" onclick="document.getElementById('fiche-client').classList.remove('on')">← Retour au fichier clients</button>
+    <div class="fc-h">
+      <div class="fc-av-lg" style="background:${c.couleur||'var(--vc)'};color:#fff">${c.initiales}</div>
+      <div><div style="font-size:17px;font-weight:800">${c.nom}</div>
+      <div style="font-size:12px;color:var(--gm);margin-top:2px">${c.secteur} · <span class="${c.type==='B2C'?'tb2c':c.statut==='Prospect'?'tpros':'tb2b'}">${c.type} · ${c.statut}</span></div></div>
+    </div>
+    <div class="fc-rows">
+      <div class="fc-row"><div class="fc-k">Contact</div><div class="fc-v">${c.contact}</div></div>
+      <div class="fc-row"><div class="fc-k">Téléphone</div><div class="fc-v">${c.tel}</div></div>
+      <div class="fc-row"><div class="fc-k">E-mail</div><div class="fc-v">${c.email}</div></div>
+      <div class="fc-row"><div class="fc-k">CA annuel</div><div class="fc-v">${c.ca?c.ca.toLocaleString('fr-FR')+' €':'—'}</div></div>
+      <div class="fc-row"><div class="fc-k">Dernier contact</div><div class="fc-v">${c.dernier}</div></div>
+      <div class="fc-row"><div class="fc-k">Statut</div><div class="fc-v">${c.statut}</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Historique des échanges</div>
+    <div>${c.historique.map(h=>`<div class="hist-item">${h}</div>`).join('')}</div>
+    <div style="font-size:12px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.06em;margin-top:14px;margin-bottom:6px">Ma note / rapport de visite</div>
+    <textarea class="note-area" id="note-ta" placeholder="Ajoute ici tes notes, observations, suite à donner…">${savedNote}</textarea>
+    <button class="btn-save-note" onclick="saveNote('${id}')">Enregistrer la note</button>`;
+  document.getElementById('fiche-client').classList.add('on');
+  document.getElementById('fiche-client').scrollIntoView({behavior:'smooth'});
+}
+
+function saveNote(id){
+  const ud=gUD();
+  if(!ud.notes)ud.notes={};
+  ud.notes['note_'+id]=document.getElementById('note-ta').value;
+  sUD(ud);alert('Note enregistrée !');
+}
+
+function addClient(){
+  const nom=prompt('Nom du prospect ou de la société :','');
+  if(!nom)return;
+  const type=confirm('Est-ce un client professionnel B2B ?\n(OK = B2B, Annuler = B2C particulier)')?'B2B':'B2C';
+  const secteur=prompt('Secteur d\'activité :','');
+  const contact=prompt('Nom du contact :','');
+  const ud=gUD();
+  if(!ud.prospectAjoutes)ud.prospectAjoutes=[];
+  const id='P'+(Date.now());
+  const initiales=nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  ud.prospectAjoutes.push({id,type,nom,initiales,couleur:'#5F5E5A',secteur:secteur||'—',contact:contact||'—',tel:'—',email:'—',ca:0,dernier:'Prospect — à contacter',historique:['Prospect ajouté le '+new Date().toLocaleDateString('fr-FR')],notes:'',statut:'Prospect'});
+  sUD(ud);renderClients();
+}
+
+// ═══ VUE CLASSE ═══
 function renderClasse(){
-  const users=allUsers();
-  const lc=['var(--gris-b)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
+  const users=allU();
+  const lc=['var(--gb)','#85B7EB','var(--bleu)','var(--vert)','#3B6D11'];
   const ck=['C1.1','C1.2','C1.3','C2.1','C2.2','C3.1','G4A'];
-  const tb=document.getElementById('classe-tbody');
-  if(!users.length){tb.innerHTML='<tr><td colspan="10" style="padding:16px;color:var(--gris-m);font-size:12px">Aucun élève connecté.</td></tr>';return}
+  const tb=document.getElementById('cl-tbody');
+  if(!users.length){tb.innerHTML='<tr><td colspan="11" style="padding:16px;color:var(--gm);font-size:12px">Aucun élève connecté.</td></tr>';return}
   tb.innerHTML=users.map(u=>{
     const done=Object.values(u.missions||{}).filter(m=>m.status==='done').length;
     const sc=Object.values(u.missions||{}).filter(m=>m.score).map(m=>m.score);
     const avg=sc.length?(sc.reduce((a,b)=>a+b,0)/sc.length).toFixed(1):'—';
-    return`<tr><td style="font-weight:600">${u.nom}</td>${ck.map(k=>`<td><span class="dl" style="background:${lc[u.competences?.[k]||0]}"></span></td>`).join('')}<td>${done}</td><td style="font-weight:700;color:${parseFloat(avg)>=10?'var(--vert)':'var(--rouge)'}">${avg}</td></tr>`;
+    const poste=(u.poste||'—').split('—')[0].trim().substring(0,12);
+    return`<tr><td style="font-weight:700">${u.nom}</td><td style="font-size:11px;color:var(--gm)">${poste}</td>${ck.map(k=>`<td><span class="dl" style="background:${lc[u.competences?.[k]||0]}"></span></td>`).join('')}<td>${done}</td><td style="font-weight:700;color:${parseFloat(avg)>=10?'var(--vert)':'var(--rouge)'}">${avg}</td></tr>`;
   }).join('');
 }
 
-function saveKey(){const k=document.getElementById('api-inp').value.trim();if(!k)return;localStorage.setItem('kepka_ak',k);alert('Clé API enregistrée !')}
+// ═══ GÉNÉRATION IA ═══
+function saveKey(){const k=document.getElementById('api-inp').value.trim();if(!k)return;localStorage.setItem('laboro_ak',k);alert('Clé API enregistrée !')}
 
 async function genMission(){
-  const ak=localStorage.getItem('kepka_ak');
-  if(!ak){alert('Entre d\'abord ta clé API.');return}
+  const ak=localStorage.getItem('laboro_ak');
+  if(!ak){alert('Entre d\'abord ta clé API Claude.');return}
   const opt=document.getElementById('g-opt').value,pal=document.getElementById('g-pal').value,comp=document.getElementById('g-comp').value,cli=document.getElementById('g-cli').value;
   const el=document.getElementById('gen-res');
   el.innerHTML='<span class="gen-loading">Génération en cours…</span>';
-  const prompt=`Tu es concepteur pédagogique Bac Pro MCV. Génère une mission pour KEPKA Sport & Outdoor (distribution équipements sportifs, Massy/Cergy, Île-de-France).\nOption: ${opt} | Palier: ${pal} | Compétence: ${comp} | Client: ${cli}\n\nFormat (sans markdown) :\nTITRE : [max 10 mots]\nCONTEXTE : [3-4 phrases réalistes, responsable parmi : Romain Sauzet, Nina Chevalier, Marco Pellini]\nACTIVITE 1 : [intitulé]\nQ1.1 : [question]\nQ1.2 : [question]\nACTIVITE 2 : [intitulé]\nQ2.1 : [question]\nQ2.2 : [question]\nQ2.3 : [question]\nRESTITUTION : [modalité]\nCRITERES : [3 critères séparés par ;]`;
+  const prompt=`Tu es concepteur pédagogique Bac Pro MCV. Génère une mission pour LABORO Sport & Outdoor (distribution équipements sportifs, Évry-Courcouronnes, Essonne 91). PDG : Pascal Berruelle. Équipe : Romain Sauzet (Commerce), Nina Chevalier (Vente/Prospection), Marco Pellini (E-commerce/SAV).\nOption: ${opt} | Palier: ${pal} | Compétence: ${comp} | Client: ${cli}\n\nFormat (sans markdown) :\nTITRE : [max 10 mots]\nCONTEXTE : [3-4 phrases réalistes]\nACTIVITE 1 : [intitulé]\nQ1.1 : [question précise]\nQ1.2 : [question précise]\nACTIVITE 2 : [intitulé]\nQ2.1 : [question]\nQ2.2 : [question]\nQ2.3 : [question]\nRESTITUTION : [modalité courte]\nCRITERES : [3 critères séparés par ;]`;
   try{
     const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':ak,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:prompt}]})});
     const d=await r.json();
@@ -878,7 +1114,7 @@ async function genMission(){
 }
 
 window.onload=()=>{
-  const u=localStorage.getItem('kepka_u');
+  const u=localStorage.getItem('laboro_u');
   if(u){CU=JSON.parse(u);showApp()}
 };
 </script>
