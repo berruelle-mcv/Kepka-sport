@@ -477,6 +477,10 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
     </div>
 
     <div id="panel-competences" class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--gr)">Mes compétences LABORO</div>
+        <button onclick="genererPortfolio()" style="padding:8px 16px;background:var(--bl);color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:700">📄 Générer mon portfolio CCF</button>
+      </div>
       <div class="comp-grid" id="comp-grid"></div>
       <div class="leg"><span>Niveau :</span><span><span class="dl" style="background:var(--gb)"></span> Non démarré</span><span><span class="dl" style="background:#85B7EB"></span> Découverte</span><span><span class="dl" style="background:var(--bl)"></span> En progression</span><span><span class="dl" style="background:var(--vt)"></span> Acquis</span><span><span class="dl" style="background:#27500A"></span> Maîtrisé</span></div>
     </div>
@@ -1099,10 +1103,41 @@ function renderClients(){
   document.getElementById('fiche-client').classList.remove('on');
 }
 function openClient(id){
-  const ud=gUD();const all=[...CLIENTS,...(ud.prospectAjoutes||[])];
+  const ud=gUD();
+  const isProspect=!!(ud.prospectAjoutes||[]).find(x=>x.id===id);
+  const all=[...CLIENTS,...(ud.prospectAjoutes||[])];
   const c=all.find(x=>x.id===id);if(!c)return;
   const savedNote=ud.notes?.['n_'+id]||'';
-  document.getElementById('fiche-client').innerHTML=`<button class="btn-back" onclick="document.getElementById('fiche-client').classList.remove('on')">← Retour</button><div class="fc-h"><div class="fc-av" style="background:${c.col||'var(--bl)'}">${c.ini}</div><div><div style="font-size:17px;font-weight:800">${c.nom}</div><div style="font-size:12px;color:var(--gm);margin-top:2px">${c.sect} · <span class="${c.type==='B2C'?'tb2c':c.statut==='Prospect'?'tpros':'tb2b'}">${c.type} · ${c.statut}</span></div></div></div><div class="fc-rows"><div class="fc-row"><div class="fc-k">Contact</div><div class="fc-v">${c.contact}</div></div><div class="fc-row"><div class="fc-k">Téléphone</div><div class="fc-v">${c.tel}</div></div><div class="fc-row"><div class="fc-k">E-mail</div><div class="fc-v">${c.email}</div></div><div class="fc-row"><div class="fc-k">CA annuel</div><div class="fc-v">${c.ca?c.ca.toLocaleString('fr-FR')+' €':'—'}</div></div><div class="fc-row"><div class="fc-k">Dernier contact</div><div class="fc-v">${c.dernier}</div></div></div><div style="font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;margin-bottom:8px">Historique</div><div>${(c.hist||[]).map(h=>`<div class="hist-it">${h}</div>`).join('')}</div><div style="font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;margin-top:14px;margin-bottom:6px">Ma note KepkaPro</div><textarea class="note-area" id="note-ta-${id}" placeholder="Notes, observations, suite à donner…">${savedNote}</textarea><button class="btn-note" onclick="saveNote('${id}')">Enregistrer</button>`;
+  const btnsPros=isProspect?`
+    <div style="display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:.5px solid var(--gb)">
+      <button onclick="editProspect('${id}')" style="flex:1;padding:7px;border:.5px solid var(--bl);border-radius:6px;background:none;cursor:pointer;font-size:12px;color:var(--bl);font-weight:600">✏️ Modifier</button>
+      <button onclick="convertProspect('${id}')" style="flex:1;padding:7px;border:.5px solid var(--vt);border-radius:6px;background:none;cursor:pointer;font-size:12px;color:var(--vt);font-weight:600">✓ Convertir en client</button>
+      <button onclick="deleteProspect('${id}')" style="padding:7px 12px;border:.5px solid var(--rg);border-radius:6px;background:none;cursor:pointer;font-size:12px;color:var(--rg);font-weight:600">🗑</button>
+    </div>`:'';
+  document.getElementById('fiche-client').innerHTML=`
+    <button class="btn-back" onclick="document.getElementById('fiche-client').classList.remove('on')">← Retour</button>
+    <div class="fc-h">
+      <div class="fc-av" style="background:${c.col||'var(--bl)'}">${c.ini}</div>
+      <div><div style="font-size:17px;font-weight:800">${c.nom}</div>
+      <div style="font-size:12px;color:var(--gm);margin-top:2px">${c.sect} · <span class="${c.type==='B2C'?'tb2c':c.statut==='Prospect'?'tpros':'tb2b'}">${c.type} · ${c.statut}</span></div></div>
+    </div>
+    <div class="fc-rows">
+      <div class="fc-row"><div class="fc-k">Contact</div><div class="fc-v">${c.contact}</div></div>
+      <div class="fc-row"><div class="fc-k">Téléphone</div><div class="fc-v">${c.tel}</div></div>
+      <div class="fc-row"><div class="fc-k">E-mail</div><div class="fc-v">${c.email}</div></div>
+      <div class="fc-row"><div class="fc-k">CA annuel</div><div class="fc-v">${c.ca?c.ca.toLocaleString('fr-FR')+' €':'—'}</div></div>
+      <div class="fc-row"><div class="fc-k">Dernier contact</div><div class="fc-v">${c.dernier}</div></div>
+    </div>
+    ${btnsPros}
+    <div style="font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;margin-top:14px;margin-bottom:8px">Historique</div>
+    <div id="hist-${id}">${(c.hist||[]).map(h=>`<div class="hist-it">${h}</div>`).join('')}</div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <input id="hist-inp-${id}" type="text" placeholder="Ajouter une note d'historique…" style="flex:1;padding:7px 10px;border:.5px solid var(--gb);border-radius:6px;font-size:12px"/>
+      <button onclick="addHist('${id}')" style="padding:7px 12px;background:var(--bl);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700">+</button>
+    </div>
+    <div style="font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;margin-top:14px;margin-bottom:6px">Ma note KepkaPro</div>
+    <textarea class="note-area" id="note-ta-${id}" placeholder="Notes, observations, suite à donner…">${savedNote}</textarea>
+    <button class="btn-note" onclick="saveNote('${id}')">Enregistrer</button>`;
   document.getElementById('fiche-client').classList.add('on');
   document.getElementById('fiche-client').scrollIntoView({behavior:'smooth'});
 }
@@ -1112,10 +1147,85 @@ function addClient(){
   const type=confirm('Client professionnel B2B ?\n(OK = B2B · Annuler = B2C)')?'B2B':'B2C';
   const sect=prompt('Secteur d\'activité :','')||'—';
   const contact=prompt('Nom du contact :','')||'—';
+  const tel=prompt('Téléphone :','')||'—';
+  const email=prompt('E-mail :','')||'—';
   const ud=gUD();if(!ud.prospectAjoutes)ud.prospectAjoutes=[];
   const id='P'+Date.now();const ini=nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  ud.prospectAjoutes.push({id,type,nom,ini,col:'#5F5E5A',sect,contact,tel:'—',email:'—',ca:0,dernier:'Prospect — à contacter',hist:['Prospect ajouté le '+new Date().toLocaleDateString('fr-FR')],statut:'Prospect'});
+  ud.prospectAjoutes.push({id,type,nom,ini,col:'#5F5E5A',sect,contact,tel,email,ca:0,dernier:'Prospect — à contacter',hist:['Prospect ajouté le '+new Date().toLocaleDateString('fr-FR')],statut:'Prospect'});
   sUD(ud);renderClients();
+}
+
+function editProspect(id){
+  const ud=gUD();
+  const pros=ud.prospectAjoutes||[];
+  const idx=pros.findIndex(x=>x.id===id);
+  if(idx===-1)return;
+  const c=pros[idx];
+  const nom=prompt('Nom :',c.nom);if(nom===null)return;
+  const type=confirm('B2B ?\n(OK = B2B · Annuler = B2C)')?'B2B':'B2C';
+  const sect=prompt('Secteur :',c.sect)||c.sect;
+  const contact=prompt('Nom du contact :',c.contact)||c.contact;
+  const tel=prompt('Téléphone :',c.tel)||c.tel;
+  const email=prompt('E-mail :',c.email)||c.email;
+  const ini=nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  pros[idx]={...c,nom,ini,type,sect,contact,tel,email};
+  ud.prospectAjoutes=pros;
+  sUD(ud);renderClients();openClient(id);
+}
+
+function deleteProspect(id){
+  if(!confirm('Supprimer ce prospect ? Cette action est irréversible.'))return;
+  const ud=gUD();
+  ud.prospectAjoutes=(ud.prospectAjoutes||[]).filter(x=>x.id!==id);
+  sUD(ud);
+  document.getElementById('fiche-client').classList.remove('on');
+  renderClients();
+}
+
+function convertProspect(id){
+  if(!confirm('Convertir ce prospect en client LABORO ?'))return;
+  const ud=gUD();
+  const pros=ud.prospectAjoutes||[];
+  const idx=pros.findIndex(x=>x.id===id);
+  if(idx===-1)return;
+  const ca=parseFloat(prompt('Montant de la 1ère commande (€ — 0 si aucune) :','0'))||0;
+  pros[idx]={...pros[idx],statut:'Client',ca,col:'#185FA5',dernier:new Date().toLocaleDateString('fr-FR')};
+  pros[idx].hist=[...(pros[idx].hist||[]),'Converti en client le '+new Date().toLocaleDateString('fr-FR')+(ca?' — 1ère commande '+ca.toLocaleString('fr-FR')+' €':'')];
+  ud.prospectAjoutes=pros;sUD(ud);renderClients();openClient(id);
+}
+
+function addHist(id){
+  const inp=document.getElementById('hist-inp-'+id);
+  if(!inp||!inp.value.trim())return;
+  const note=new Date().toLocaleDateString('fr-FR')+' — '+inp.value.trim();
+  const ud=gUD();
+  const isProspect=!!(ud.prospectAjoutes||[]).find(x=>x.id===id);
+  if(isProspect){
+    const pros=ud.prospectAjoutes||[];
+    const i=pros.findIndex(x=>x.id===id);if(i===-1)return;
+    if(!pros[i].hist)pros[i].hist=[];
+    pros[i].hist.unshift(note);pros[i].dernier=new Date().toLocaleDateString('fr-FR');
+    ud.prospectAjoutes=pros;
+  } else {
+    if(!ud.notes)ud.notes={};
+    const key='hist_'+id;
+    const existing=ud.notes[key]?JSON.parse(ud.notes[key]):[];
+    existing.unshift(note);ud.notes[key]=JSON.stringify(existing);
+  }
+  sUD(ud);
+  const histDiv=document.getElementById('hist-'+id);
+  if(histDiv){
+    const ud2=gUD();
+    const p=((ud2.prospectAjoutes||[]).find(x=>x.id===id));
+    const c=CLIENTS.find(x=>x.id===id);
+    let hist=p?p.hist:(c?c.hist:[]);
+    if(!p&&c&&ud2.notes?.['hist_'+id]){
+      const extra=JSON.parse(ud2.notes['hist_'+id]);
+      hist=[...extra,...hist];
+    }
+    histDiv.innerHTML=(hist||[]).map(h=>`<div class="hist-it">${h}</div>`).join('');
+  }
+  inp.value='';
 }
 
 // ═══ MISSION DU JOUR (enseignant) ═══
@@ -1186,7 +1296,7 @@ function showFicheEleve(mail){
   COMP.forEach(c=>{const lv=u.competences[c.code]||0;if(lv===0&&(c.g==='G1'||c.g==='G4A'||c.g==='G4B'))alerts.push({type:'warn',txt:`${c.code} — ${c.label} : non démarrée`});if(lv>=3)alerts.push({type:'ok',txt:`${c.code} — Point fort : ${ll[lv]}`});});
   att.forEach(([mid,mv])=>{const m=MISSIONS.find(x=>x.id===mid);if(m)alerts.push({type:'warn',txt:`${m.titre} — soumise, note IA ${mv.note_ia}/20 — en attente de validation`});});
   document.getElementById('fe-wrap').innerHTML=`<div class="fe">
-    <div class="fe-hd"><div style="display:flex;align-items:center;gap:12px"><div class="avu" style="width:44px;height:44px;font-size:16px">${ini}</div><div><div style="font-size:16px;font-weight:700">${nom}</div><div style="font-size:11px;opacity:.8;margin-top:2px">${mail}</div></div></div><div style="text-align:right"><div style="font-size:28px;font-weight:900">${sc}</div><div style="font-size:10px;opacity:.8">Score LABORO /100</div></div></div>
+    <div class="fe-hd"><div style="display:flex;align-items:center;gap:12px"><div class="avu" style="width:44px;height:44px;font-size:16px">${ini}</div><div><div style="font-size:16px;font-weight:700">${nom}</div><div style="font-size:11px;opacity:.8;margin-top:2px">${mail}</div></div></div><div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div style="font-size:28px;font-weight:900">${sc}</div><div style="font-size:10px;opacity:.8">Score LABORO /100</div><button onclick="genererPortfolioEleve('${mail}')" style="padding:6px 12px;background:rgba(255,255,255,.2);color:#fff;border:.5px solid rgba(255,255,255,.4);border-radius:6px;cursor:pointer;font-size:11px;font-weight:700">📄 Portfolio CCF</button></div></div>
     <div class="fe-kpis"><div class="fe-kpi"><div class="fe-kv">${done}</div><div class="fe-kl">Validées</div></div><div class="fe-kpi"><div class="fe-kv">${avg}</div><div class="fe-kl">Moyenne /20</div></div><div class="fe-kpi"><div class="fe-kv">${Object.values(u.competences).filter(v=>v>0).length}/12</div><div class="fe-kl">Compétences</div></div><div class="fe-kpi"><div class="fe-kv">${att.length}</div><div class="fe-kl">À valider</div></div></div>
     ${alerts.length?`<div class="fe-sec"><div class="fe-st">Points d'attention</div>${alerts.slice(0,4).map(a=>`<div class="al-row al-${a.type}"><div class="al-dot" style="background:${a.type==='warn'?'var(--am)':'var(--vt)'}"></div>${a.txt}</div>`).join('')}</div>`:''}
     <div class="fe-sec"><div class="fe-st">Progression par compétence</div>${COMP.map(c=>{const lv=u.competences[c.code]||0;return`<div class="cr"><span class="cr-code">${c.code}</span><span class="cr-label">${c.label}</span><div class="cr-bar"><div class="cr-fill" style="width:${lv*25}%;background:${lc[lv]}"></div></div><span class="cr-txt" style="color:${lc[lv]}">${ll[lv]}</span></div>`;}).join('')}</div>
@@ -1274,6 +1384,302 @@ CRITERES : [3 critères d'évaluation séparés par ; adaptés à la compétence
     const d=await r.json();
     el.textContent=d.content?.map(b=>b.text||'').join('')||'Erreur.';
   }catch{el.innerHTML='<span style="color:var(--rg)">Erreur de connexion. Vérifiez la clé API.</span>';}
+}
+
+
+// ═══ PORTFOLIO CCF ═══
+const CCF_MAP={
+  'E31':['C1.1','C1.2','C1.3'],
+  'E32':['C2.1','C2.1b','C2.2','C2.3'],
+  'E33':['C3.1','C3.2','C3.3'],
+  'E2':['G4A','G4B'],
+};
+const CCF_LABELS={
+  'E31':'E31 — Conseiller et vendre',
+  'E32':'E32 — Assurer le suivi des ventes',
+  'E33':'E33 — Développer la relation client et fidéliser',
+  'E2':'E2 — Bloc 4 (AGEC ou PVOC)',
+};
+const COMP_LABELS={
+  'C1.1':'C1.1 Veille commerciale','C1.2':'C1.2 Vente omnicanale','C1.3':'C1.3 Exécution de la vente',
+  'C2.1':'C2.1 Suivi de la commande','C2.1b':'C2.1b Services associés','C2.2':'C2.2 Réclamations client','C2.3':'C2.3 Satisfaction client',
+  'C3.1':'C3.1 Info & contact client','C3.2':'C3.2 Actions de fidélisation','C3.3':'C3.3 Évaluation fidélisation',
+  'G4A':'Bloc 4 AGEC — Espace commercial','G4B':'Bloc 4 PVOC — Prospection commerciale',
+};
+const NIV_LABELS=['—','Novice','Débrouillé','Averti','Expert'];
+
+function genererPortfolio(){
+  genererPortfolioEleve(CU.mail);
+}
+
+function genererPortfolioEleve(mail){
+  const s=JSON.parse(localStorage.getItem('laboro_s')||'{}');
+  const ud=s[mail]||{missions:{},competences:{}};
+  const nom=ud.nom||mail;
+  const poste=ud.poste||'—';
+  const classe=ud.classe||'—';
+  const date=new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  const score=calcScoreFromUD(ud);
+
+  // Construire le contenu HTML du portfolio
+  let html=`<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio CCF — ${nom}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;font-size:11pt;color:#1a1a1a;background:#fff}
+.page{max-width:210mm;margin:0 auto;padding:20mm}
+@media print{.page{padding:15mm;max-width:none}}
+.no-print{display:block}
+@media print{.no-print{display:none}}
+
+/* EN-TÊTE */
+.hd{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:3px solid #185FA5;padding-bottom:14px;margin-bottom:18px}
+.hd-logo{font-size:28pt;font-weight:900;color:#185FA5;font-style:italic;letter-spacing:-1px}
+.hd-sub{font-size:8pt;color:#5F5E5A;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.hd-r{text-align:right}
+.hd-tag{font-size:7pt;background:#185FA5;color:#fff;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;display:inline-block}
+.hd-nom{font-size:14pt;font-weight:700;margin-top:3px}
+.hd-info{font-size:9pt;color:#5F5E5A;margin-top:2px}
+
+/* RÉSUMÉ */
+.resume{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;background:#E6F1FB;border-radius:8px;padding:12px}
+.rk{text-align:center}
+.rv{font-size:18pt;font-weight:800;color:#185FA5}
+.rl{font-size:7pt;color:#5F5E5A;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+/* ÉPREUVES */
+.epreuve{margin-bottom:20px;break-inside:avoid}
+.ep-hd{background:#185FA5;color:#fff;padding:8px 14px;border-radius:6px 6px 0 0;display:flex;justify-content:space-between;align-items:center}
+.ep-t{font-size:10pt;font-weight:700}
+.ep-coef{font-size:8pt;opacity:.8}
+.ep-body{border:1px solid #D3D1C7;border-top:none;border-radius:0 0 6px 6px;overflow:hidden}
+
+/* COMPÉTENCE */
+.comp-sec{border-bottom:1px solid #F1EFE8}
+.comp-sec:last-child{border-bottom:none}
+.comp-hd{padding:8px 14px;background:#F8F7F3;display:flex;justify-content:space-between;align-items:center}
+.comp-code{font-size:9pt;font-weight:700;color:#185FA5}
+.comp-label{font-size:9pt;color:#2C2C2A;flex:1;margin-left:10px}
+.niv-badge{font-size:8pt;font-weight:700;padding:2px 8px;border-radius:4px}
+.niv-0{background:#D3D1C7;color:#5F5E5A}
+.niv-1{background:#E6F1FB;color:#0C447C}
+.niv-2{background:#B5D4F4;color:#0C447C}
+.niv-3{background:#E1F5EE;color:#1D9E75}
+.niv-4{background:#1D9E75;color:#fff}
+
+/* MISSIONS */
+.missions-list{padding:8px 14px}
+.mission-row{display:grid;grid-template-columns:1fr 70px 50px 60px 80px;gap:6px;align-items:center;padding:5px 0;border-bottom:.5px solid #F1EFE8;font-size:9pt}
+.mission-row:last-child{border-bottom:none}
+.mission-row.hdr{font-size:7pt;font-weight:700;color:#5F5E5A;text-transform:uppercase;letter-spacing:.05em;border-bottom:.5px solid #D3D1C7;padding-bottom:5px}
+.note-badge{text-align:center;padding:1px 5px;border-radius:3px;font-weight:700;font-size:9pt}
+.nb-h{background:#E1F5EE;color:#1D9E75}
+.nb-m{background:#FAEEDA;color:#BA7517}
+.nb-l{background:#FCEBEB;color:#A32D2D}
+.nb-x{background:#F1EFE8;color:#5F5E5A}
+
+/* RÉFLEXIVITÉ */
+.reflexiv-sec{padding:8px 14px;background:#FFFDF5;border-top:.5px solid #F1EFE8}
+.reflexiv-t{font-size:7pt;font-weight:700;color:#BA7517;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.reflexiv-item{margin-bottom:8px;padding:6px 10px;background:#fff;border-left:3px solid #BA7517;border-radius:0 4px 4px 0;font-size:8.5pt;line-height:1.5}
+.reflexiv-q{font-size:8pt;font-style:italic;color:#5F5E5A;margin-bottom:3px}
+
+/* OBS ENSEIGNANT */
+.obs-sec{padding:8px 14px;background:#EEF7FF;border-top:.5px solid #D3D1C7}
+.obs-t{font-size:7pt;font-weight:700;color:#185FA5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.obs-txt{font-size:9pt;line-height:1.6;color:#2C2C2A;font-style:italic}
+
+/* PIED DE PAGE */
+.footer{margin-top:24px;padding-top:10px;border-top:.5px solid #D3D1C7;display:flex;justify-content:space-between;font-size:7.5pt;color:#5F5E5A}
+.sign-box{border:.5px solid #D3D1C7;border-radius:4px;padding:8px 14px;min-width:150px;min-height:40px;margin-top:6px}
+.sign-label{font-size:7pt;color:#5F5E5A;margin-bottom:4px}
+
+.btn-print{position:fixed;top:20px;right:20px;padding:10px 20px;background:#185FA5;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;box-shadow:0 2px 12px rgba(24,95,165,.3)}
+</style>
+</head>
+<body>
+<button class="btn-print no-print" onclick="window.print()">🖨️ Imprimer / Enregistrer en PDF</button>
+<div class="page">
+
+<!-- EN-TÊTE -->
+<div class="hd">
+  <div><div class="hd-logo">LABORO</div><div class="hd-sub">Sport & Outdoor · Évry-Courcouronnes (91)</div></div>
+  <div class="hd-r">
+    <div class="hd-tag">Portfolio CCF — Bac Pro MCV</div>
+    <div class="hd-nom">${nom}</div>
+    <div class="hd-info">${poste}</div>
+    <div class="hd-info">${classe} · Généré le ${date}</div>
+  </div>
+</div>
+
+<!-- RÉSUMÉ -->
+${buildResume(ud,score)}
+
+<!-- ÉPREUVES -->
+${buildEpreuves(ud,mail,s)}
+
+<!-- PIED DE PAGE -->
+<div class="footer">
+  <div>
+    <div>Portfolio généré depuis la plateforme LABORO — laboro-sport.fr</div>
+    <div style="margin-top:2px">Enseignant responsable : M. Pascal Berruelle — Bac Pro MCV</div>
+  </div>
+  <div style="text-align:right">
+    <div class="sign-label">Visa enseignant</div>
+    <div class="sign-box"></div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>`;
+
+  // Ouvrir dans une nouvelle fenêtre
+  const win=window.open('','_blank');
+  win.document.write(html);
+  win.document.close();
+}
+
+function calcScoreFromUD(ud){
+  const ms=Object.values(ud.missions||{});
+  const done=ms.filter(m=>m.status==='done'&&m.score);
+  if(!done.length)return 0;
+  const coefs={'C1':3,'C2':2,'C3':3,'G4':4,'ACC':1};
+  let sw=0,wt=0;
+  done.forEach(m=>{
+    const mis=MISSIONS.find(x=>x.id===m.id);
+    if(!mis)return;
+    const g=mis.comp.startsWith('C1')?'C1':mis.comp.startsWith('C2')?'C2':mis.comp.startsWith('C3')?'C3':mis.comp.startsWith('ACC')?'ACC':'G4';
+    const c=coefs[g]||1;sw+=m.score*c;wt+=c*20;
+  });
+  const moyP=wt?sw/wt*60:0;
+  const reg=Math.min(done.length*2,20);
+  const prog=Math.min(ms.filter(m=>m.progression&&m.progression>0).reduce((a,m)=>a+m.progression,0),10);
+  return Math.round(moyP+reg+prog);
+}
+
+function buildResume(ud,score){
+  const done=Object.values(ud.missions||{}).filter(m=>m.status==='done');
+  const scores=done.filter(m=>m.score).map(m=>m.score);
+  const avg=scores.length?(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1):'—';
+  const compOk=Object.values(ud.competences||{}).filter(v=>v>=3).length;
+  const nivMax=Math.max(0,...Object.values(ud.competences||{}));
+  return `<div class="resume">
+    <div class="rk"><div class="rv">${score}</div><div class="rl">Score LABORO /100</div></div>
+    <div class="rk"><div class="rv">${done.length}</div><div class="rl">Missions validées</div></div>
+    <div class="rk"><div class="rv">${avg}</div><div class="rl">Moyenne générale /20</div></div>
+    <div class="rk"><div class="rv">${compOk}/12</div><div class="rl">Compétences acquises</div></div>
+  </div>`;
+}
+
+function buildEpreuves(ud,mail,s){
+  const obsEns=s[mail]?.obs_ens||'';
+  let html='';
+  for(const [ep,comps] of Object.entries(CCF_MAP)){
+    // Filtrer les compétences pertinentes selon la classe
+    const classe=ud.classe||'';
+    let relevantComps=comps.filter(comp=>{
+      if(comp==='G4A')return classe.includes('AGEC');
+      if(comp==='G4B')return classe.includes('PVOC');
+      return true;
+    });
+    if(!relevantComps.length)continue;
+
+    // Note moyenne de l'épreuve
+    const epScores=[];
+    relevantComps.forEach(comp=>{
+      Object.values(ud.missions||{}).forEach(m=>{
+        const mis=MISSIONS.find(x=>x.id===m.id);
+        if(mis&&(mis.comp===comp||mis.comp.startsWith(comp))&&m.score)epScores.push(m.score);
+      });
+    });
+    const epAvg=epScores.length?(epScores.reduce((a,b)=>a+b,0)/epScores.length).toFixed(1):'—';
+    const coefLabel=ep==='E31'?'coef. 3':ep==='E32'?'coef. 2':ep==='E33'?'coef. 3':'coef. 4';
+
+    html+=`<div class="epreuve">
+      <div class="ep-hd"><span class="ep-t">${CCF_LABELS[ep]}</span><span class="ep-coef">${coefLabel} · Moy. LABORO : ${epAvg}/20</span></div>
+      <div class="ep-body">`;
+
+    relevantComps.forEach(comp=>{
+      const lv=ud.competences?.[comp]||0;
+      const nivClass=`niv-${lv}`;
+      const nivLabel=NIV_LABELS[lv]||'—';
+
+      // Missions de cette compétence
+      const compMissions=Object.entries(ud.missions||{}).filter(([mid,mv])=>{
+        const m=MISSIONS.find(x=>x.id===mid);
+        return m&&(m.comp===comp||m.comp.startsWith(comp.replace('b','')));
+      });
+
+      // Réponses de réflexivité de ces missions
+      const reflexItems=compMissions.map(([mid,mv])=>{
+        const m=MISSIONS.find(x=>x.id===mid);
+        if(!m||!mv.reponses)return null;
+        const rfKey=Object.keys(mv.reponses).find(k=>k.includes('reflexivite'));
+        const rfVal=rfKey?mv.reponses[rfKey]:'';
+        if(!rfVal||rfVal.trim().length<10)return null;
+        return{titre:m.titre,palier:m.palier,rep:rfVal.trim()};
+      }).filter(Boolean);
+
+      html+=`<div class="comp-sec">
+        <div class="comp-hd">
+          <span class="comp-code">${comp}</span>
+          <span class="comp-label">${COMP_LABELS[comp]||comp}</span>
+          <span class="niv-badge ${nivClass}">${nivLabel}</span>
+        </div>`;
+
+      if(compMissions.length){
+        html+=`<div class="missions-list">
+          <div class="mission-row hdr"><span>Mission</span><span>Compétence</span><span>Palier</span><span>Note</span><span>Statut</span></div>`;
+        compMissions.forEach(([mid,mv])=>{
+          const m=MISSIONS.find(x=>x.id===mid);if(!m)return;
+          const nc=mv.score>=17?'nb-h':mv.score>=11?'nb-m':mv.score?'nb-l':'nb-x';
+          const st=mv.status==='done'?'✓ Validée':mv.status==='att'?'En attente':'En cours';
+          html+=`<div class="mission-row">
+            <span>${m.titre}</span>
+            <span style="color:#5F5E5A;font-size:8.5pt">${m.comp}</span>
+            <span style="text-align:center">P${m.palier}</span>
+            <span><span class="note-badge ${nc}">${mv.score?mv.score+'/20':mv.note_ia?'IA:'+mv.note_ia:'—'}</span></span>
+            <span style="font-size:8.5pt;color:${mv.status==='done'?'#1D9E75':'#5F5E5A'}">${st}</span>
+          </div>`;
+        });
+        html+=`</div>`;
+      } else {
+        html+=`<div style="padding:8px 14px;font-size:9pt;color:#5F5E5A;font-style:italic">Aucune mission réalisée pour cette compétence.</div>`;
+      }
+
+      // Réflexivité
+      if(reflexItems.length){
+        html+=`<div class="reflexiv-sec">
+          <div class="reflexiv-t">Réflexivité — ce que j'ai appris (${reflexItems.length} réponse${reflexItems.length>1?'s':''})</div>`;
+        reflexItems.slice(0,3).forEach(r=>{
+          html+=`<div class="reflexiv-item">
+            <div class="reflexiv-q">${r.titre} — Palier ${r.palier}</div>
+            <div>${r.rep.substring(0,400)}${r.rep.length>400?'…':''}</div>
+          </div>`;
+        });
+        html+=`</div>`;
+      }
+      html+=`</div>`;
+    });
+
+    html+=`</div></div>`;
+  }
+
+  // Observations enseignant (si présentes)
+  if(obsEns){
+    html+=`<div style="margin-top:16px;break-inside:avoid">
+      <div class="obs-sec" style="border-radius:6px;border:.5px solid #D3D1C7">
+        <div class="obs-t">Observations de l'enseignant</div>
+        <div class="obs-txt">${obsEns}</div>
+      </div>
+    </div>`;
+  }
+
+  return html;
 }
 
 // ═══ INIT ═══
