@@ -76,6 +76,12 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
 #app{flex-direction:row}
 .sb{width:230px;min-width:230px;background:var(--wh);border-right:.5px solid var(--gb);display:flex;flex-direction:column;min-height:100vh}
 .sb-lo{padding:14px 16px;background:var(--ac1);display:flex;align-items:center;gap:10px;transition:background .4s}
+.sb-lo.ens-mode{background:#EEF3FA;border-bottom:.5px solid var(--gb)}
+.sb-lo.ens-mode .sb-li{background:var(--bc);color:var(--bf);font-style:normal}
+.sb-lo.ens-mode .n{color:var(--bf) !important}
+.sb-lo.ens-mode .t{color:var(--gm) !important}
+.ens-sidebar .sb-bt,.ens-sidebar .sb-u{background:#F7F9FC}
+.ens-panel-bg{background:#F7F9FC !important}
 .sb-li{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;font-style:italic;flex-shrink:0}
 .sb-lt .n{font-size:16px;font-weight:900;color:#fff;font-style:italic}.sb-lt .t{font-size:10px;color:var(--bm);letter-spacing:.1em}
 .sb-u{padding:11px 14px;border-bottom:.5px solid var(--gb);display:flex;align-items:center;gap:9px}
@@ -517,6 +523,37 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
     </div>
 
     <div id="panel-classe" class="panel">
+      <!-- Gestion des classes -->
+      <div class="card" style="margin-bottom:12px">
+        <div class="ct">Gestion des classes et des élèves</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--gm);margin-bottom:6px;text-transform:uppercase">Ajouter un élève</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <input id="add-nom" placeholder="Nom Prénom" style="padding:7px 10px;border:.5px solid var(--gb);border-radius:6px;font-size:13px"/>
+              <input id="add-mail" placeholder="prenom.nom@eleve.fr" style="padding:7px 10px;border:.5px solid var(--gb);border-radius:6px;font-size:13px"/>
+              <select id="add-cls" style="padding:7px 10px;border:.5px solid var(--gb);border-radius:6px;font-size:13px">
+                <option value="2nde">2nde professionnelle</option>
+                <option value="1ere-AGEC">1ère AGEC</option>
+                <option value="1ere-PVOC">1ère PVOC</option>
+                <option value="Term-AGEC">Terminale AGEC</option>
+                <option value="Term-PVOC">Terminale PVOC</option>
+              </select>
+              <button onclick="ajouterEleve()" style="padding:8px;background:var(--bl);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700">+ Ajouter l'élève</button>
+              <div id="add-msg" style="font-size:11px;color:var(--vt)"></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--gm);margin-bottom:6px;text-transform:uppercase">Actions sur la classe</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button onclick="reinitialiserEleve()" style="padding:8px;background:none;border:.5px solid var(--rg);border-radius:6px;cursor:pointer;font-size:12px;color:var(--rg);font-weight:600">🔄 Réinitialiser un élève</button>
+              <button onclick="supprimerEleve()" style="padding:8px;background:none;border:.5px solid var(--rg);border-radius:6px;cursor:pointer;font-size:12px;color:var(--rg);font-weight:600">🗑 Supprimer un élève</button>
+              <button onclick="changerClasse()" style="padding:8px;background:none;border:.5px solid var(--gb);border-radius:6px;cursor:pointer;font-size:12px;color:var(--gm);font-weight:600">✏️ Changer de classe</button>
+            </div>
+            <div style="margin-top:10px;padding:8px;background:var(--gc);border-radius:6px;font-size:11px;color:var(--gm)">💡 Sélectionne d'abord un élève dans le tableau ci-dessous, puis utilise les actions.</div>
+          </div>
+        </div>
+      </div>
       <!-- Onglets de classe dynamiques -->
       <div id="classe-tabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center">
         <div style="font-size:11px;font-weight:700;color:var(--gm);margin-right:4px">Filtrer :</div>
@@ -582,11 +619,11 @@ const RES={
   'ACC':{t:"L'accueil professionnel chez LABORO",c:`<p><strong>4 étapes d'un accueil réussi :</strong></p><ul><li><strong>Détecter</strong> — Tout visiteur pris en charge sous 30 secondes. Même si on est occupé : un regard, un sourire et "Je suis à vous dans un instant" suffisent. L'attente sans reconnaissance est insupportable.</li><li><strong>Accueillir</strong> — Formule LABORO : "Bonjour, bienvenue chez LABORO, je suis [prénom], que puis-je faire pour vous ?" Debout, sourire, regard. Ne jamais rester assis.</li><li><strong>Orienter et accompagner</strong> — Jamais laisser un visiteur seul chercher. Accompagner physiquement ou confier à un collègue avec une présentation : "Je te confie M. Vidal, il cherche des chaussures trail."</li><li><strong>Prendre congé</strong> — "Au revoir M. Vidal, merci de votre visite, n'hésitez pas à revenir !" Toujours se lever, toujours sourire, toujours nommer le client.</li></ul><p><strong>L'accueil téléphonique — formule et règles :</strong></p><ul><li>Décrocher avant la 3e sonnerie</li><li>Formule : "LABORO Sport & Outdoor, [prénom], bonjour !"</li><li>Identifier l'appelant et l'objet de l'appel avant de transférer</li><li>Mettre en attente : "Je vous mets en attente un instant, ne quittez pas." Revenir toutes les 30 secondes si l'attente se prolonge.</li><li>Prendre un message complet : nom + prénom + coordonnées + objet + heure d'appel + meilleur moment pour rappeler</li></ul><p><strong>Gérer les situations difficiles — méthode des 3R :</strong></p><ul><li><strong>Reconnaître</strong> — "Je comprends que vous attendez depuis longtemps, c'est tout à fait normal de vous impatienter."</li><li><strong>Reformuler</strong> — "Si je comprends bien, vous cherchez…"</li><li><strong>Résoudre ou orienter</strong> — Apporter une solution ou rediriger vers la bonne personne avec une présentation complète.</li></ul><p><strong>Cas particuliers à maîtriser :</strong></p><ul><li>Visiteur en attente longue → reconnaître l'attente régulièrement, proposer de s'asseoir</li><li>Forte affluence → prioriser sans jamais ignorer un visiteur</li><li>Demande impossible → "Ce n'est pas possible de cette façon, mais voici ce que je peux faire pour vous…"</li><li>Situation d'urgence (malaise) → alerter immédiatement, appeler le 15 si doute, ne pas laisser la personne seule</li></ul><div class="res-ex"><div class="res-ex-l">Exemple LABORO — journée Portes Ouvertes</div>3 visiteurs entrent en même temps. Thomas Moreau en prend un en charge. Toi : "Bonjour à tous ! Bienvenue chez LABORO. Je suis [prénom]. Je m'occupe de vous dans l'ordre, je reviens dans 2 minutes." → Sourire à chacun. Aucun ne se sent ignoré.</div><div class="res-ex" style="margin-top:8px"><div class="res-ex-l">À retenir</div>30 secondes max pour prendre en charge un visiteur — c'est la règle absolue. Au téléphone, le sourire s'entend. Un visiteur mal accueilli ne reviendra jamais et en parlera à 10 personnes. L'accueil reflète l'image de LABORO.</div>`},
 };
 // Missions filtrées par classe
-const MISSIONS_2NDE=['M001','M002','M003','M005','M007','M010','M011','M012','M013','SA1','ACC1','ACC2','ACC3','ACC4'];
-const MISSIONS_AGEC_1=['M001','M002','M003','M004','M005','M006','M007','M008','M009','M010','M014','M015','M016','SA1','SA2'];
-const MISSIONS_PVOC_1=['M001','M002','M003','M005','M006','M007','M008','M010','M017','M018','M019','M020','M021','M022','SA1','SA2'];
-const MISSIONS_AGEC_T=['M023','M024','M025','M026','M027','M028','M029','M030','M031','M032','M033','M034','M035','M036','M037','M047','M048','M049','SA3'];
-const MISSIONS_PVOC_T=['M023','M024','M025','M026','M027','M028','M029','M030','M031','M032','M038','M039','M040','M041','M042','M043','M044','M045','M046','SA3'];
+const MISSIONS_2NDE=['M001','M001B','M002','M002B','M003','M003B','M005','M005B','M007','M007B','M010','M010B','M011','M011B','M012','M012B','M013','M013B','SA1','SA1B','ACC1','ACC2','ACC3','ACC4'];
+const MISSIONS_AGEC_1=['M001','M001B','M002','M002B','M003','M003B','M004','M004B','M005','M005B','M006','M006B','M007','M007B','M008','M008B','M009','M009B','M010','M010B','M014','M014B','M015','M015B','M016','M016B','SA1','SA1B','SA2','SA2B'];
+const MISSIONS_PVOC_1=['M001','M001B','M002','M002B','M003','M003B','M005','M005B','M006','M006B','M007','M007B','M008','M008B','M010','M010B','M017','M017B','M018','M018B','M019','M019B','M020','M020B','M021','M021B','M022','M022B','SA1','SA1B','SA2','SA2B'];
+const MISSIONS_AGEC_T=['M023','M023B','M024','M024B','M025','M025B','M026','M026B','M027','M027B','M028','M028B','M029','M029B','M030','M030B','M031','M031B','M032','M032B','M033','M033B','M034','M034B','M035','M035B','M036','M036B','M037','M037B','M047','M047B','M048','M048B','M049','M049B','SA3','SA3B'];
+const MISSIONS_PVOC_T=['M023','M023B','M024','M024B','M025','M025B','M026','M026B','M027','M027B','M028','M028B','M029','M029B','M030','M030B','M031','M031B','M032','M032B','M038','M038B','M039','M039B','M040','M040B','M041','M041B','M042','M042B','M043','M043B','M044','M044B','M045','M045B','M046','M046B','SA3','SA3B'];
 
 const MISSIONS=[
   // PALIER 1 — COMMUN
@@ -668,6 +705,20 @@ const PRODUITS=[
   {id:'COL-001',cat:'Sports collectifs',nom:'Ballon Trigon Match Pro',ref:'COL-001',pu:22,pv:49,tva:20,marge:55,stock:31,fourn:'Trigon Sport',desc:'Ballon football taille 5, couverture PU thermocollée, homologué matchs.',arg:'Le choix des clubs et lycées. Résistant, bonne tenue, prix compétitif.',img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'},
   {id:'OUT-001',cat:'Outdoor & Camping',nom:'Tente Quechua 2 Secondes 3P',ref:'OUT-001',pu:89,pv:169,tva:20,marge:47,stock:7,fourn:'Decathlon Pro',desc:'Tente 3 places autoportante, montage 2 secondes, double toit. Poids : 3,9kg.',arg:'La tente à monter en 2 secondes. Parfaite pour sorties nature et camps sportifs.',img:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80'},
   {id:'TEX-001',cat:'Textile personnalisé',nom:'Maillot floqué KappaFlex',ref:'TEX-001',pu:13,pv:28,tva:20,marge:54,stock:0,fourn:'KappaFlex Textile',desc:'Polyester 100%, séchage rapide. Flocage ou broderie inclus. Min. 10 unités. Délai : 3 semaines.',arg:'La solution clubs et CE. Personnalisation totale, prix dégressif, qualité pro.',img:'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80'},
+  // Nouvelles références
+  {id:'RUN-004',cat:'Running / Trail',nom:'Salomon Sense Ride 5',ref:'RUN-004',pu:78,pv:139,tva:20,marge:44,stock:8,fourn:'Salomon France',desc:'Chaussure trail rapide, légèreté 280g, semelle Wet Traction Contagrip. Idéale trails techniques.',arg:'Pour les traileurs qui veulent aller vite. Légère, réactive, grip parfait.',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80'},
+  {id:'RUN-005',cat:'Running / Trail',nom:'Brooks Ghost 15',ref:'RUN-005',pu:69,pv:119,tva:20,marge:42,stock:12,fourn:'Brooks Running',desc:'Chaussure running route, amorti DNA LOFT, drop 12mm. La référence polyvalente.',arg:'La chaussure pour commencer à courir. Confort exceptionnel, durabilité prouvée.',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80'},
+  {id:'RUN-006',cat:'Running / Trail',nom:'Garmin Forerunner 265',ref:'RUN-006',pu:279,pv:449,tva:20,marge:38,stock:4,fourn:'Garmin Europe',desc:'GPS avancé, écran AMOLED, carte topographique, HRV, autonomie 15j.',arg:'La montre des coureurs sérieux. Fonctions pro, écran magnifique.',img:'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=500&q=80'},
+  {id:'RUN-007',cat:'Running / Trail',nom:'Ceinture hydratation Nathan Trail Mix',ref:'RUN-007',pu:28,pv:55,tva:20,marge:49,stock:15,fourn:'Nathan Sports',desc:'Ceinture 600ml + poche rangement, réglable, ultra légère, compatible gel.',arg:'Courir sans soif. Parfaite pour sorties > 1h, légère et discrète.',img:'https://images.unsplash.com/photo-1486218119243-13301543a823?w=500&q=80'},
+  {id:'RAN-003',cat:'Randonnée',nom:'Bâtons Black Diamond Trail',ref:'RAN-003',pu:45,pv:89,tva:20,marge:49,stock:10,fourn:'Black Diamond',desc:'Bâtons alu, poignée liège naturelle, rondelles trail et neige incluses. Poids : 440g la paire.',arg:'Stabilité en descente, propulsion en montée. Essentiels pour les longues randos.',img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&q=80'},
+  {id:'RAN-004',cat:'Randonnée',nom:'Veste Gore-Tex Patagonia Torrentshell',ref:'RAN-004',pu:129,pv:219,tva:20,marge:41,stock:6,fourn:'Patagonia Europe',desc:'Coupe-vent imperméable Gore-Tex, coutures soudées, matière recyclée. Poids : 370g.',arg:'La veste anti-pluie ultime. Imperméable total, matière éco-responsable.',img:'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&q=80'},
+  {id:'FIT-003',cat:'Fitness',nom:'Bandes élastiques Bodytone x5',ref:'FIT-003',pu:18,pv:39,tva:20,marge:54,stock:28,fourn:'ProSport Distribution',desc:'Set 5 élastiques de résistance croissante (10 à 50kg), latex naturel, livret exercices.',arg:'Musculation partout, sans matériel lourd. Idéal débutants et confirmés.',img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80'},
+  {id:'FIT-004',cat:'Fitness',nom:'Corde à sauter Crossfit RPM',ref:'FIT-004',pu:32,pv:65,tva:20,marge:51,stock:14,fourn:'RPM Speed Rope',desc:'Corde acier gainée, roulements à billes, poignées aluminium. Pro et durable.',arg:'L'outil cardio le plus rentable. Compact, efficace, utilisé en crossfit.',img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80'},
+  {id:'COL-002',cat:'Sports collectifs',nom:'Maillot basketball réversible',ref:'COL-002',pu:18,pv:38,tva:20,marge:53,stock:0,fourn:'KappaFlex Textile',desc:'Maillot 2 en 1, polyester léger, personnalisable numéro et nom. Min 10u. Délai 2 sem.',arg:'2 couleurs pour le prix d'un. Personnalisable, idéal clubs et lycées.',img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'},
+  {id:'COL-003',cat:'Sports collectifs',nom:'Filet de but football 7.32m',ref:'COL-003',pu:45,pv:89,tva:20,marge:49,stock:6,fourn:'Trigon Sport',desc:'Filet PP 4mm, maille 120mm, dimensions officielles. Livré avec tendeurs.',arg:'Le filet pro à prix accessible. Résistant aux UV, facile à installer.',img:'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=500&q=80'},
+  {id:'OUT-002',cat:'Outdoor & Camping',nom:'Lampe frontale Petzl Actik Core',ref:'OUT-002',pu:32,pv:59,tva:20,marge:46,stock:16,fourn:'Petzl Distribution',desc:'450 lumens, rechargeable USB, 3 modes, faisceau large et spot. Autonomie 6h.',arg:'La frontale de référence. Puissante, rechargeable, légère. Indispensable.',img:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80'},
+  {id:'TEX-002',cat:'Textile personnalisé',nom:'Polo KappaFlex coton piqué',ref:'TEX-002',pu:16,pv:34,tva:20,marge:53,stock:0,fourn:'KappaFlex Textile',desc:'Polo 100% coton piqué, broderie poitrine incluse. Déclinable en 15 coloris. Min 10u.',arg:'La tenue pro des commerciaux et accueil. Qualité coton, finitions soignées.',img:'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80'},
+  {id:'TEX-003',cat:'Textile personnalisé',nom:'Veste softshell KappaFlex',ref:'TEX-003',pu:42,pv:79,tva:20,marge:47,stock:0,fourn:'KappaFlex Textile',desc:'Softshell coupe-vent, broderie dos ou poitrine incluse. Tailles XS à 4XL. Min 5u.',arg:'La veste événementielle. Impact visuel fort, confort toute l'année.',img:'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&q=80'},
 ];
 const CLIENTS=[
   {id:'C001',type:'B2B',nom:'AS Évry Athlétisme',ini:'AE',col:'#185FA5',sect:'Association sportive',contact:'Jean-Paul Moretti',tel:'01 69 XX XX XX',email:'jp.moretti@as-evry-athle.fr',ca:9200,dernier:'14/03/2026',hist:['Mar 2026 : Commande 20 maillots flocage — 560 €','Jan 2026 : Chaussures trail × 8 — 1 192 €'],statut:'Client'},
@@ -853,6 +904,8 @@ function showApp(){
   document.getElementById('tb-c').textContent=CU.classe;
   document.getElementById('tb-d').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
   const ens=CU.classe==='enseignant';
+  document.querySelector('.sb-lo').classList.toggle('ens-mode',ens);
+  document.querySelector('.sb').style.background=ens?'#F7F9FC':'';
   ['ns-ens','ni-mdj','ni-cl','ni-gn'].forEach(id=>document.getElementById(id).style.display=ens?'':'none');
   const ak=localStorage.getItem('laboro_ak')||'';
   if(document.getElementById('api-inp'))document.getElementById('api-inp').value=ak;
@@ -1293,6 +1346,72 @@ function renderMDJListe(){
 function supprimerMDJ(cls){const mdj=getMDJ();delete mdj[cls];setMDJ(mdj);renderMDJListe();}
 
 // ═══ VUE CLASSE ═══
+
+// ═══ GESTION ÉLÈVES (vue enseignant) ═══
+let eleveSelectionne = null;
+
+
+function selectEleve(mail, tr){
+  eleveSelectionne = mail;
+  document.querySelectorAll('#cl-tbody tr').forEach(r => r.style.outline='');
+  tr.style.outline = '2px solid var(--bl)';
+}
+function ajouterEleve(){
+  const nom = document.getElementById('add-nom').value.trim();
+  const mail = document.getElementById('add-mail').value.trim().toLowerCase();
+  const cls = document.getElementById('add-cls').value;
+  const msg = document.getElementById('add-msg');
+  if(!nom || !mail){ msg.style.color='var(--rg)'; msg.textContent='Nom et email requis.'; return; }
+  if(!mail.includes('@')){ msg.style.color='var(--rg)'; msg.textContent='Email invalide.'; return; }
+  const key = 'laboro_ud_' + mail;
+  if(localStorage.getItem(key)){ msg.style.color='var(--rg)'; msg.textContent='Cet email existe déjà.'; return; }
+  const ud = {nom, mail, classe:cls, poste:'Conseiller(ère) de vente — LABORO Sport', missions:{}, competences:{}, createdAt:Date.now()};
+  localStorage.setItem(key, JSON.stringify(ud));
+  msg.style.color='var(--vt)'; msg.textContent='✓ ' + nom + ' ajouté(e) en ' + cls;
+  document.getElementById('add-nom').value=''; document.getElementById('add-mail').value='';
+  setTimeout(()=>{ msg.textContent=''; renderClasse(); }, 2000);
+}
+
+function reinitialiserEleve(){
+  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  const u = allU().find(x=>x.mail===eleveSelectionne);
+  if(!u){ alert('Élève introuvable.'); return; }
+  if(!confirm('Réinitialiser toutes les missions de ' + (u.nom||u.mail) + ' ? Cette action est irréversible.')){ return; }
+  u.missions = {}; u.competences = {};
+  localStorage.setItem('laboro_ud_' + u.mail, JSON.stringify(u));
+  eleveSelectionne = null;
+  renderClasse();
+  alert('Missions réinitialisées.');
+}
+
+function supprimerEleve(){
+  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  const u = allU().find(x=>x.mail===eleveSelectionne);
+  if(!u){ alert('Élève introuvable.'); return; }
+  if(!confirm('Supprimer définitivement ' + (u.nom||u.mail) + ' ? Toutes ses données seront perdues.')){ return; }
+  localStorage.removeItem('laboro_ud_' + u.mail);
+  eleveSelectionne = null;
+  renderClasse();
+}
+
+function changerClasse(){
+  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  const u = allU().find(x=>x.mail===eleveSelectionne);
+  if(!u){ alert('Élève introuvable.'); return; }
+  const classes = ['2nde','1ere-AGEC','1ere-PVOC','Term-AGEC','Term-PVOC'];
+  const actuelle = u.classe || '—';
+  const choix = prompt('Nouvelle classe pour ' + (u.nom||u.mail) + ' (actuellement : ' + actuelle + ') :
+
+' + classes.join('
+'));
+  if(!choix || !classes.includes(choix.trim())){ alert('Classe invalide. Classes disponibles : ' + classes.join(', ')); return; }
+  u.classe = choix.trim();
+  localStorage.setItem('laboro_ud_' + u.mail, JSON.stringify(u));
+  eleveSelectionne = null;
+  renderClasse();
+  alert('Classe modifiée : ' + choix.trim());
+}
+
 function renderClasse(){
   const allUsers=allU().filter(u=>u.mail&&!u.mail.includes('berruelle'));
 
