@@ -355,7 +355,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
         <option value="enseignant">Enseignant (M. Berruelle)</option>
       </select>
     </div>
-    <div class="fg" id="fg-poste" style="display:none">
+    <div class="fg" id="fg-poste">
       <label>Poste chez LABORO</label>
       <select id="inp-poste">
         <option value="Conseiller de vente — Showroom &amp; E-commerce">Conseiller de vente — Showroom &amp; E-commerce</option>
@@ -1054,7 +1054,7 @@ function doLogin(){
   const mail=document.getElementById('inp-mail').value.trim();
   const cls=document.getElementById('inp-classe').value;
   const poste=cls==='enseignant'?'Enseignant — Accès direction':document.getElementById('inp-poste').value;
-  if(!mail||!cls){alert('Merci de renseigner l'adresse mail et la classe.');return}
+  if(!mail||!cls){alert('Merci de renseigner votre adresse mail et votre classe.');return}
   if(!mail.includes('@')){alert('Adresse mail invalide.');return}
   const nom=mail.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
   CU={mail,classe:cls,poste,nom};
@@ -1556,7 +1556,7 @@ function ajouterEleve(){
 }
 
 function reinitialiserEleve(){
-  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  if(!eleveSelectionne){ alert('Sélectionne un élève dans le tableau.'); return; }
   const u = allU().find(x=>x.mail===eleveSelectionne);
   if(!u){ alert('Élève introuvable.'); return; }
   if(!confirm('Réinitialiser toutes les missions de ' + (u.nom||u.mail) + ' ? Cette action est irréversible.')){ return; }
@@ -1568,7 +1568,7 @@ function reinitialiserEleve(){
 }
 
 function supprimerEleve(){
-  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  if(!eleveSelectionne){ alert('Sélectionne un élève dans le tableau.'); return; }
   const u = allU().find(x=>x.mail===eleveSelectionne);
   if(!u){ alert('Élève introuvable.'); return; }
   if(!confirm('Supprimer définitivement ' + (u.nom||u.mail) + ' ? Toutes ses données seront perdues.')){ return; }
@@ -1578,7 +1578,7 @@ function supprimerEleve(){
 }
 
 function changerClasse(){
-  if(!eleveSelectionne){ alert('Sélectionne d'abord un élève dans le tableau.'); return; }
+  if(!eleveSelectionne){ alert('Sélectionne un élève dans le tableau.'); return; }
   const u = allU().find(x=>x.mail===eleveSelectionne);
   if(!u){ alert('Élève introuvable.'); return; }
   const classes = ['2nde','1ere-AGEC','1ere-PVOC','Term-AGEC','Term-PVOC'];
