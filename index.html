@@ -355,9 +355,13 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
         <option value="enseignant">Enseignant (M. Berruelle)</option>
       </select>
     </div>
-    <div class="fg" id="fg-poste">
+    <div class="fg" id="fg-poste" style="display:none">
       <label>Poste chez LABORO</label>
-      <select id="inp-poste"><option value="Conseiller de vente — Showroom &amp; E-commerce">Conseiller de vente</option><option value="Commercial terrain — Prospection &amp; Vente B2B">Commercial terrain</option><option value="Découverte du métier (2nde)">Découverte du métier</option></select>
+      <select id="inp-poste">
+        <option value="Conseiller de vente — Showroom &amp; E-commerce">Conseiller de vente — Showroom &amp; E-commerce</option>
+        <option value="Commercial terrain — Prospection &amp; Vente B2B">Commercial terrain — Prospection &amp; Vente B2B</option>
+        <option value="Découverte du métier (2nde)">Découverte du métier (2nde)</option>
+      </select>
       <div class="ph" id="poste-hint"></div>
     </div>
     <button class="btn-li" onclick="doLogin()">Accéder à mon espace LABORO</button>
