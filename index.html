@@ -365,7 +365,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
         <option value="1ere-PVOC">1ère Bac Pro PVOC</option>
         <option value="Term-AGEC">Terminale Bac Pro AGEC</option>
         <option value="Term-PVOC">Terminale Bac Pro PVOC</option>
-        <option value="enseignant">Enseignant (M. Berruelle)</option>
+        <option value="enseignant">Enseignant</option>
       </select>
     </div>
     <div class="fg" id="fg-poste">
@@ -373,7 +373,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
       <select id="inp-poste">
         <option value="Conseiller de vente — Showroom &amp; E-commerce">Conseiller de vente — Showroom</option>
         <option value="Commercial terrain — Prospection &amp; Vente B2B">Commercial terrain — B2B</option>
-        <option value="Découverte du métier (2nde)">Découverte du métier (2nde)</option>
+        <option value="Découverte de la famille des métiers MCV">Découverte de la famille des métiers MCV</option>
       </select>
       <div class="ph" id="poste-hint"></div>
     </div>
@@ -604,6 +604,7 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:14px;color:var(--g
           <button class="btn-p" id="btn-submit" onclick="soumettreReponses()">Soumettre mes réponses</button>
           <button class="btn-cont" id="btn-cont" onclick="sauvegarderEtFermer()">Continuer la prochaine fois</button>
           <button class="btn-s2" onclick="closeMo()">Fermer</button>
+          <button class="btn-s2" style="color:var(--rg);border-color:var(--rg)" onclick="resetMission()">↺ Recommencer</button>
         </div>
       </div>
     </div>
@@ -642,7 +643,7 @@ const RES={
   'ACC':{t:"L'accueil professionnel chez LABORO",c:`<p><strong>4 étapes d'un accueil réussi :</strong></p><ul><li><strong>Détecter</strong> — Tout visiteur pris en charge sous 30 secondes. Même si on est occupé : un regard, un sourire et "Je suis à vous dans un instant" suffisent. L'attente sans reconnaissance est insupportable.</li><li><strong>Accueillir</strong> — Formule LABORO : "Bonjour, bienvenue chez LABORO, je suis [prénom], que puis-je faire pour vous ?" Debout, sourire, regard. Ne jamais rester assis.</li><li><strong>Orienter et accompagner</strong> — Jamais laisser un visiteur seul chercher. Accompagner physiquement ou confier à un collègue avec une présentation : "Je te confie M. Vidal, il cherche des chaussures trail."</li><li><strong>Prendre congé</strong> — "Au revoir M. Vidal, merci de votre visite, n'hésitez pas à revenir !" Toujours se lever, toujours sourire, toujours nommer le client.</li></ul><p><strong>L'accueil téléphonique — formule et règles :</strong></p><ul><li>Décrocher avant la 3e sonnerie</li><li>Formule : "LABORO Sport & Outdoor, [prénom], bonjour !"</li><li>Identifier l'appelant et l'objet de l'appel avant de transférer</li><li>Mettre en attente : "Je vous mets en attente un instant, ne quittez pas." Revenir toutes les 30 secondes si l'attente se prolonge.</li><li>Prendre un message complet : nom + prénom + coordonnées + objet + heure d'appel + meilleur moment pour rappeler</li></ul><p><strong>Gérer les situations difficiles — méthode des 3R :</strong></p><ul><li><strong>Reconnaître</strong> — "Je comprends que vous attendez depuis longtemps, c'est tout à fait normal de vous impatienter."</li><li><strong>Reformuler</strong> — "Si je comprends bien, vous cherchez…"</li><li><strong>Résoudre ou orienter</strong> — Apporter une solution ou rediriger vers la bonne personne avec une présentation complète.</li></ul><p><strong>Cas particuliers à maîtriser :</strong></p><ul><li>Visiteur en attente longue → reconnaître l'attente régulièrement, proposer de s'asseoir</li><li>Forte affluence → prioriser sans jamais ignorer un visiteur</li><li>Demande impossible → "Ce n'est pas possible de cette façon, mais voici ce que je peux faire pour vous…"</li><li>Situation d'urgence (malaise) → alerter immédiatement, appeler le 15 si doute, ne pas laisser la personne seule</li></ul><div class="res-ex"><div class="res-ex-l">Exemple LABORO — journée Portes Ouvertes</div>3 visiteurs entrent en même temps. Thomas Moreau en prend un en charge. Toi : "Bonjour à tous ! Bienvenue chez LABORO. Je suis [prénom]. Je m'occupe de vous dans l'ordre, je reviens dans 2 minutes." → Sourire à chacun. Aucun ne se sent ignoré.</div><div class="res-ex" style="margin-top:8px"><div class="res-ex-l">À retenir</div>30 secondes max pour prendre en charge un visiteur — c'est la règle absolue. Au téléphone, le sourire s'entend. Un visiteur mal accueilli ne reviendra jamais et en parlera à 10 personnes. L'accueil reflète l'image de LABORO.</div>`},
 };
 // Missions filtrées par classe
-const MISSIONS_2NDE=['M001','M002','M003','M005','M007','M010','M011','M012','M013','SA1','ACC1','ACC2','ACC3','ACC4','M058','M059','ACC-P2'];
+const MISSIONS_2NDE=['M001','M002','M003','M005','M007','M010','M011','M012','M013','SA1','ACC1','ACC2','ACC3','ACC4','M058','M059','ACC-P2','M004','M006','M008','M050','M051','M052','M053','M054','SA2','M080','M081','M082'];
 const MISSIONS_AGEC_1=['M001','M002','M003','M004','M005','M006','M007','M008','M009','M010','M014','M015','M016','SA1','SA2','M050','M051','M052','M053','M054','M057','M064','M065','M066','M067','M068','M069','M080','M081','M082','M083'];
 const MISSIONS_PVOC_1=['M001','M002','M003','M005','M006','M007','M008','M010','M017','M018','M019','M020','M021','M022','SA1','SA2','B41-P1','B42-P1','B43-P1','B44-P1','B45-P1','M050','M051','M052','M053','M054','M081','M082','M083','M084','M085','M086','M087'];
 const MISSIONS_AGEC_T=['M023','M024','M025','M026','M027','M028','M029','M030','M031','M032','M033','M034','M035','M036','M037','SA3','M055','M056','M060','M061','M062','M070','M071','M072','M073','M074','M080','M081','M082','M083','M090','M091','M092'];
@@ -993,16 +994,17 @@ function updatePoste(){
   const cls=document.getElementById('inp-classe').value;
   const hint=document.getElementById('poste-hint');
   const fg=document.getElementById('fg-poste');
-  if(!cls||cls==='enseignant'){fg.style.display='none';return;}
-  fg.style.display='';
-  // Selectionner automatiquement le bon poste selon la classe
   const sel=document.getElementById('inp-poste');
-  if(cls==='2nde'){
-    sel.value='Découverte du métier (2nde)';
-    hint.style.display='block';hint.textContent='En 2nde tu découvres les 3 orientations possibles : AGEC, PVOC et Métiers de l\'Accueil.';
-  }else if(cls.includes('AGEC')){
+  // Masquer le champ poste pour enseignant ET 2nde (poste automatique)
+  if(!cls||cls==='enseignant'||cls==='2nde'){
+    fg.style.display='none';
+    if(cls==='2nde') sel.value='Découverte de la famille des métiers MCV';
+    return;
+  }
+  fg.style.display='';
+  if(cls.includes('AGEC')){
     sel.value='Conseiller de vente — Showroom & E-commerce';
-    hint.style.display='block';hint.textContent='Tu travailles au showroom d\'Évry et sur laboro-sport.fr.';
+    hint.style.display='block';hint.textContent="Tu travailles au showroom d'Évry et sur laboro-sport.fr.";
   }else if(cls.includes('PVOC')){
     sel.value='Commercial terrain — Prospection & Vente B2B';
     hint.style.display='block';hint.textContent='Tu prospectes et développes le portefeuille clients professionnels de LABORO.';
@@ -1199,11 +1201,15 @@ function openMission(id){
     });
     html+='</div>';
   });
-  // Question de réflexivité
-  const reflexQ={1:"Quelle règle professionnelle as-tu appliquée dans cette mission ? Donne un exemple précis tiré de tes réponses.",2:"À quel niveau situes-tu ta performance : Novice — Débrouillé — Averti — Expert ? Justifie en citant un exemple précis de ta réponse.",3:"Si tu devais expliquer à un jury professionnel comment tu as traité cette situation, que dirais-tu ? Qu'aurais-tu pu faire différemment ?"};
+  // Question de réflexivité — uniquement P3/P4 et pas en 2nde
   const rfQid=`q_${id}_reflexivite`;
   const rfSaved=savedReps[rfQid]||'';
-  html+=`<div class="reflexiv"><div class="reflexiv-l">Question de réflexivité</div><div class="reflexiv-desc">${reflexQ[m.reflexivite]||reflexQ[1]}</div><textarea class="zone-rep${rfSaved?' saved':''}" id="${rfQid}" placeholder="Explique ta démarche…" oninput="autoSaveRep('${id}','${rfQid}',this)">${rfSaved}</textarea></div>`;
+  const is2nde=CU.classe==='2nde';
+  if(!is2nde&&m.reflexivite>0){
+    const reflexQ={3:"Si tu devais expliquer à un jury professionnel comment tu as traité cette situation, que dirais-tu ? Qu'aurais-tu pu faire différemment ?",4:"En prenant du recul sur cette mission : comment ta pratique a-t-elle évolué ? En quoi cette compétence est-elle transférable à d'autres situations professionnelles ?"};
+    const rq=reflexQ[m.reflexivite]||reflexQ[3];
+    html+=`<div class="reflexiv"><div class="reflexiv-l">Question de réflexivité</div><div class="reflexiv-desc">${rq}</div><textarea class="zone-rep${rfSaved?' saved':''}" id="${rfQid}" placeholder="Explique ta démarche…" oninput="autoSaveRep('${id}','${rfQid}',this)">${rfSaved}</textarea></div>`;
+  }
   html+=`<div class="livrable"><div class="livrable-l">Livrable attendu</div><strong>${m.livrable}</strong></div>`;
   // Situation imprévue si moy >= 15
   const moy=Object.values(ud.missions).filter(x=>x.comp===m.comp&&x.score).map(x=>x.score);
@@ -1232,10 +1238,27 @@ function openMission(id){
 function autoSaveRep(mid,qid,el){
   el.classList.add('saved');
   const ud=gUD();
-  if(!ud.missions[mid])ud.missions[mid]={status:'wip',id:mid};
+  if(!ud.missions[mid])ud.missions[mid]={status:'todo',id:mid};
   if(!ud.missions[mid].reponses)ud.missions[mid].reponses={};
   ud.missions[mid].reponses[qid]=el.value;
+  // Passer en wip uniquement si l'élève a vraiment commencé (15 caractères au total)
+  if(ud.missions[mid].status==='todo'){
+    const total=Object.values(ud.missions[mid].reponses).join('').length;
+    if(total>=15)ud.missions[mid].status='wip';
+  }
   sUD(ud);
+}
+function resetMission(){
+  if(!CM)return;
+  const st=gUD().missions[CM.id]?.status;
+  const msg=st==='done'
+    ? 'Cette mission est déjà validée. La recommencer effacera ta note et tes réponses. Es-tu sûr(e) ?'
+    : 'Recommencer cette mission effacera toutes tes réponses en cours. Es-tu sûr(e) ?';
+  if(!confirm(msg))return;
+  const ud=gUD();
+  delete ud.missions[CM.id];
+  sUD(ud);
+  openMission(CM.id);
 }
 function sauvegarderEtFermer(){
   // Sauvegarde toutes les réponses visibles
